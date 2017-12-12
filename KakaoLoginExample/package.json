@@ -4,17 +4,35 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "start:packager": "node_modules/react-native/packager/packager.sh",
+    "start:reset": "node node_modules/react-native/local-cli/cli.js start --reset-cache",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "jest": "jest",
+    "lint": "eslint -c .eslintrc.js './src/**/*.js'",
+    "build:ios": "react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
+    "build:android": "react-native bundle --entry-file index.android.js --platform android --dev false --bundle-output android/main.jsbundle --assets-dest android"
   },
   "dependencies": {
+    "apsl-react-native-button": "^3.1.0",
     "react": "16.0.0",
-    "react-native": "0.51.0"
+    "react-native": "0.51.0",
+    "react-native-extended-stylesheet": "^0.8.0",
+    "react-navigation": "^1.0.0-beta.21",
+    "react-native-kakao-logins": "file:../"
   },
   "devDependencies": {
-    "babel-jest": "21.2.0",
-    "babel-preset-react-native": "4.0.0",
+    "babel-eslint": "^8.0.3",
+    "babel-jest": "^21.2.0",
+    "babel-preset-react-native": "^4.0.0",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
     "jest": "21.2.1",
-    "react-test-renderer": "16.0.0"
+    "react-test-renderer": "^16.0.0"
   },
   "jest": {
     "preset": "react-native"

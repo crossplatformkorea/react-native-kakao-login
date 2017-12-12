@@ -1,37 +1,73 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  NativeModules,
 } from 'react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+const { RNKakaoLogins } = NativeModules;
+import NativeButton from 'apsl-react-native-button';
 
 export default class App extends Component<{}> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isKakaoLogging: false,
+      token: 'token has not fetched',
+    };
+  }
+
+  // 카카오 로그인 시작.
+  async kakaoLogin() {
+    console.log('   kakaoLogin   ');
+    RNKakaoLogins.login();
+  }
+
+  async kakaoLogout() {
+    console.log('   kakaoLogout   ');
+  }
+
+  // 로그인 후 내 프로필 가져오기.
+  async getProfile() {
+    console.log('getKakaoProfile');
+  }
+
+  // 카카오 로그아웃.
+  async kakaoLogout() {
+    console.log('   kakaoLogout   ');
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+      <View style={ styles.container }>
+        <View style={ styles.header }>
+          <Text>LOGIN</Text>
+        </View>
+        <View style={ styles.content }>
+          <NativeButton
+            isLoading={this.state.isNaverLoggingin}
+            onPress={() => this.kakaoLogin()}
+            activeOpacity={0.5}
+            style={styles.btnKakaoLogin}
+            textStyle={styles.txtNaverLogin}
+          >LOGIN</NativeButton>
+          <Text>{this.state.token}</Text>
+          <NativeButton
+            onPress={() => this.kakaoLogout()}
+            activeOpacity={0.5}
+            style={styles.btnKakaoLogin}
+            textStyle={styles.txtNaverLogin}
+          >Logout</NativeButton>
+          <NativeButton
+            isLoading={this.state.isKakaoLogging}
+            onPress={() => this.getProfile()}
+            activeOpacity={0.5}
+            style={styles.btnKakaoLogin}
+            textStyle={styles.txtNaverLogin}
+          >getProfile</NativeButton>
+        </View>
       </View>
     );
   }
@@ -40,18 +76,39 @@ export default class App extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
+    marginTop: Platform.OS === 'ios' ? 0 : 24,
+    paddingTop: Platform.OS === 'ios' ? 24 : 0,
+    backgroundColor: 'white',
+  },
+  header: {
+    flex: 8.8,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  content: {
+    flex: 87.5,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+    alignItems: 'center',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  btnKakaoLogin: {
+    height: 48,
+    width: 240,
+    alignSelf: 'center',
+    backgroundColor: '#F8E71C',
+    borderRadius: 0,
+    borderWidth: 0,
+  },
+  txtNaverLogin: {
+    fontSize: 16,
+    color: '#3d3d3d',
   },
 });
