@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Platform,
+  Alert,
   StyleSheet,
   Text,
   View,
@@ -20,9 +21,16 @@ export default class App extends Component<{}> {
   }
 
   // 카카오 로그인 시작.
-  async kakaoLogin() {
+  kakaoLogin() {
     console.log('   kakaoLogin   ');
-    RNKakaoLogins.login();
+    RNKakaoLogins.login((err, result) => {
+      if (err){
+        console.log(err);
+        return;
+      }
+      console.log('result');
+      console.log(result);
+    });
   }
 
   async kakaoLogout() {
