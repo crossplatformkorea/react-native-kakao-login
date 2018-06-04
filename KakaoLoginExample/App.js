@@ -33,18 +33,29 @@ export default class App extends Component<{}> {
     });
   }
 
-  async kakaoLogout() {
+  kakaoLogout() {
     console.log('   kakaoLogout   ');
+    RNKakaoLogins.logout((err, result) => {
+      if (err){
+        console.log(err);
+        return;
+      }
+      console.log('result');
+      console.log(result);
+    });
   }
 
   // 로그인 후 내 프로필 가져오기.
-  async getProfile() {
+  getProfile() {
     console.log('getKakaoProfile');
-  }
-
-  // 카카오 로그아웃.
-  async kakaoLogout() {
-    console.log('   kakaoLogout   ');
+    RNKakaoLogins.getProfile((err, result) => {
+      if (err){
+        console.log(err);
+        return;
+      }
+      console.log('result');
+      console.log(result);
+    });
   }
 
   render() {

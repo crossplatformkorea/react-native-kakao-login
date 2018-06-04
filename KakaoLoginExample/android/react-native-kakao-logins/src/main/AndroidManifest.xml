@@ -7,8 +7,6 @@
     android:allowBackup="true"
     android:supportsRtl="true">
     <!-- 2 -->
-    <activity android:name=".KakaoActivity">
-    </activity>
     <!-- 3 -->
     <meta-data
       android:name="com.kakao.sdk.AppKey"
