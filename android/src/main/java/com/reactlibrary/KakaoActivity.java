@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.dooboolab.kakaologins;
 
 import android.content.Intent;
 import android.os.Bundle;

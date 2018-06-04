@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.dooboolab.kakaologins;
 
 /**
  * Created by hyochan on 2017. 12. 12..

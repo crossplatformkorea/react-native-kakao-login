@@ -1,5 +1,5 @@
 
-package com.reactlibrary;
+package com.dooboolab.kakaologins;
 
 import android.util.Log;
 import android.widget.Button;
