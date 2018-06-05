@@ -25,6 +25,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.UiThreadUtil;
+import com.kakao.auth.AccessTokenCallback;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
@@ -33,6 +34,8 @@ import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
@@ -66,10 +69,10 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
 
   private List<AuthType> getAuthTypes() {
     final List<AuthType> availableAuthTypes = new ArrayList<>();
-    if (Session.getAuthCodeManager().isTalkLoginAvailable()) {
+    if (Session.getCurrentSession().getAuthCodeManager().isTalkLoginAvailable()) {
       availableAuthTypes.add(AuthType.KAKAO_TALK);
     }
-    if (Session.getAuthCodeManager().isStoryLoginAvailable()) {
+    if (Session.getCurrentSession().getAuthCodeManager().isStoryLoginAvailable()) {
       availableAuthTypes.add(AuthType.KAKAO_STORY);
     }
     availableAuthTypes.add(AuthType.KAKAO_ACCOUNT);
@@ -206,12 +209,11 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
       final Dialog dialog = createLoginDialog(authItems, adapter);
       dialog.show();
     }
-    cb.invoke(null, true);
   }
 
   @ReactMethod
   private void logout(final Callback cb) {
-    UserManagement.requestLogout(new LogoutResponseCallback() {
+    UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
       @Override
       public void onSessionClosed(ErrorResult errorResult) {
         Log.w(TAG, "sessionClosed!!\n" + errorResult.toString());
@@ -224,12 +226,12 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
       @Override
       public void onSuccess(Long result) {
         Log.d(TAG, "Logout!");
-        cb.invoke(null, true);
+        cb.invoke(null, String.valueOf(result));
       }
       @Override
       public void onCompleteLogout() {
         Log.d(TAG, "Complete Logout!");
-        cb.invoke(null, true);
+        cb.invoke(null, "Logged out");
       }
     });
   }
@@ -237,7 +239,35 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
   @ReactMethod
   private void getProfile(final Callback cb) {
     Log.d(TAG, "getProfile");
-    UserManagement.requestMe(new MeResponseCallback() {
+    UserManagement.getInstance().me(new MeV2ResponseCallback() {
+      @Override
+      public void onSessionClosed(ErrorResult errorResult) {
+
+      }
+
+      @Override
+      public void onSuccess(MeV2Response result) {
+        try {
+          JSONObject jsonObject = new JSONObject();
+          jsonObject.put("id", result.getId());
+          jsonObject.put("nickname", result.getNickname());
+          jsonObject.put("email", result.getKakaoAccount().getEmail());
+          jsonObject.put("display_id", result.getKakaoAccount().getDisplayId());
+          jsonObject.put("phone_number", result.getKakaoAccount().getPhoneNumber());
+          jsonObject.put("email_verified", result.getKakaoAccount().isEmailVerified());
+          jsonObject.put("kakaotalk_user", result.getKakaoAccount().isKakaoTalkUser());
+          jsonObject.put("profile_image_path", result.getProfileImagePath());
+          jsonObject.put("thumb_image_path", result.getThumbnailImagePath());
+          jsonObject.put("has_signed_up", result.hasSignedUp());
+          cb.invoke(null, jsonObject.toString());
+        } catch (JSONException e) {
+          cb.invoke(e.toString(), null);
+        }
+      }
+    });
+
+    /*
+    UserManagement.getInstance().requestMe(new MeResponseCallback() {
       @Override
       public void onFailure(ErrorResult errorResult) {
         String message = "failed to get user info. msg=" + errorResult;
@@ -275,16 +305,18 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
         cb.invoke("NotSignedUp", null);
       }
     });
+    */
   }
 
   public static class SessionCallback implements ISessionCallback {
     @Override
     public void onSessionOpened() {
-      Log.d(TAG, "Logged in!\ntoken: " + Session.getCurrentSession().getTokenInfo());
+      Log.d(TAG, "Logged in!\ntoken: " + Session.getCurrentSession().getAccessToken());
+
       if (loginCallback != null) {
         try {
           JSONObject jsonObject = new JSONObject();
-          jsonObject.put("token", Session.getCurrentSession().getTokenInfo());
+          jsonObject.put("token", Session.getCurrentSession().getAccessToken());
           loginCallback.invoke(null, jsonObject.toString());
         } catch (JSONException e) {
           loginCallback.invoke(e.toString(), null);

@@ -28,8 +28,7 @@ export default class App extends Component<{}> {
         console.log(err);
         return;
       }
-      console.log('result');
-      console.log(result);
+      Alert.alert('result', result);
     });
   }
 
@@ -40,8 +39,7 @@ export default class App extends Component<{}> {
         console.log(err);
         return;
       }
-      console.log('result');
-      console.log(result);
+      Alert.alert('result', result);
     });
   }
 
@@ -53,8 +51,7 @@ export default class App extends Component<{}> {
         console.log(err);
         return;
       }
-      console.log('result');
-      console.log(result);
+      Alert.alert('result', result);
     });
   }
 
