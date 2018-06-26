@@ -18,6 +18,9 @@ export default class App extends Component<{}> {
       isKakaoLogging: false,
       token: 'token has not fetched',
     };
+    if (!RNKakaoLogins) {
+      console.log('Not Linked');
+    }
   }
 
   // 카카오 로그인 시작.
