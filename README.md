@@ -6,6 +6,7 @@
 </p>
 React Native 카카오 로그인 라이브러리 입니다.
 세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주시면 감사하겠습니다.
+`react-native-kakao-login`과 `react-native-kakao-signin`이 관리가 안되고 오래되어 최신 버전 kakao sdk로 새로 만들었습니다.
 
 ## Getting started
 
@@ -43,14 +44,16 @@ React Native 카카오 로그인 라이브러리 입니다.
 ### Post installation
 
 #### iOS
-1. ios 카카오 sdk 설치 관련해서는 [여기](https://developers.kakao.com/docs/ios/getting-started)를 참고해주세요. 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
-2. Project => Targets 아래 앱 선택 => Genarl 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
-3. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
+1. xcode를 열고 library안에 있는 KakaoSDK를 project의 `Framework`폴더 안으로 복사합니다.
+2. ios 카카오 sdk 설치 후의 설정과  관련해서는 [여기](https://developers.kakao.com/docs/ios/getting-started)를 참고해주세요. 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+3. Project => Targets 아래 앱 선택 => Genarl 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
+4. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
 
 #### Android
-1. 안드로이드 카카오 SDK 설치 관련해서는 [여기](https://developers.kakao.com/docs/android/getting-started)를 참고해주세요. 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
-2. `react-native-kakao-logins`에서 `string.xml`을 열어 `kakao_app_key`를 본인의 application key로 바꿔주세요.
-3. `MainApplication.java`에서 `MainApplication` 클래스를 다음과 같이 만들어주세요. `com.dooboolab.kakaologins.GlobalApplication`를 `extend` 받아야 합니다.
+1. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.
+2. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [여기](https://developers.kakao.com/docs/android/getting-started)를 참고해주세요. 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+3. `react-native-kakao-logins`에서 `string.xml`을 열어 `kakao_app_key`를 본인의 application key로 바꿔주세요.
+4. `MainApplication.java`에서 `MainApplication` 클래스를 다음과 같이 만들어주세요. `com.dooboolab.kakaologins.GlobalApplication`를 `extend` 받아야 합니다.
    ```
 	 public class MainApplication extends GlobalApplication implements ReactApplication {
 	 ```
