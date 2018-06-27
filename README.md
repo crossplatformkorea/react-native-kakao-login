@@ -43,9 +43,11 @@ React Native 카카오 로그인 라이브러리 입니다.
 ### Post installation
 
 #### iOS
+1. ios 카카오 sdk 설치 관련해서는 [여기](https://developers.kakao.com/docs/ios/getting-started)를 참고해주세요. 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+2. Project => Targets 아래 앱 선택 => Genarl 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
+3. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
 
 #### Android
-
 1. 안드로이드 카카오 SDK 설치 관련해서는 [여기](https://developers.kakao.com/docs/android/getting-started)를 참고해주세요. 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 2. `react-native-kakao-logins`에서 `string.xml`을 열어 `kakao_app_key`를 본인의 application key로 바꿔주세요.
 3. `MainApplication.java`에서 `MainApplication` 클래스를 다음과 같이 만들어주세요. `com.dooboolab.kakaologins.GlobalApplication`를 `extend` 받아야 합니다.

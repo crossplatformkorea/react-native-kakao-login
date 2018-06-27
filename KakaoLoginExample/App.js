@@ -8,7 +8,8 @@ import {
   NativeModules,
 } from 'react-native';
 
-const { RNKakaoLogins } = NativeModules;
+// const { RNKakaoLogins } = NativeModules;
+import RNKakaoLogins from 'react-native-kakao-logins';
 import NativeButton from 'apsl-react-native-button';
 
 export default class App extends Component<{}> {
@@ -28,7 +29,7 @@ export default class App extends Component<{}> {
     console.log('   kakaoLogin   ');
     RNKakaoLogins.login((err, result) => {
       if (err){
-        console.log(err);
+        Alert.alert('error', err);
         return;
       }
       Alert.alert('result', result);
@@ -39,7 +40,7 @@ export default class App extends Component<{}> {
     console.log('   kakaoLogout   ');
     RNKakaoLogins.logout((err, result) => {
       if (err){
-        console.log(err);
+        Alert.alert('error', err);
         return;
       }
       Alert.alert('result', result);
@@ -51,7 +52,7 @@ export default class App extends Component<{}> {
     console.log('getKakaoProfile');
     RNKakaoLogins.getProfile((err, result) => {
       if (err){
-        console.log(err);
+        Alert.alert('error', err);
         return;
       }
       Alert.alert('result', result);
