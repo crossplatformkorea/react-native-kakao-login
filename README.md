@@ -1,8 +1,8 @@
 
 # react-native-seoul
 <p align="left">
-  <a href="https://npmjs.org/package/react-native-seoul"><img alt="npm version" src="http://img.shields.io/npm/v/react-native-seoul.svg?style=flat-square"></a>
-  <a href="https://npmjs.org/package/react-native-seoul"><img alt="npm version" src="http://img.shields.io/npm/dm/react-native-seoul.svg?style=flat-square"></a>
+  <a href="https://npmjs.org/package/react-native-kakao-logins"><img alt="npm version" src="http://img.shields.io/npm/v/react-native-kakao-logins.svg?style=flat-square"></a>
+  <a href="https://npmjs.org/package/react-native-kakao-logins"><img alt="npm version" src="http://img.shields.io/npm/dm/react-native-kakao-logins.svg?style=flat-square"></a>
 </p>
 React Native 카카오 로그인 라이브러리 입니다.
 세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주시면 감사하겠습니다.
