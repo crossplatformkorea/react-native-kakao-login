@@ -1,7 +1,7 @@
 
 {
   "name": "react-native-kakao-logins",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "React Native 카카오 로그인 모듈",
   "main": "index.js",
   "types": "index.d.ts",
