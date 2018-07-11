@@ -142,7 +142,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
    * @return 로그인 방법들을 팝업으로 보여줄 dialog
    */
   private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter) {
-    final Dialog dialog = new Dialog(getCurrentActivity(), com.kakao.usermgmt.R.style.LoginDialog);
+    final Dialog dialog = new Dialog(reactContext.getCurrentActivity(), com.kakao.usermgmt.R.style.LoginDialog);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     dialog.setContentView(com.kakao.usermgmt.R.layout.layout_login_dialog);
     if (dialog.getWindow() != null) {
@@ -179,7 +179,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
   }
 
   public void openSession(final AuthType authType) {
-    Session.getCurrentSession().open(authType, (Activity) reactContext.getApplicationContext());
+    Session.getCurrentSession().open(authType, reactContext.getCurrentActivity());
   }
 
   public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
@@ -202,7 +202,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
     // btnKakaoLogin.callOnClick();
     final List<AuthType> authTypes = getAuthTypes();
     if (authTypes.size() == 1) {
-      Session.getCurrentSession().open(authTypes.get(0), getCurrentActivity());
+      Session.getCurrentSession().open(authTypes.get(0), reactContext.getCurrentActivity());
     } else {
       final Item[] authItems = createAuthItemArray(authTypes);
       ListAdapter adapter = createLoginAdapter(authItems);
