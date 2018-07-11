@@ -1,5 +1,5 @@
 
-# react-native-seoul
+# react-native-kakao-logins
 <p align="left">
   <a href="https://npmjs.org/package/react-native-kakao-logins"><img alt="npm version" src="http://img.shields.io/npm/v/react-native-kakao-logins.svg?style=flat-square"></a>
   <a href="https://npmjs.org/package/react-native-kakao-logins"><img alt="npm version" src="http://img.shields.io/npm/dm/react-native-kakao-logins.svg?style=flat-square"></a>
