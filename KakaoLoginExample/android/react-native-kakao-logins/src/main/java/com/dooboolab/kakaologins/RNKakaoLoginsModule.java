@@ -142,7 +142,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
    * @return 로그인 방법들을 팝업으로 보여줄 dialog
    */
   private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter) {
-    final Dialog dialog = new Dialog(reactContext, com.kakao.usermgmt.R.style.LoginDialog);
+    final Dialog dialog = new Dialog(getCurrentActivity(), com.kakao.usermgmt.R.style.LoginDialog);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     dialog.setContentView(com.kakao.usermgmt.R.layout.layout_login_dialog);
     if (dialog.getWindow() != null) {

@@ -69,6 +69,10 @@ React Native 카카오 로그인 라이브러리 입니다.
    ```
 7. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
+## Changelogs
+- **[0.3.0]**
+  + 앱 깔려있을 때 튕기는 버그 수정. [issue](https://github.com/react-native-seoul/react-native-kakao-logins/issues/6).
+
 #### Methods
 | Func  | Param  | Return | Description |
 | :------------ |:---------------:| :---------------:| :-----|
