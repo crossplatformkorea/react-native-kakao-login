@@ -179,6 +179,10 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
   }
 
   public void openSession(final AuthType authType) {
+    Log.d(TAG, "openSession: " + authType.toString());
+    if (reactContext.getCurrentActivity() == null) {
+      Log.d(TAG, "getCurrentActivity is null.");
+    }
     Session.getCurrentSession().open(authType, reactContext.getCurrentActivity());
   }
 
