@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -47,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
+public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements ActivityEventListener{
 
   private static final String TAG = "RNKakaoLoginModule";
   private final ReactApplicationContext reactContext;
@@ -142,7 +143,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
    * @return 로그인 방법들을 팝업으로 보여줄 dialog
    */
   private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter) {
-    final Dialog dialog = new Dialog(reactContext, com.kakao.usermgmt.R.style.LoginDialog);
+    final Dialog dialog = new Dialog(reactContext.getCurrentActivity(), com.kakao.usermgmt.R.style.LoginDialog);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     dialog.setContentView(com.kakao.usermgmt.R.layout.layout_login_dialog);
     if (dialog.getWindow() != null) {
@@ -179,13 +180,17 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
   }
 
   public void openSession(final AuthType authType) {
-    Session.getCurrentSession().open(authType, (Activity) reactContext.getApplicationContext());
+    Log.d(TAG, "openSession: " + authType.toString());
+    if (reactContext.getCurrentActivity() == null) {
+      Log.d(TAG, "getCurrentActivity is null.");
+    }
+    Session.getCurrentSession().open(authType, reactContext.getCurrentActivity());
   }
 
   public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-
+    reactContext.addActivityEventListener(this);
     callback = new SessionCallback();
     Session.getCurrentSession().addCallback(callback);
     Session.getCurrentSession().checkAndImplicitOpen();
@@ -202,7 +207,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
     // btnKakaoLogin.callOnClick();
     final List<AuthType> authTypes = getAuthTypes();
     if (authTypes.size() == 1) {
-      Session.getCurrentSession().open(authTypes.get(0), getCurrentActivity());
+      Session.getCurrentSession().open(authTypes.get(0), reactContext.getCurrentActivity());
     } else {
       final Item[] authItems = createAuthItemArray(authTypes);
       ListAdapter adapter = createLoginAdapter(authItems);
@@ -314,15 +319,8 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
       Log.d(TAG, "Logged in!\ntoken: " + Session.getCurrentSession().getAccessToken());
 
       if (loginCallback != null) {
-        try {
-          JSONObject jsonObject = new JSONObject();
-          jsonObject.put("token", Session.getCurrentSession().getAccessToken());
-          loginCallback.invoke(null, jsonObject.toString());
-        } catch (JSONException e) {
-          loginCallback.invoke(e.toString(), null);
-        } finally {
-          loginCallback = null;
-        }
+        loginCallback.invoke(null, Session.getCurrentSession().getAccessToken());
+        loginCallback = null;
       }
     }
 
@@ -337,5 +335,17 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
         Logger.e(exception);
       }
     }
+  }
+
+  @Override
+  public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
+      return;
+    }
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+
   }
 }

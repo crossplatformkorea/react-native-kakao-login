@@ -20,6 +20,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -47,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
+public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements ActivityEventListener{
 
   private static final String TAG = "RNKakaoLoginModule";
   private final ReactApplicationContext reactContext;
@@ -189,7 +190,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
   public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-
+    reactContext.addActivityEventListener(this);
     callback = new SessionCallback();
     Session.getCurrentSession().addCallback(callback);
     Session.getCurrentSession().checkAndImplicitOpen();
@@ -334,5 +335,17 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
         Logger.e(exception);
       }
     }
+  }
+
+  @Override
+  public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
+      return;
+    }
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+
   }
 }
