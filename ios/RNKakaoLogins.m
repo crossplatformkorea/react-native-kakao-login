@@ -20,7 +20,7 @@ RCT_EXPORT_METHOD(login:(RCTResponseSenderBlock)callback) {
         if ([session isOpen]) {
             // signIn success
             NSString* token = session.accessToken;
-            NSString* result = [NSString stringWithFormat:@"{token: %@}", token];
+            NSString* result = [NSString stringWithFormat:@"{\"token\": \"%@\"}", token];
             callback(@[[NSNull null], result]);
         } else {
             // failed
