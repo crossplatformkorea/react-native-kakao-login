@@ -1,7 +1,6 @@
-
 {
   "name": "react-native-kakao-logins",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "React Native 카카오 로그인 모듈",
   "main": "index.js",
   "types": "index.d.ts",
@@ -23,6 +22,6 @@
     "react-native": "*"
   },
   "dependencies": {
-    "dooboolab-welcome": "^1.0.5"
+    "dooboolab-welcome": "^1.1.0"
   }
 }
