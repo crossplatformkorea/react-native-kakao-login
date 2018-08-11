@@ -319,8 +319,15 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
       Log.d(TAG, "Logged in!\ntoken: " + Session.getCurrentSession().getAccessToken());
 
       if (loginCallback != null) {
-        loginCallback.invoke(null, Session.getCurrentSession().getAccessToken());
-        loginCallback = null;
+        JSONObject response = new JSONObject();
+        String token = Session.getCurrentSession().getAccessToken();
+        try {
+          response.put("token",token);
+          loginCallback.invoke(null,response.toString());
+          loginCallback = null;
+        } catch (JSONException e) {
+          loginCallback.invoke(e.toString(), null);
+        }
       }
     }
 
