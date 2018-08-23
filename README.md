@@ -48,7 +48,35 @@ React Native 카카오 로그인 라이브러리 입니다.
 2. ios 카카오 sdk 설치 후의 설정과  관련해서는 [여기](https://developers.kakao.com/docs/ios/getting-started)를 참고해주세요. 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 3. Project => Targets 아래 앱 선택 => Genarl 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
 4. KakaoOpenSDK framework을 찾을 수 없다는 에러가 발생할 경우 `Build Settings` -> `Framework Search Paths`에 다음 경로를 추가해줍니다. `$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/Frameworks`
-5. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
+5. [SDK의 공식문서](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8)를 참조하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
+
+```
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+                                       sourceApplication:(NSString *)sourceApplication
+                                              annotation:(id)annotation {
+    if ([KOSession isKakaoAccountLoginCallback:url]) {
+        return [KOSession handleOpenURL:url];
+    }
+
+    return false;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+                                                 options:(NSDictionary<NSString *,id> *)options {
+    if ([KOSession isKakaoAccountLoginCallback:url]) {
+        return [KOSession handleOpenURL:url];
+    }
+
+    return false;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [KOSession handleDidBecomeActive];
+}
+```
+
+6. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
 
 #### Android
 1. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.
