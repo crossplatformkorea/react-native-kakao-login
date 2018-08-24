@@ -1,4 +1,3 @@
-
 #import "RNKakaoLogins.h"
 #import <React/RCTLog.h>
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
@@ -9,23 +8,29 @@
 {
     return dispatch_get_main_queue();
 }
+
+- (NSString *) quotedStringOrNull: (NSString *)originalString
+{
+    return !!originalString ? [NSString stringWithFormat: @"\"%@\"", originalString] : @"null";
+}
+
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(login:(RCTResponseSenderBlock)callback) {
     KOSession *session = [KOSession sharedSession];
+
     // ensure old session was closed
-    // [session close];
-    
+    [session close];
+
     [session openWithCompletionHandler:^(NSError *error) {
         if ([session isOpen]) {
-            // signIn success
-            NSString* token = session.accessToken;
+            NSString* token = session.token.accessToken;
             NSString* result = [NSString stringWithFormat:@"{\"token\": \"%@\"}", token];
+
             callback(@[[NSNull null], result]);
         } else {
-            // failed
-            RCTLogInfo(@"error=%@", error);
-            callback(@[@"signIn failed.\n", [NSNull null]]);
+            RCTLogInfo(@"Error=%@", error);
+            callback(@[@"SignIn failed.\n", [NSNull null]]);
         }
     }];
 }
@@ -36,31 +41,38 @@ RCT_EXPORT_METHOD(logout:(RCTResponseSenderBlock)callback) {
 }
 
 RCT_EXPORT_METHOD(getProfile:(RCTResponseSenderBlock)callback) {
-    [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
-        if (result) {
-            // success
-//            if (result.email) {
-//                RCTLogInfo(@"email=%@", result.email);
-//            } else {
-//                // disagreed
-//            }
-            NSString* json = [NSString stringWithFormat:@"{id: %@, nickname: %@, email: %@, display_id: %@, phone_number: %@, email_verified: %@, kakaotalk_user: %@, profile_image_path: %@, thumb_image_path: %@, has_signed_up: %@}",
-                              result.ID,
-                              [result propertyForKey:KOUserNicknamePropertyKey],
-                              result.email,
-                              @"no display_id in ios",
-                              @"no phonenumber in ios",
-                              [result propertyForKey:KOUserIsVerifiedEmailPropertyKey],
-                              @"no isKakaoUser in ios",
-                              [result propertyForKey:KOUserProfileImagePropertyKey],
-                              [result propertyForKey:KOUserThumbnailImagePropertyKey],
-                              @"no hasSignedUp in ios"
-            ];
-            callback(@[[NSNull null], json]);
-        } else {
-            // failed
-            callback(@[@"Get profile error.", [NSNull null]]);
+    [KOSessionTask userMeTaskWithCompletion:^(NSError *error, KOUserMe* result) {
+        if (error) {
+            RCTLogInfo(@"Error=%@", error);
+            callback(@[@"Error while getting profile.", [NSNull null]]);
+
+            return;
         }
+
+        NSString* profile = [NSString stringWithFormat:
+            @"{\"id\": %@,\
+            \"nickname\": %@,\
+            \"email\": %@,\
+            \"display_id\": %@,\
+            \"phone_number\": %@,\
+            \"email_verified\": %@,\
+            \"kakaotalk_user\": %@,\
+            \"profile_image_path\": %@,\
+            \"thumb_image_path\": %@,\
+            \"has_signed_up\": %@}",
+            [self quotedStringOrNull: result.ID],
+            [self quotedStringOrNull: result.nickname],
+            [self quotedStringOrNull: result.account.email],
+            [self quotedStringOrNull: result.account.displayID],
+            [self quotedStringOrNull: result.account.phoneNumber],
+            result.account.isEmailVerified ? @"true" : @"false",
+            result.account.isKakaotalkUser ? @"true" : @"false",
+            [self quotedStringOrNull: [result.profileImageURL absoluteString]],
+            [self quotedStringOrNull: [result.thumbnailImageURL absoluteString]],
+            result.hasSignedUp ? @"true" : @"false"
+        ];
+
+        callback(@[[NSNull null], profile]);
     }];
 }
 
