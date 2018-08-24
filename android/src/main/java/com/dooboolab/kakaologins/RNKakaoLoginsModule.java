@@ -244,6 +244,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
   @ReactMethod
   private void getProfile(final Callback cb) {
     Log.d(TAG, "getProfile");
+
     UserManagement.getInstance().me(new MeV2ResponseCallback() {
       @Override
       public void onSessionClosed(ErrorResult errorResult) {
@@ -254,16 +255,18 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
       public void onSuccess(MeV2Response result) {
         try {
           JSONObject jsonObject = new JSONObject();
-          jsonObject.put("id", result.getId());
+
+          jsonObject.put("id", String.valueOf(result.getId()));
           jsonObject.put("nickname", result.getNickname());
           jsonObject.put("email", result.getKakaoAccount().getEmail());
           jsonObject.put("display_id", result.getKakaoAccount().getDisplayId());
           jsonObject.put("phone_number", result.getKakaoAccount().getPhoneNumber());
-          jsonObject.put("email_verified", result.getKakaoAccount().isEmailVerified());
-          jsonObject.put("kakaotalk_user", result.getKakaoAccount().isKakaoTalkUser());
+          jsonObject.put("email_verified",  result.getKakaoAccount().isEmailVerified().toString() == "TRUE");
+          jsonObject.put("kakaotalk_user", result.getKakaoAccount().isKakaoTalkUser().toString() == "TRUE");
           jsonObject.put("profile_image_path", result.getProfileImagePath());
           jsonObject.put("thumb_image_path", result.getThumbnailImagePath());
-          jsonObject.put("has_signed_up", result.hasSignedUp());
+          jsonObject.put("has_signed_up", result.hasSignedUp().toString() == "TRUE");
+
           cb.invoke(null, jsonObject.toString());
         } catch (JSONException e) {
           cb.invoke(e.toString(), null);
