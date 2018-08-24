@@ -123,13 +123,13 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
               .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
           convertView = inflater.inflate(com.kakao.usermgmt.R.layout.layout_login_item, parent, false);
         }
-        ImageView imageView = convertView.findViewById(com.kakao.usermgmt.R.id.login_method_icon);
+        ImageView imageView = (ImageView) convertView.findViewById(com.kakao.usermgmt.R.id.login_method_icon);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
           imageView.setImageDrawable(reactContext.getResources().getDrawable(authItems[position].icon, getContext().getTheme()));
         } else {
           imageView.setImageDrawable(reactContext.getResources().getDrawable(authItems[position].icon));
         }
-        TextView textView = convertView.findViewById(com.kakao.usermgmt.R.id.login_method_text);
+        TextView textView = (TextView) convertView.findViewById(com.kakao.usermgmt.R.id.login_method_text);
         textView.setText(authItems[position].textId);
         return convertView;
       }
@@ -156,7 +156,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 //            textView.setTypeface(customFont);
 //        }
 
-    ListView listView = dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
+    ListView listView = (ListView) dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
     listView.setAdapter(adapter);
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
@@ -169,7 +169,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
       }
     });
 
-    Button closeButton = dialog.findViewById(com.kakao.usermgmt.R.id.login_close_button);
+    Button closeButton = (Button) dialog.findViewById(com.kakao.usermgmt.R.id.login_close_button);
     closeButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
