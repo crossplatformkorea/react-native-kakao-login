@@ -1,12 +1,12 @@
-interface ICallback<T> {
+export interface ICallback<T> {
   (error: Error | undefined, result: T): void
 }
 
-interface ITokenInfo {
+export interface ITokenInfo {
   token: string;
 }
 
-interface IProfile {
+export interface IProfile {
   id: string;
   nickname: string;
   email: string | null;
