@@ -1,5 +1,5 @@
 export interface ICallback<T> {
-  (error: Error | undefined, result: T): void
+  (error: Error | undefined, result: T | undefined): void
 }
 
 export interface ITokenInfo {
