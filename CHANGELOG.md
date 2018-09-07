@@ -1,4 +1,6 @@
 ## Changelogs
+- **[1.0.3]**
+  + Fixed crashing when going back canceling login
 - **[1.0.2]**
   + Edit to use new methods and properly return result
   + Edit to parse native callback result
