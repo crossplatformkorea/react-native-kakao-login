@@ -5,14 +5,25 @@ const { RNKakaoLogins } = NativeModules;
 const processNativeOutput = (userCallback) => {
   return (errorString, resultString) => {
     let error;
+    let resultJSON;
 
     if (errorString) {
       error = new Error(errorString);
+      userCallback(error, undefined);
+
+      return;
     }
 
-    const resultJSON = JSON.parse(resultString);
+    try {
+      resultJSON = JSON.parse(resultString);
+    } catch (_) {
+      error = new Error(resultString);
+      userCallback(error, undefined);
 
-    userCallback(error, resultJSON);
+      return;
+    }
+
+    userCallback(undefined, resultJSON);
   };
 }
 
