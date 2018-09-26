@@ -1,4 +1,6 @@
 ## Changelogs
+- **[1.1.0]**
+  + Prevent version miss match problem with other libraries when conflict exists
 - **[1.0.3]**
   + Fixed crashing when going back canceling login
 - **[1.0.2]**
