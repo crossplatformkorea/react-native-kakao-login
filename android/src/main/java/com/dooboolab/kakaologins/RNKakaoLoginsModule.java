@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -48,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements ActivityEventListener{
+public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener{
 
   private static final String TAG = "RNKakaoLoginModule";
   private final ReactApplicationContext reactContext;
@@ -190,6 +191,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
   public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+    KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
     reactContext.addActivityEventListener(this);
     callback = new SessionCallback();
     Session.getCurrentSession().addCallback(callback);
@@ -356,6 +358,21 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
   @Override
   public void onNewIntent(Intent intent) {
+
+  }
+
+  @Override
+  public void onHostDestroy() {
+    Session.getCurrentSession().removeCallback(this.callback);
+  }
+
+  @Override
+  public void onHostPause() {
+
+  }
+
+  @Override
+  public void onHostResume() {
 
   }
 }
