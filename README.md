@@ -95,6 +95,7 @@ React Native 카카오 로그인 라이브러리 입니다.
 
 ~~6. `MainApplication.java`에서 `MainApplication` 클래스를 다음과 같이 만들어주세요. `com.dooboolab.kakaologins.GlobalApplication`를 `extend` 받아야 합니다.~~
    ~~public class MainApplication extends GlobalApplication implements ReactApplication {~~
+   
 6. getPackages()에 new RNKakaoLoginsPackage()를 등록해주세요.
    ```
    protected List<ReactPackage> getPackages() {
