@@ -26,8 +26,6 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.UiThreadUtil;
-import com.kakao.auth.AccessTokenCallback;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
@@ -35,10 +33,8 @@ import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
-import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
@@ -369,23 +365,19 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
   @Override
   public void onCatalystInstanceDestroy() {
-    Log.i("onInstanceDestroy","");
     super.onCatalystInstanceDestroy();
   }
 
   @Override
   public void onHostDestroy() {
-    Log.i("RNKakaoLogins", "onHostDestory");
-//    Session.getCurrentSession().removeCallback(this.callback);
+    Session.getCurrentSession().removeCallback(this.callback);
   }
 
   @Override
   public void onHostPause() {
-    Log.i("RNKakaoLogins", "onHostPause");
   }
 
   @Override
   public void onHostResume() {
-    Log.i("RNKakaoLogins", "onHostResume");
   }
 }

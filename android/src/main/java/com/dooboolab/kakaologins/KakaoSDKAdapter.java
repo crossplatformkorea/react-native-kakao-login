@@ -1,6 +1,5 @@
 package com.dooboolab.kakaologins;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.kakao.auth.ApprovalType;
