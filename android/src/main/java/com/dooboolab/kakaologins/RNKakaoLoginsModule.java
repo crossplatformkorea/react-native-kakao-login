@@ -191,16 +191,21 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
   public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
-    reactContext.addActivityEventListener(this);
-    callback = new SessionCallback();
-    Session.getCurrentSession().addCallback(callback);
-    Session.getCurrentSession().checkAndImplicitOpen();
   }
 
   @Override
   public String getName() {
     return "RNKakaoLogins";
+  }
+
+  @ReactMethod
+  public void init() {
+    KakaoSDK.init(new KakaoSDKAdapter(this.reactContext.getApplicationContext()));
+    this.reactContext.addActivityEventListener(this);
+    this.reactContext.addLifecycleEventListener(this);
+    callback = new SessionCallback();
+    Session.getCurrentSession().addCallback(callback);
+    Session.getCurrentSession().checkAndImplicitOpen();
   }
 
   @ReactMethod
@@ -351,6 +356,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
   @Override
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    Log.i("RNKakaoLogins", "onActivityResult");
     if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
       return;
     }
@@ -362,17 +368,24 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
   }
 
   @Override
+  public void onCatalystInstanceDestroy() {
+    Log.i("onInstanceDestroy","");
+    super.onCatalystInstanceDestroy();
+  }
+
+  @Override
   public void onHostDestroy() {
-    Session.getCurrentSession().removeCallback(this.callback);
+    Log.i("RNKakaoLogins", "onHostDestory");
+//    Session.getCurrentSession().removeCallback(this.callback);
   }
 
   @Override
   public void onHostPause() {
-
+    Log.i("RNKakaoLogins", "onHostPause");
   }
 
   @Override
   public void onHostResume() {
-
+    Log.i("RNKakaoLogins", "onHostResume");
   }
 }
