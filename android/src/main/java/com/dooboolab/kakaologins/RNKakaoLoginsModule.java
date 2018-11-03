@@ -191,7 +191,11 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
   public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
+    if (KakaoSDK.getAdapter() == null) {
+      KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
+    } else {
+      Session.getCurrentSession().clearCallbacks();
+    }
     reactContext.addActivityEventListener(this);
     callback = new SessionCallback();
     Session.getCurrentSession().addCallback(callback);
