@@ -53,6 +53,8 @@ React Native 카카오 로그인 라이브러리 입니다.
 3. [SDK의 공식문서](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8)를 참조하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
 
 ```
+#import <KakaoOpenSDK/KakaoOpenSDK.h>
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
                                        sourceApplication:(NSString *)sourceApplication
                                               annotation:(id)annotation {
