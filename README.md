@@ -40,7 +40,7 @@ React Native 카카오 로그인 라이브러리 입니다.
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      compile project(':react-native-kakao-logins')
+      implementation project(':react-native-kakao-logins')
   	```
 
 
