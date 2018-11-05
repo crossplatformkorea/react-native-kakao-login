@@ -48,7 +48,7 @@ React Native 카카오 로그인 라이브러리 입니다.
 
 #### iOS
 1. xcode를 열고 library안에 있는 KakaoSDK를 project의 `Framework`폴더 안으로 복사합니다.
-2. ios 카카오 sdk 설치 후의 설정과 관련해서는[카카오개발자 페이지 - 앱생성](https://developers.kakao.com/docs/ios/getting-started#앱-생성)를 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+2. ios 카카오 sdk 설치 후의 설정과 관련해서는[카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/ios/getting-started#앱-생성)를 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 3. Project => Targets 아래 앱 선택 => Genarl 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
 4. [SDK의 공식문서](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8)를 참조하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
 
@@ -94,7 +94,7 @@ React Native 카카오 로그인 라이브러리 입니다.
    }
    ```
 3. manifest 파일에서 allowBackup을 true로 설정해주세요.
-4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [여기](https://developers.kakao.com/docs/android/getting-started)를 참고해주세요. 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)를 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 5. `react-native-kakao-logins`에서 `string.xml`을 열어 `kakao_app_key`를 본인의 application key로 바꿔주세요.
 
 ~~6. `MainApplication.java`에서 `MainApplication` 클래스를 다음과 같이 만들어주세요. `com.dooboolab.kakaologins.GlobalApplication`를 `extend` 받아야 합니다.~~
