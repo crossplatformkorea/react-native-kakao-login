@@ -142,6 +142,8 @@ React Native 카카오 로그인 라이브러리 입니다.
 ## Usage
 아래 예제는 `KakaoLoginExample` 프로젝트의 `App.js`파일과 동일합니다. 로그인 후 result에 들어오는 결과값음 `accessToken`입니다.
 ```javascript
+import RNKakaoLogins from "react-native-kakao-logins";
+
 export default class App extends Component<{}> {
   constructor(props) {
     super(props);
