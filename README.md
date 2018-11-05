@@ -24,10 +24,9 @@ React Native 카카오 로그인 라이브러리 입니다.
 2. Go to `node_modules` ➜ `react-native-kakao-logins` and add `RNKakaoLogins.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNKakaoLogins.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Add paths as below
-    - Other Linker Flags: `-force_load $(PROJECT_DIR)/../node_modules/react-native-kakao-logins/ios/Frameworks/KakaoOpenSDK.framework/KakaoOpenSDK`
     - Header Search Paths: `"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**"`
     - Framework search Paths `"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/Frameworks"`
-5. Run your project (`Cmd+R`)<
+5. Refer to `Post installation`
 
 #### Android
 
@@ -48,9 +47,10 @@ React Native 카카오 로그인 라이브러리 입니다.
 ### Post installation
 
 #### iOS
-1. ios 카카오 sdk 설치 후의 설정과  관련해서는 [여기](https://developers.kakao.com/docs/ios/getting-started)를 참고해주세요. 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
-2. Project => Targets 아래 앱 선택 => Genarl 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
-3. [SDK의 공식문서](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8)를 참조하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
+1. xcode를 열고 library안에 있는 KakaoSDK를 project의 `Framework`폴더 안으로 복사합니다.
+2. ios 카카오 sdk 설치 후의 설정과 관련해서는[카카오개발자 페이지 - 앱생성](https://developers.kakao.com/docs/ios/getting-started#앱-생성)를 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+3. Project => Targets 아래 앱 선택 => Genarl 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
+4. [SDK의 공식문서](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8)를 참조하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
 
 ```
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
