@@ -1,4 +1,6 @@
 ## Changelogs
+- **[1.3.0]**
+  + Upgrade android kakaosdk to 1.15.1.
 - **[1.2.1]**
   + Make sure to check whether KakaoSDK already has an adapter.
 - **[1.2.0]**
