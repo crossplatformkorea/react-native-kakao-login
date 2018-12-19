@@ -16,7 +16,7 @@
     "kakao-logins"
   ],
   "author": "dooboolab",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
