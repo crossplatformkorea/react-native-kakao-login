@@ -20,6 +20,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.react.bridge.ActivityEventListener;
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -47,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
+public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener{
 
   private static final String TAG = "RNKakaoLoginModule";
   private final ReactApplicationContext reactContext;
@@ -122,13 +124,13 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
               .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
           convertView = inflater.inflate(com.kakao.usermgmt.R.layout.layout_login_item, parent, false);
         }
-        ImageView imageView = convertView.findViewById(com.kakao.usermgmt.R.id.login_method_icon);
+        ImageView imageView = (ImageView) convertView.findViewById(com.kakao.usermgmt.R.id.login_method_icon);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
           imageView.setImageDrawable(reactContext.getResources().getDrawable(authItems[position].icon, getContext().getTheme()));
         } else {
           imageView.setImageDrawable(reactContext.getResources().getDrawable(authItems[position].icon));
         }
-        TextView textView = convertView.findViewById(com.kakao.usermgmt.R.id.login_method_text);
+        TextView textView = (TextView) convertView.findViewById(com.kakao.usermgmt.R.id.login_method_text);
         textView.setText(authItems[position].textId);
         return convertView;
       }
@@ -142,7 +144,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
    * @return 로그인 방법들을 팝업으로 보여줄 dialog
    */
   private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter) {
-    final Dialog dialog = new Dialog(reactContext, com.kakao.usermgmt.R.style.LoginDialog);
+    final Dialog dialog = new Dialog(reactContext.getCurrentActivity(), com.kakao.usermgmt.R.style.LoginDialog);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     dialog.setContentView(com.kakao.usermgmt.R.layout.layout_login_dialog);
     if (dialog.getWindow() != null) {
@@ -155,7 +157,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
 //            textView.setTypeface(customFont);
 //        }
 
-    ListView listView = dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
+    ListView listView = (ListView) dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
     listView.setAdapter(adapter);
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
@@ -168,7 +170,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
       }
     });
 
-    Button closeButton = dialog.findViewById(com.kakao.usermgmt.R.id.login_close_button);
+    Button closeButton = (Button) dialog.findViewById(com.kakao.usermgmt.R.id.login_close_button);
     closeButton.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -179,13 +181,22 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
   }
 
   public void openSession(final AuthType authType) {
-    Session.getCurrentSession().open(authType, (Activity) reactContext.getApplicationContext());
+    Log.d(TAG, "openSession: " + authType.toString());
+    if (reactContext.getCurrentActivity() == null) {
+      Log.d(TAG, "getCurrentActivity is null.");
+    }
+    Session.getCurrentSession().open(authType, reactContext.getCurrentActivity());
   }
 
   public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-
+    if (KakaoSDK.getAdapter() == null) {
+      KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
+    } else {
+      Session.getCurrentSession().clearCallbacks();
+    }
+    reactContext.addActivityEventListener(this);
     callback = new SessionCallback();
     Session.getCurrentSession().addCallback(callback);
     Session.getCurrentSession().checkAndImplicitOpen();
@@ -202,7 +213,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
     // btnKakaoLogin.callOnClick();
     final List<AuthType> authTypes = getAuthTypes();
     if (authTypes.size() == 1) {
-      Session.getCurrentSession().open(authTypes.get(0), getCurrentActivity());
+      Session.getCurrentSession().open(authTypes.get(0), reactContext.getCurrentActivity());
     } else {
       final Item[] authItems = createAuthItemArray(authTypes);
       ListAdapter adapter = createLoginAdapter(authItems);
@@ -239,6 +250,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
   @ReactMethod
   private void getProfile(final Callback cb) {
     Log.d(TAG, "getProfile");
+
     UserManagement.getInstance().me(new MeV2ResponseCallback() {
       @Override
       public void onSessionClosed(ErrorResult errorResult) {
@@ -249,16 +261,18 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
       public void onSuccess(MeV2Response result) {
         try {
           JSONObject jsonObject = new JSONObject();
-          jsonObject.put("id", result.getId());
+
+          jsonObject.put("id", String.valueOf(result.getId()));
           jsonObject.put("nickname", result.getNickname());
           jsonObject.put("email", result.getKakaoAccount().getEmail());
           jsonObject.put("display_id", result.getKakaoAccount().getDisplayId());
           jsonObject.put("phone_number", result.getKakaoAccount().getPhoneNumber());
-          jsonObject.put("email_verified", result.getKakaoAccount().isEmailVerified());
-          jsonObject.put("kakaotalk_user", result.getKakaoAccount().isKakaoTalkUser());
+          jsonObject.put("email_verified",  result.getKakaoAccount().isEmailVerified().toString() == "TRUE");
+          jsonObject.put("kakaotalk_user", result.getKakaoAccount().isKakaoTalkUser().toString() == "TRUE");
           jsonObject.put("profile_image_path", result.getProfileImagePath());
           jsonObject.put("thumb_image_path", result.getThumbnailImagePath());
-          jsonObject.put("has_signed_up", result.hasSignedUp());
+          jsonObject.put("has_signed_up", result.hasSignedUp().toString() == "TRUE");
+
           cb.invoke(null, jsonObject.toString());
         } catch (JSONException e) {
           cb.invoke(e.toString(), null);
@@ -314,14 +328,14 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
       Log.d(TAG, "Logged in!\ntoken: " + Session.getCurrentSession().getAccessToken());
 
       if (loginCallback != null) {
+        JSONObject response = new JSONObject();
+        String token = Session.getCurrentSession().getAccessToken();
         try {
-          JSONObject jsonObject = new JSONObject();
-          jsonObject.put("token", Session.getCurrentSession().getAccessToken());
-          loginCallback.invoke(null, jsonObject.toString());
+          response.put("token",token);
+          loginCallback.invoke(null,response.toString());
+          loginCallback = null;
         } catch (JSONException e) {
           loginCallback.invoke(e.toString(), null);
-        } finally {
-          loginCallback = null;
         }
       }
     }
@@ -337,5 +351,32 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
         Logger.e(exception);
       }
     }
+  }
+
+  @Override
+  public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+    if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
+      return;
+    }
+  }
+
+  @Override
+  public void onNewIntent(Intent intent) {
+
+  }
+
+  @Override
+  public void onHostDestroy() {
+    Session.getCurrentSession().removeCallback(this.callback);
+  }
+
+  @Override
+  public void onHostPause() {
+
+  }
+
+  @Override
+  public void onHostResume() {
+
   }
 }
