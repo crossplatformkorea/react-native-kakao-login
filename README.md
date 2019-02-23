@@ -89,7 +89,9 @@ React Native 카카오 로그인 라이브러리 입니다.
    }
    ```
 
-5. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
+5. Expo Kit을 사용하여 개발하는 경우 `RNNaverLogin.xcodeproj`의 Build Settings => Header Search Paths에 `$(SRCROOT)/../../../ios/Pods/Headers/Public`를 `recursive`로 추가해주셔야 합니다.
+
+6. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
 
 #### Android
 
@@ -105,7 +107,7 @@ React Native 카카오 로그인 라이브러리 입니다.
    ```
 3. manifest 파일에서 allowBackup을 true로 설정해주세요.
 4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
-5. `react-native-kakao-logins`에서 `string.xml`을 열어 `kakao_app_key`를 본인의 application key로 바꿔주세요.
+5. `react-native-kakao-logins`에서 `kakao_strings.xml`을 열어 `kakao_app_key`를 본인의 application key로 바꿔주세요.
 
 6. ~~`MainApplication.java`에서 `MainApplication` 클래스를 다음과 같이 만들어주세요. `com.dooboolab.kakaologins.GlobalApplication`를 `extend` 받아야 합니다.~~
    ~~public class MainApplication extends GlobalApplication implements ReactApplication {~~
@@ -169,7 +171,7 @@ export default class App extends Component<{}> {
     super(props);
     this.state = {
       isKakaoLogging: false,
-      token: 'token has not fetched'
+      token: 'token has not fetched',
     };
   }
 
@@ -221,27 +223,21 @@ export default class App extends Component<{}> {
             activeOpacity={0.5}
             style={styles.btnKakaoLogin}
             textStyle={styles.txtNaverLogin}
-          >
-            LOGIN
-          </NativeButton>
+          >LOGIN</NativeButton>
           <Text>{this.state.token}</Text>
           <NativeButton
             onPress={() => this.kakaoLogout()}
             activeOpacity={0.5}
             style={styles.btnKakaoLogin}
             textStyle={styles.txtNaverLogin}
-          >
-            Logout
-          </NativeButton>
+          >Logout</NativeButton>
           <NativeButton
             isLoading={this.state.isKakaoLogging}
             onPress={() => this.getProfile()}
             activeOpacity={0.5}
             style={styles.btnKakaoLogin}
             textStyle={styles.txtNaverLogin}
-          >
-            getProfile
-          </NativeButton>
+          >getProfile</NativeButton>
         </View>
       </View>
     );
