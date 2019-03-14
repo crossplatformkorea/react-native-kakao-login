@@ -15,6 +15,7 @@
     <activity
       android:name="com.kakao.auth.authorization.authcode.KakaoWebViewActivity"
       android:launchMode="singleTop"
+      android:exported="false"
       android:windowSoftInputMode="adjustResize">
     </activity>
   </application>
