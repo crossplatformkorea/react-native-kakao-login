@@ -1,7 +1,7 @@
 {
   "name": "react-native-kakao-logins",
-  "version": "1.3.2",
-  "description": "React Native 카카오 로그인 모듈",
+  "version": "1.3.3",
+  "description": "React Native Module for Kakao Login",
   "main": "index.js",
   "types": "index.d.ts",
   "postinstall": "dooboolab-welcome postinstall",
@@ -16,7 +16,7 @@
     "kakao-logins"
   ],
   "author": "dooboolab",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
