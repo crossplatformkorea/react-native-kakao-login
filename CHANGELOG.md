@@ -1,6 +1,8 @@
 ## Changelogs
-- **[1.3.0]**
+- **[1.3.+]**
   + Upgrade android kakaosdk to 1.15.1.
+  + Fix security issue [#37](https://github.com/react-native-seoul/react-native-kakao-logins/issues/37)
+  + Update gradle setup [#36](https://github.com/react-native-seoul/react-native-kakao-logins/pull/36/commits/e3747ef9fe7d546d882bc12bf34d05b5babf7baf)
 - **[1.2.1]**
   + Make sure to check whether KakaoSDK already has an adapter.
 - **[1.2.0]**
