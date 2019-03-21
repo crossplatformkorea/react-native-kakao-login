@@ -264,11 +264,20 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
           jsonObject.put("id", String.valueOf(result.getId()));
           jsonObject.put("nickname", result.getNickname());
-          jsonObject.put("email", result.getKakaoAccount().getEmail());
-          jsonObject.put("display_id", result.getKakaoAccount().getDisplayId());
-          jsonObject.put("phone_number", result.getKakaoAccount().getPhoneNumber());
-          jsonObject.put("email_verified",  result.getKakaoAccount().isEmailVerified().toString() == "TRUE");
-          jsonObject.put("kakaotalk_user", result.getKakaoAccount().isKakaoTalkUser().toString() == "TRUE");
+          UserAccount kakaoAccount = result.getKakaoAccount();
+          if(kakaoAccount != null) {
+            jsonObject.put("email", kakaoAccount.getEmail());
+            jsonObject.put("display_id", kakaoAccount.getDisplayId());
+            jsonObject.put("phone_number", kakaoAccount.getPhoneNumber());
+            jsonObject.put("email_verified",  kakaoAccount.isEmailVerified().toString() == "TRUE");
+            jsonObject.put("kakaotalk_user", kakaoAccount.isKakaoTalkUser().toString() == "TRUE");
+          } else {
+            jsonObject.put("email", null);
+            jsonObject.put("display_id", null);
+            jsonObject.put("phone_number", null);
+            jsonObject.put("email_verified",  false);
+            jsonObject.put("kakaotalk_user", false);
+          }
           jsonObject.put("profile_image_path", result.getProfileImagePath());
           jsonObject.put("thumb_image_path", result.getThumbnailImagePath());
           jsonObject.put("has_signed_up", result.hasSignedUp().toString() == "TRUE");
