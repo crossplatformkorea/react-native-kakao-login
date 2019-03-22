@@ -180,7 +180,7 @@ export default class App extends Component<{}> {
     console.log('   kakaoLogin   ');
     RNKakaoLogins.login((err, result) => {
       if (err) {
-        console.log(err);
+        console.log(err.toString());
         return;
       }
       Alert.alert('result', result);
@@ -191,7 +191,7 @@ export default class App extends Component<{}> {
     console.log('   kakaoLogout   ');
     RNKakaoLogins.logout((err, result) => {
       if (err) {
-        console.log(err);
+        console.log(err.toString());
         return;
       }
       Alert.alert('result', result);
@@ -203,7 +203,7 @@ export default class App extends Component<{}> {
     console.log('getKakaoProfile');
     RNKakaoLogins.getProfile((err, result) => {
       if (err) {
-        console.log(err);
+        console.log(err.toString());
         return;
       }
       Alert.alert('result', result);
