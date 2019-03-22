@@ -221,8 +221,8 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
       @Override
       public void onSessionClosed(ErrorResult errorResult) {
-        Log.w(TAG, "sessionClosed!!\n" + errorResult.toString());
-        cb.invoke(errorResult.toString(), null);
+        Log.w(TAG, "sessionClosed!!\n" + errorResult.getErrorMessage());
+        cb.invoke(errorResult.getErrorMessage(), null);
       }
       @Override
       public void onNotSignedUp() {
@@ -266,7 +266,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
           jsonObject.put("has_signed_up", result.hasSignedUp());
           cb.invoke(null, jsonObject.toString());
         } catch (JSONException e) {
-          cb.invoke(e.toString(), null);
+          cb.invoke(e.getMessage(), null);
         }
       }
     });
@@ -328,7 +328,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     public void onSessionOpenFailed(KakaoException exception) {
       if(exception != null) {
         if (loginCallback != null) {
-          loginCallback.invoke(null, exception.toString());
+          loginCallback.invoke(exception.getMessage(), null);
           loginCallback = null;
         }
         Log.e(TAG, "Logged in!\nSessionOpenFailed");
