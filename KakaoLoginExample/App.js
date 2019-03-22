@@ -12,7 +12,7 @@ import {
 import RNKakaoLogins from 'react-native-kakao-logins';
 import NativeButton from 'apsl-react-native-button';
 
-export default class App extends Component<{}> {
+export default class App extends Component<}{}> {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +29,7 @@ export default class App extends Component<{}> {
     console.log('   kakaoLogin   ');
     RNKakaoLogins.login((err, result) => {
       if (err){
-        Alert.alert('error', err);
+        Alert.alert('error', err.toString());
         return;
       }
       Alert.alert('result', result);
@@ -40,7 +40,7 @@ export default class App extends Component<{}> {
     console.log('   kakaoLogout   ');
     RNKakaoLogins.logout((err, result) => {
       if (err){
-        Alert.alert('error', err);
+        Alert.alert('error', err.toString());
         return;
       }
       Alert.alert('result', result);
@@ -52,7 +52,7 @@ export default class App extends Component<{}> {
     console.log('getKakaoProfile');
     RNKakaoLogins.getProfile((err, result) => {
       if (err){
-        Alert.alert('error', err);
+        Alert.alert('error', err.toString());
         return;
       }
       Alert.alert('result', result);
