@@ -1,10 +1,11 @@
 ## Changelogs
-- **[1.3.+]**
+- **[1.3.7]**
   + Upgrade android kakaosdk to 1.15.1.
   + Fix security issue [#37](https://github.com/react-native-seoul/react-native-kakao-logins/issues/37)
   + Update gradle setup [#36](https://github.com/react-native-seoul/react-native-kakao-logins/pull/36/commits/e3747ef9fe7d546d882bc12bf34d05b5babf7baf)
   + Safe null check for KakaoAccount [#40](https://github.com/react-native-seoul/react-native-kakao-logins/pull/40)
   + Better error handling in `example` [#41](https://github.com/react-native-seoul/react-native-kakao-logins/pull/41)
+  + Add header seaerch path for pod project [#49](https://github.com/react-native-seoul/react-native-kakao-logins/pull/49)
 - **[1.2.1]**
   + Make sure to check whether KakaoSDK already has an adapter.
 - **[1.2.0]**
