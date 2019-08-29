@@ -5,14 +5,12 @@ import {
   StyleSheet,
   Text,
   View,
-  NativeModules,
 } from 'react-native';
 
-// const { RNKakaoLogins } = NativeModules;
 import RNKakaoLogins from 'react-native-kakao-logins';
 import NativeButton from 'apsl-react-native-button';
 
-export default class App extends Component<}{}> {
+export default class App extends Component<{},{}> {
   constructor(props) {
     super(props);
     this.state = {
