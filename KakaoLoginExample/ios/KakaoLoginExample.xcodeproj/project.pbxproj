@@ -134,7 +134,6 @@
 				6F79FB5BC59E6F62119B24C7 /* Pods-KakaoLoginExampleTests.debug.xcconfig */,
 				16B9A5427A380E36BE016B32 /* Pods-KakaoLoginExampleTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +307,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);

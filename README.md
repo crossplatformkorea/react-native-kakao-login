@@ -16,20 +16,41 @@ React Native 카카오 로그인 라이브러리 입니다.
 `react-native-kakao-login`과 `react-native-kakao-signin`이 관리가 안되고 오래되어 최신 버전 kakao sdk로 새로 만들었습니다.
 
 
-[readme-deprecated]: /README_DEPRECATED.md
-
-## [Deprecated README][readme-deprecated]
-If you are using RN < 0.60, please follow the above README.
-
 ## Getting started
 
 `$ npm install react-native-kakao-logins --save`
 
-### Mostly automatic installation
+OR `$ yarn add react-native-kakao-logins --save`
 
-`$ react-native link react-native-kakao-logins`
+
+### Automatic installation
+
+##### RN >= 0.60
+Auto linking or Manually below
+
+##### RN < 0.60
+`$ react-native link react-native-kakao-logins` or Manually below
+
 
 ### Manual installation
+
+##### [RN >= 0.60] Pre-setting is needed If you want Manual installation
+make `react-native.config.js` to your project root
+```js
+// react-native.config.js
+module.exports = {
+    dependencies: {
+        'react-native-kakao-logins': {
+            //Set null on platform that you want manual installation
+            platforms: {
+                ios: null, 
+                android: null
+            },
+        }
+    },
+};
+```
+
 
 #### iOS
 
@@ -62,10 +83,11 @@ If you are using RN < 0.60, please follow the above README.
 
 #### iOS
 
-1. xcode를 열고 Libraries 안에 있는 KakaoOpenSDK.framework를 project의 `Framework`폴더 안으로 복사합니다.
-2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/ios/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+1. 프로젝트의 ios 폴더에서 `$ pod install` 명령어를 실행합니다.
+2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 앱생성](https://developers.kakao.com/docs/ios/getting-started#앱-생성) 을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 3. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
-4. [SDK의 공식문서](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8)를 참조하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
+3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/ios/getting-started#%EA%B0%9C%EB%B0%9C%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EC%A0%95) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 
+4. [공식문서 - 로그인](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8) 을 참고하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
 
    ```
    #import <KakaoOpenSDK/KakaoOpenSDK.h>
@@ -116,7 +138,7 @@ If you are using RN < 0.60, please follow the above README.
 ```
 AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
 ```
-|React Native 0.60.x 부터 기본적으로 들어있는 디버깅 키의 해시는 다음과 같습니다.
+|React Native 0.60.x 부터 기본적으로 포함되는 디버깅 키의 해시는 다음과 같습니다.
 `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 ## Changelogs
