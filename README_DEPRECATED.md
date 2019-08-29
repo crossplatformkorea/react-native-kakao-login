@@ -15,12 +15,6 @@ React Native 카카오 로그인 라이브러리 입니다.
 세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주시면 감사하겠습니다.
 `react-native-kakao-login`과 `react-native-kakao-signin`이 관리가 안되고 오래되어 최신 버전 kakao sdk로 새로 만들었습니다.
 
-
-[readme-deprecated]: /README_DEPRECATED.md
-
-## [Deprecated README][readme-deprecated]
-If you are using RN < 0.60, please follow the above README.
-
 ## Getting started
 
 `$ npm install react-native-kakao-logins --save`
@@ -102,22 +96,38 @@ If you are using RN < 0.60, please follow the above README.
 #### Android
 
 1. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.
-2. manifest 파일에서 allowBackup을 true로 설정해주세요.
-3. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
-4. `app/src/main/res/values/strings.xml` 을 열어 `kakao_app_key` 에 본인의 application key를 등록합니다.
-```xml
-<resources>
-    <string name="app_name">KakaoLoginExample</string>
-    <string name="kakao_app_key">your_app_key</string>
-</resources>
-```
-5. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
-6. 아래와 같은 에러가 발생할 경우 [키 해시 등록](https://developers.kakao.com/docs/android/getting-started#키해시-등록)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
-```
-AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
-```
-|React Native 0.60.x 부터 기본적으로 들어있는 디버깅 키의 해시는 다음과 같습니다.
-`Xo8WBi6jzSxKDVR4drqm84yr9iU=`
+2. 아래를 `build.gradle`에 추가해주세요.
+   ```
+   subprojects {
+     repositories {
+       mavenCentral()
+       maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
+     }
+   }
+   ```
+3. manifest 파일에서 allowBackup을 true로 설정해주세요.
+4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+5. `react-native-kakao-logins`에서 `kakao_strings.xml`을 열어 `kakao_app_key`를 본인의 application key로 바꿔주세요.
+
+6. ~~`MainApplication.java`에서 `MainApplication` 클래스를 다음과 같이 만들어주세요. `com.dooboolab.kakaologins.GlobalApplication`를 `extend` 받아야 합니다.~~
+   ~~public class MainApplication extends GlobalApplication implements ReactApplication {~~
+
+7. getPackages()에 new RNKakaoLoginsPackage()를 등록해주세요.
+   ```
+   protected List<ReactPackage> getPackages() {
+       return Arrays.<~>asList(
+         ...
+         new RNKakaoLoginsPackage()
+       );
+   }
+   ```
+8. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
+
+9. 아래와 같은 에러가 발생할 경우 [키 해시 등록](https://developers.kakao.com/docs/android/getting-started#키해시-등록)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
+
+   ```
+   AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
+   ```
 
 ## Changelogs
 
@@ -151,100 +161,86 @@ AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
 
 ## Usage
 
-아래 예제는 `KakaoLoginExample` 프로젝트의 `App.js`파일과 동일합니다. 로그인 후 result에 들어오는 결과값은 `{token:kakao_token}`입니다.
+아래 예제는 `KakaoLoginExample` 프로젝트의 `App.js`파일과 동일합니다. 로그인 후 result에 들어오는 결과값음 `accessToken`입니다.
 
 ```javascript
-import React, {useState} from 'react';
 import RNKakaoLogins from 'react-native-kakao-logins';
 
-export default App = () => {
-    const [loginLoading, setLoginLoading] = useState(false);
-    const [logoutLoading, setLogoutLoading] = useState(false);
-    const [profileLoading, setProfileLoading] = useState(false);
-
-    const [token, setToken] = useState(TOKEN_EMPTY);
-    const [profile, setProfile] = useState(PROFILE_EMPTY);
-
-    const kakaoLogin = () => {
-        logCallback('Login Start', setLoginLoading(true));
-
-        RNKakaoLogins.login((err, result) => {
-            if (err){
-                return logCallback(`Login Failed:${err.toString()}`, setLoginLoading(false));
-            }
-            setToken(result.token);
-            logCallback(`Login Finished:${result.token}`, setLoginLoading(false));
-        });
+export default class App extends Component<{}> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isKakaoLogging: false,
+      token: 'token has not fetched',
     };
+  }
 
-    const kakaoLogout = () => {
-        logCallback('Logout Start', setLogoutLoading(true));
+  // 카카오 로그인 시작.
+  kakaoLogin() {
+    console.log('   kakaoLogin   ');
+    RNKakaoLogins.login((err, result) => {
+      if (err) {
+        console.log(err.toString());
+        return;
+      }
+      Alert.alert('result', result);
+    });
+  }
 
-        RNKakaoLogins.logout((err, result) => {
-            if (err){
-                return logCallback(`Logout Failed:${err.toString()}`, setLogoutLoading(false));
-            }
-            setToken(TOKEN_EMPTY);
-            setProfile(PROFILE_EMPTY);
-            logCallback(`Logout Finished:${result}`, setLogoutLoading(false));
-        });
-    };
+  kakaoLogout() {
+    console.log('   kakaoLogout   ');
+    RNKakaoLogins.logout((err, result) => {
+      if (err) {
+        console.log(err.toString());
+        return;
+      }
+      Alert.alert('result', result);
+    });
+  }
 
-    const getProfile = () => {
-        logCallback('Get Profile Start', setProfileLoading(true));
+  // 로그인 후 내 프로필 가져오기.
+  getProfile() {
+    console.log('getKakaoProfile');
+    RNKakaoLogins.getProfile((err, result) => {
+      if (err) {
+        console.log(err.toString());
+        return;
+      }
+      Alert.alert('result', result);
+    });
+  }
 
-        RNKakaoLogins.getProfile((err, result) => {
-            if (err){
-                return logCallback(`Get Profile Failed:${err.toString()}`, setProfileLoading(false));
-            }
-            setProfile(result);
-            logCallback(`Get Profile Finished:${JSON.stringify(result)}`, setProfileLoading(false));
-        });
-    };
-
-    const {id, email, profile_image_path:photo} = profile;
-
+  render() {
     return (
-        <View style={ styles.container }>
-            <View style={styles.profile}>
-                <Image
-                    style={styles.profilePhoto}
-                    source={{uri:photo}}
-                />
-                <Text>{`id : ${id}`}</Text>
-                <Text>{`email : ${email}`}</Text>
-            </View>
-            <View style={ styles.content}>
-                <Text style={styles.token}>{token}</Text>
-                <NativeButton
-                    isLoading={loginLoading}
-                    onPress={kakaoLogin}
-                    activeOpacity={0.5}
-                    style={styles.btnKakaoLogin}
-                    textStyle={styles.txtKakaoLogin}
-                >
-                    LOGIN
-                </NativeButton>
-                <NativeButton
-                    isLoading={logoutLoading}
-                    onPress={kakaoLogout}
-                    activeOpacity={0.5}
-                    style={styles.btnKakaoLogin}
-                    textStyle={styles.txtKakaoLogin}
-                >
-                    Logout
-                </NativeButton>
-                <NativeButton
-                    isLoading={profileLoading}
-                    onPress={getProfile}
-                    activeOpacity={0.5}
-                    style={styles.btnKakaoLogin}
-                    textStyle={styles.txtKakaoLogin}
-                >
-                    getProfile
-                </NativeButton>
-            </View>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text>LOGIN</Text>
         </View>
+        <View style={styles.content}>
+          <NativeButton
+            isLoading={this.state.isNaverLoggingin}
+            onPress={() => this.kakaoLogin()}
+            activeOpacity={0.5}
+            style={styles.btnKakaoLogin}
+            textStyle={styles.txtNaverLogin}
+          >LOGIN</NativeButton>
+          <Text>{this.state.token}</Text>
+          <NativeButton
+            onPress={() => this.kakaoLogout()}
+            activeOpacity={0.5}
+            style={styles.btnKakaoLogin}
+            textStyle={styles.txtNaverLogin}
+          >Logout</NativeButton>
+          <NativeButton
+            isLoading={this.state.isKakaoLogging}
+            onPress={() => this.getProfile()}
+            activeOpacity={0.5}
+            style={styles.btnKakaoLogin}
+            textStyle={styles.txtNaverLogin}
+          >getProfile</NativeButton>
+        </View>
+      </View>
     );
+  }
 }
 ```
