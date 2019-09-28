@@ -125,16 +125,26 @@ module.exports = {
 
 1. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.
 2. manifest 파일에서 allowBackup을 true로 설정해주세요.
-3. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
-4. `app/src/main/res/values/strings.xml` 을 열어 `kakao_app_key` 에 본인의 application key를 등록합니다.
+3. `android/build.gradle`  에 아래 내용을 추가합니다.
+```
+subprojects {
+    repositories {
+        ...
+        mavenCentral()
+        maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
+    }
+}
+```
+4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+5. `app/src/main/res/values/strings.xml` 을 열어 `kakao_app_key` 에 본인의 application key를 등록합니다.
 ```xml
 <resources>
     <string name="app_name">KakaoLoginExample</string>
     <string name="kakao_app_key">your_app_key</string>
 </resources>
 ```
-5. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
-6. 아래와 같은 에러가 발생할 경우 [키 해시 등록](https://developers.kakao.com/docs/android/getting-started#키해시-등록)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
+6. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
+7. 아래와 같은 에러가 발생할 경우 [키 해시 등록](https://developers.kakao.com/docs/android/getting-started#키해시-등록)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
 ```
 AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
 ```
