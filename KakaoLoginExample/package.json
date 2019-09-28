@@ -11,7 +11,7 @@
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "jest": "jest",
     "ios:reset": "rm -rf ios/build/ModuleCache",
-    "lint": "eslint -c .eslintrc.js './src/**/*.js'",
+    "lint": "eslint -c .eslintrc.js './*.js'",
     "build:ios": "react-native bundle --entry-file index.ios.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
     "build:android": "react-native bundle --entry-file index.android.js --platform android --dev false --bundle-output android/main.jsbundle --assets-dest android"
   },
