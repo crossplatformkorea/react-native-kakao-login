@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.source_files  = "ios/**/*.{h,m}"
   
   s.dependency 'React'
-  s.dependency 'KakaoOpenSDK', '~> 1.8.2'
+  s.dependency 'KakaoOpenSDK', '~> 1.16.0'
 end
