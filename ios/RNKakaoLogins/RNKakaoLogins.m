@@ -36,8 +36,16 @@ RCT_EXPORT_METHOD(login:(RCTResponseSenderBlock)callback) {
 }
 
 RCT_EXPORT_METHOD(logout:(RCTResponseSenderBlock)callback) {
-    [[KOSession sharedSession] close];
-    callback(@[[NSNull null], @"logged out"]);
+    KOSession *session = [KOSession sharedSession];
+    
+    [session logoutAndCloseWithCompletionHandler:^(BOOL success, NSError *error) {
+        if(success){
+            callback(@[[NSNull null], @"logged out"]);
+        } else {
+            RCTLogInfo(@"Error=%@", error);
+            callback(@[@"Logout failed.\n", [NSNull null]]);
+        }
+    }];
 }
 
 RCT_EXPORT_METHOD(getProfile:(RCTResponseSenderBlock)callback) {
