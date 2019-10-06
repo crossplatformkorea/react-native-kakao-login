@@ -13,8 +13,10 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "9.0"
 
   s.source       = { :git => "https://github.com/react-native-seoul/react-native-kakao-logins.git", :tag => "#{s.version}" }
-  s.source_files  = "ios/**/*.{h,m}"
-  
+  s.source_files = "ios/**/*.{h,m}"
+
+  s.static_framework = true
+
   s.dependency 'React'
   s.dependency 'KakaoOpenSDK', '~> 1.16.0'
 end
