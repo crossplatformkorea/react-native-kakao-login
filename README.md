@@ -196,98 +196,104 @@ AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
 
 아래 예제는 `KakaoLoginExample` 프로젝트의 `App.js`파일과 동일합니다. 로그인 후 result에 들어오는 결과값은 `{token:kakao_token}`입니다.
 
-```javascript
+```jsx
 import React, {useState} from 'react';
 import RNKakaoLogins from 'react-native-kakao-logins';
 
-export default App = () => {
-    const [loginLoading, setLoginLoading] = useState(false);
-    const [logoutLoading, setLogoutLoading] = useState(false);
-    const [profileLoading, setProfileLoading] = useState(false);
+export default function App() {
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
+  const [profileLoading, setProfileLoading] = useState(false);
 
-    const [token, setToken] = useState(TOKEN_EMPTY);
-    const [profile, setProfile] = useState(PROFILE_EMPTY);
+  const [token, setToken] = useState(TOKEN_EMPTY);
+  const [profile, setProfile] = useState(PROFILE_EMPTY);
 
-    const kakaoLogin = () => {
-        logCallback('Login Start', setLoginLoading(true));
+  const kakaoLogin = () => {
+    logCallback('Login Start', setLoginLoading(true));
 
-        RNKakaoLogins.login((err, result) => {
-            if (err){
-                return logCallback(`Login Failed:${err.toString()}`, setLoginLoading(false));
-            }
-            setToken(result.token);
-            logCallback(`Login Finished:${result.token}`, setLoginLoading(false));
-        });
-    };
+    RNKakaoLogins.login((err, result) => {
+      if (err) {
+        return logCallback(
+          `Login Failed:${err.toString()}`,
+          setLoginLoading(false),
+        );
+      }
+      setToken(result.token);
+      logCallback(`Login Finished:${result.token}`, setLoginLoading(false));
+    });
+  };
 
-    const kakaoLogout = () => {
-        logCallback('Logout Start', setLogoutLoading(true));
+  const kakaoLogout = () => {
+    logCallback('Logout Start', setLogoutLoading(true));
 
-        RNKakaoLogins.logout((err, result) => {
-            if (err){
-                return logCallback(`Logout Failed:${err.toString()}`, setLogoutLoading(false));
-            }
-            setToken(TOKEN_EMPTY);
-            setProfile(PROFILE_EMPTY);
-            logCallback(`Logout Finished:${result}`, setLogoutLoading(false));
-        });
-    };
+    RNKakaoLogins.logout((err, result) => {
+      if (err) {
+        return logCallback(
+          `Logout Failed:${err.toString()}`,
+          setLogoutLoading(false),
+        );
+      }
+      setToken(TOKEN_EMPTY);
+      setProfile(PROFILE_EMPTY);
+      logCallback(`Logout Finished:${result}`, setLogoutLoading(false));
+    });
+  };
 
-    const getProfile = () => {
-        logCallback('Get Profile Start', setProfileLoading(true));
+  const getProfile = () => {
+    logCallback('Get Profile Start', setProfileLoading(true));
 
-        RNKakaoLogins.getProfile((err, result) => {
-            if (err){
-                return logCallback(`Get Profile Failed:${err.toString()}`, setProfileLoading(false));
-            }
-            setProfile(result);
-            logCallback(`Get Profile Finished:${JSON.stringify(result)}`, setProfileLoading(false));
-        });
-    };
+    RNKakaoLogins.getProfile((err, result) => {
+      if (err) {
+        return logCallback(
+          `Get Profile Failed:${err.toString()}`,
+          setProfileLoading(false),
+        );
+      }
+      setProfile(result);
+      logCallback(
+        `Get Profile Finished:${JSON.stringify(result)}`,
+        setProfileLoading(false),
+      );
+    });
+  };
 
-    const {id, email, profile_image_path:photo} = profile;
+  const {id, email, profile_image_path: photo} = profile;
 
-    return (
-        <View style={ styles.container }>
-            <View style={styles.profile}>
-                <Image
-                    style={styles.profilePhoto}
-                    source={{uri:photo}}
-                />
-                <Text>{`id : ${id}`}</Text>
-                <Text>{`email : ${email}`}</Text>
-            </View>
-            <View style={ styles.content}>
-                <Text style={styles.token}>{token}</Text>
-                <NativeButton
-                    isLoading={loginLoading}
-                    onPress={kakaoLogin}
-                    activeOpacity={0.5}
-                    style={styles.btnKakaoLogin}
-                    textStyle={styles.txtKakaoLogin}
-                >
-                    LOGIN
-                </NativeButton>
-                <NativeButton
-                    isLoading={logoutLoading}
-                    onPress={kakaoLogout}
-                    activeOpacity={0.5}
-                    style={styles.btnKakaoLogin}
-                    textStyle={styles.txtKakaoLogin}
-                >
-                    Logout
-                </NativeButton>
-                <NativeButton
-                    isLoading={profileLoading}
-                    onPress={getProfile}
-                    activeOpacity={0.5}
-                    style={styles.btnKakaoLogin}
-                    textStyle={styles.txtKakaoLogin}
-                >
-                    getProfile
-                </NativeButton>
-            </View>
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <View style={styles.profile}>
+        <Image style={styles.profilePhoto} source={{uri: photo}} />
+        <Text>{`id : ${id}`}</Text>
+        <Text>{`email : ${email}`}</Text>
+      </View>
+      <View style={styles.content}>
+        <Text style={styles.token}>{token}</Text>
+        <NativeButton
+          isLoading={loginLoading}
+          onPress={kakaoLogin}
+          activeOpacity={0.5}
+          style={styles.btnKakaoLogin}
+          textStyle={styles.txtKakaoLogin}>
+          LOGIN
+        </NativeButton>
+        <NativeButton
+          isLoading={logoutLoading}
+          onPress={kakaoLogout}
+          activeOpacity={0.5}
+          style={styles.btnKakaoLogin}
+          textStyle={styles.txtKakaoLogin}>
+          Logout
+        </NativeButton>
+        <NativeButton
+          isLoading={profileLoading}
+          onPress={getProfile}
+          activeOpacity={0.5}
+          style={styles.btnKakaoLogin}
+          textStyle={styles.txtKakaoLogin}>
+          getProfile
+        </NativeButton>
+      </View>
+    </View>
+  );
 }
 ```
