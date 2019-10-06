@@ -54,12 +54,23 @@ module.exports = {
 
 #### iOS
 
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-kakao-logins` and add `RNKakaoLogins.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libRNKakaoLogins.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Add paths as below
-   - Header Search Paths: `"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/**"`
-   - Framework search Paths `"$(SRCROOT)/../node_modules/react-native-kakao-logins/ios/Frameworks"`
+1. Install iOS KakaoOpenSDK via CocoaPods or Download
+   - Install via CocoaPods
+    
+      Append the following lines to `ios/Podfile`
+      ```ruby
+      target 'yourApp' do
+          ...
+          pod 'KakaoOpenSDK', '~> 1.16.0' //append this line
+      end
+      ```
+
+   - Install via Download
+    
+       download and import framework to your Project [link](https://developers.kakao.com/docs/ios/getting-started#kakao-sdk-설치)    
+2. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
+3. Go to `node_modules` ➜ `react-native-kakao-logins` and add `RNKakaoLogins.xcodeproj`
+4. In XCode, in the project navigator, select your project. Add `libRNKakaoLogins.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 5. Refer to `Post installation`
 
 #### Android
@@ -72,7 +83,7 @@ module.exports = {
 2. Append the following lines to `android/settings.gradle`:
    ```
    include ':react-native-kakao-logins'
-   project(':react-native-kakao-logins').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-kakao-logins/android')
+   project(':react-native-kakao-logins').projectDir = new File(rootProject.projectDir,     '../node_modules/react-native-kakao-logins/android')
    ```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
    ```
@@ -117,7 +128,7 @@ module.exports = {
    }
    ```
 
-5. Expo Kit을 사용하여 개발하는 경우 `RNNaverLogin.xcodeproj`의 Build Settings => Header Search Paths에 `$(SRCROOT)/../../../ios/Pods/Headers/Public`를 `recursive`로 추가해주셔야 합니다.
+5. Expo Kit을 사용하여 개발하는 경우 `RNKakaoLogin.xcodeproj`의 Build Settings => Header Search Paths에 `$(SRCROOT)/../../../ios/Pods/Headers/Public`를 `recursive`로 추가해주셔야 합니다.
 
 6. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
 
