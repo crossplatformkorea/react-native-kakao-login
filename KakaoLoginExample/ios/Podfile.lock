@@ -11,22 +11,19 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - KakaoOpenSDK (1.8.2):
-    - KakaoOpenSDK/KakaoCommon (= 1.8.2)
-    - KakaoOpenSDK/KakaoLink (= 1.8.2)
-    - KakaoOpenSDK/KakaoMessageTemplate (= 1.8.2)
-    - KakaoOpenSDK/KakaoNavi (= 1.8.2)
-    - KakaoOpenSDK/KakaoOpenSDK (= 1.8.2)
-    - KakaoOpenSDK/KakaoS2 (= 1.8.2)
-  - KakaoOpenSDK/KakaoCommon (1.8.2)
-  - KakaoOpenSDK/KakaoLink (1.8.2):
+  - KakaoOpenSDK (1.16.0):
+    - KakaoOpenSDK/KakaoCommon (= 1.16.0)
+    - KakaoOpenSDK/KakaoLink (= 1.16.0)
+    - KakaoOpenSDK/KakaoMessageTemplate (= 1.16.0)
+    - KakaoOpenSDK/KakaoNavi (= 1.16.0)
+    - KakaoOpenSDK/KakaoOpenSDK (= 1.16.0)
+  - KakaoOpenSDK/KakaoCommon (1.16.0)
+  - KakaoOpenSDK/KakaoLink (1.16.0):
     - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoMessageTemplate (1.8.2)
-  - KakaoOpenSDK/KakaoNavi (1.8.2):
+  - KakaoOpenSDK/KakaoMessageTemplate (1.16.0)
+  - KakaoOpenSDK/KakaoNavi (1.16.0):
     - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoOpenSDK (1.8.2)
-  - KakaoOpenSDK/KakaoS2 (1.8.2):
-    - KakaoOpenSDK/KakaoCommon
+  - KakaoOpenSDK/KakaoOpenSDK (1.16.0)
   - React (0.60.5):
     - React-Core (= 0.60.5)
     - React-DevSupport (= 0.60.5)
@@ -73,7 +70,7 @@ PODS:
     - React-jsi (= 0.60.5)
   - React-jsinspector (0.60.5)
   - react-native-kakao-logins (1.3.7):
-    - KakaoOpenSDK (~> 1.8.2)
+    - KakaoOpenSDK (~> 1.16.0)
     - React
   - React-RCTActionSheet (0.60.5):
     - React-Core (= 0.60.5)
@@ -180,7 +177,7 @@ SPEC CHECKSUMS:
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  KakaoOpenSDK: c09b1291ef293e2ef3faced8ca14b1d1c077bd96
+  KakaoOpenSDK: 453413b65b71ef3c732c070606d3a557ac4e01d1
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
   React-cxxreact: 8384287780c4999351ad9b6e7a149d9ed10a2395
@@ -188,7 +185,7 @@ SPEC CHECKSUMS:
   React-jsi: 4d8c9efb6312a9725b18d6fc818ffc103f60fec2
   React-jsiexecutor: 90ad2f9db09513fc763bc757fdc3c4ff8bde2a30
   React-jsinspector: e08662d1bf5b129a3d556eb9ea343a3f40353ae4
-  react-native-kakao-logins: 652a442e5e8c1a4390c7bed8a9345c6fecd6a90e
+  react-native-kakao-logins: 7343ceff8f648689b2f4711624927f0f5606725f
   React-RCTActionSheet: b0f1ea83f4bf75fb966eae9bfc47b78c8d3efd90
   React-RCTAnimation: 359ba1b5690b1e87cc173558a78e82d35919333e
   React-RCTBlob: 5e2b55f76e9a1c7ae52b826923502ddc3238df24
