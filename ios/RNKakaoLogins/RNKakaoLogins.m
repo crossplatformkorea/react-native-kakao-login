@@ -40,7 +40,7 @@ RCT_EXPORT_METHOD(logout:(RCTResponseSenderBlock)callback) {
     
     [session logoutAndCloseWithCompletionHandler:^(BOOL success, NSError *error) {
         if(success){
-            callback(@[[NSNull null], @"logged out"]);
+            callback(@[[NSNull null], [NSNull null]]);
         } else {
             RCTLogInfo(@"Error=%@", error);
             callback(@[@"Logout failed.\n", [NSNull null]]);

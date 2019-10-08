@@ -173,7 +173,7 @@ AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
 | :--------- | :---: | :----------------------------------------------------: | :--------------- |
 | login      |       | `callback (err: string, result: JSONObject in string)` | 로그인.          |
 | getProfile |       | `callback (err: string, result: JSONObject in string)` | 프로필 불러오기. |
-| logout     |       |        `callback (err: string, result: string)`        | 로그아웃.        |
+| logout     |       |        `callback (err: string, result: null)`        | 로그아웃.        |
 
 #### params in result when `getProfile`
 

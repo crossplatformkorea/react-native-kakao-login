@@ -82,7 +82,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Image style={styles.profilePhoto} source={{uri: photo}} />
+        <Image style={styles.profilePhoto} source={{uri: photo || ''}} />
         <Text>{`id : ${id}`}</Text>
         <Text>{`email : ${email}`}</Text>
       </View>
