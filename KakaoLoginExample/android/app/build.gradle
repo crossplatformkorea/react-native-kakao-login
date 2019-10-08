@@ -18,6 +18,9 @@ import com.android.build.OutputFile
  *   // the entry file for bundle generation
  *   entryFile: "index.android.js",
  *
+ *   // https://facebook.github.io/react-native/docs/performance#enable-the-ram-format
+ *   bundleCommand: "ram-bundle",
+ *
  *   // whether to bundle JS and assets in debug mode
  *   bundleInDebug: false,
  *
@@ -73,7 +76,8 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+    entryFile: "index.js",
+    enableHermes: false,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -93,61 +97,107 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def DEFAULT_COMPILE_SDK_VERSION = 27
-def DEFAULT_BUILD_TOOLS_VERSION = "27.0.3"
-def DEFAULT_MIN_SDK_VERSION = 16
-def DEFAULT_TARGET_SDK_VERSION = 26
+/**
+ * The preferred build flavor of JavaScriptCore.
+ *
+ * For example, to use the international variant, you can use:
+ * `def jscFlavor = 'org.webkit:android-jsc-intl:+'`
+ *
+ * The international variant includes ICU i18n library and necessary data
+ * allowing to use e.g. `Date.toLocaleString` and `String.localeCompare` that
+ * give correct results when using with locales other than en-US.  Note that
+ * this variant is about 6MiB larger per architecture than default.
+ */
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+/**
+ * Whether to enable the Hermes VM.
+ *
+ * This should be set on project.ext.react and mirrored here.  If it is not set
+ * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
+ * and the benefits of using Hermes will therefore be sharply reduced.
+ */
+def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
-  compileSdkVersion rootProject.ext.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
-  buildToolsVersion rootProject.ext.hasProperty('buildToolsVersion') ? rootProject.ext.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
-  defaultConfig {
-    applicationId "com.kakaologinexample"
-    minSdkVersion rootProject.ext.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : DEFAULT_MIN_SDK_VERSION
-    targetSdkVersion rootProject.ext.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : DEFAULT_TARGET_SDK_VERSION
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
-    versionCode 1
-    versionName "1.0"
-    ndk {
-      abiFilters "armeabi-v7a", "x86"
+    defaultConfig {
+        applicationId "com.kakaologinexample"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
     }
-  }
-  splits {
-    abi {
-      reset()
-      enable enableSeparateBuildPerCPUArchitecture
-      universalApk false  // If true, also generate a universal APK
-      include "armeabi-v7a", "x86"
+    splits {
+        abi {
+            reset()
+            enable enableSeparateBuildPerCPUArchitecture
+            universalApk false  // If true, also generate a universal APK
+            include "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
+        }
     }
-  }
-  buildTypes {
-    release {
-      minifyEnabled enableProguardInReleaseBuilds
-      proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
     }
-  }
-  // applicationVariants are e.g. debug, release
-  applicationVariants.all { variant ->
-    variant.outputs.each { output ->
-      // For each separate APK per architecture, set a unique version code as described here:
-      // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-      def versionCodes = ["armeabi-v7a":1, "x86":2]
-      def abi = output.getFilter(OutputFile.ABI)
-      if (abi != null) {  // null for the universal-debug, universal-release variants
-          output.versionCodeOverride =
-                  versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
-      }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // Caution! In production, you need to generate your own keystore file.
+            // see https://facebook.github.io/react-native/docs/signed-apk-android.
+            signingConfig signingConfigs.debug
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
     }
-  }
+    // applicationVariants are e.g. debug, release
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            // For each separate APK per architecture, set a unique version code as described here:
+            // https://developer.android.com/studio/build/configure-apk-splits.html
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
+            def abi = output.getFilter(OutputFile.ABI)
+            if (abi != null) {  // null for the universal-debug, universal-release variants
+                output.versionCodeOverride =
+                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+            }
+
+        }
+    }
+
+    packagingOptions {
+        pickFirst '**/armeabi-v7a/libc++_shared.so'
+        pickFirst '**/x86/libc++_shared.so'
+        pickFirst '**/arm64-v8a/libc++_shared.so'
+        pickFirst '**/x86_64/libc++_shared.so'
+        pickFirst '**/x86/libjsc.so'
+        pickFirst '**/armeabi-v7a/libjsc.so'
+    }
 }
 
 dependencies {
-  implementation fileTree(include: ['*.jar'], dir: 'libs')
-  implementation 'com.android.support:appcompat-v7:27.1.1'
-  implementation 'com.facebook.react:react-native:+'
-  // From node_modules
-  implementation project(':react-native-kakao-logins')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.facebook.react:react-native:+"  // From node_modules
+
+    if (enableHermes) {
+      def hermesPath = "../../node_modules/hermesvm/android/";
+      debugImplementation files(hermesPath + "hermes-debug.aar")
+      releaseImplementation files(hermesPath + "hermes-release.aar")
+    } else {
+      implementation jscFlavor
+    }
 }
 
 // Run this once to be able to run the application with BUCK
@@ -156,3 +206,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
