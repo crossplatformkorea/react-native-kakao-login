@@ -17,7 +17,7 @@ const TOKEN_EMPTY = 'token has not fetched';
 const PROFILE_EMPTY = {
   id: 'profile has not fetched',
   email: 'profile has not fetched',
-  profile_image_path: null,
+  profile_image_url: '',
 };
 
 export default function App() {
@@ -77,12 +77,12 @@ export default function App() {
     });
   };
 
-  const {id, email, profile_image_path: photo} = profile;
+  const {id, email, profile_image_url: photo} = profile;
 
   return (
     <View style={styles.container}>
       <View style={styles.profile}>
-        <Image style={styles.profilePhoto} source={{uri: photo || ''}} />
+        <Image style={styles.profilePhoto} source={{uri: photo}} />
         <Text>{`id : ${id}`}</Text>
         <Text>{`email : ${email}`}</Text>
       </View>

@@ -9,25 +9,31 @@
     return dispatch_get_main_queue();
 }
 
-- (NSString *) quotedStringOrNull: (NSString *)originalString
+NSObject* handleNullableString(NSString* _Nullable string)
 {
-    return !!originalString ? [NSString stringWithFormat: @"\"%@\"", originalString] : @"null";
+    return string != nil ? string : [NSNull null];
+}
+
+NSObject* handleKOBoolean(KOOptionalBoolean boolean)
+{
+    switch(boolean){
+        case KOOptionalBooleanTrue : return @(YES);
+        case KOOptionalBooleanFalse: return @(NO);
+        case KOOptionalBooleanNull : return [NSNull null];
+    }
 }
 
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(login:(RCTResponseSenderBlock)callback) {
     KOSession *session = [KOSession sharedSession];
-
+    
     // ensure old session was closed
     [session close];
-
+    
     [session openWithCompletionHandler:^(NSError *error) {
         if ([session isOpen]) {
-            NSString* token = session.token.accessToken;
-            NSString* result = [NSString stringWithFormat:@"{\"token\": \"%@\"}", token];
-
-            callback(@[[NSNull null], result]);
+            callback(@[[NSNull null], @{@"token": session.token.accessToken}]);
         } else {
             RCTLogInfo(@"Error=%@", error);
             callback(@[@"SignIn failed.\n", [NSNull null]]);
@@ -49,37 +55,26 @@ RCT_EXPORT_METHOD(logout:(RCTResponseSenderBlock)callback) {
 }
 
 RCT_EXPORT_METHOD(getProfile:(RCTResponseSenderBlock)callback) {
-    [KOSessionTask userMeTaskWithCompletion:^(NSError *error, KOUserMe* result) {
+    [KOSessionTask userMeTaskWithCompletion:^(NSError *error, KOUserMe* me) {
         if (error) {
             RCTLogInfo(@"Error=%@", error);
             callback(@[@"Error while getting profile.", [NSNull null]]);
-
             return;
         }
-
-        NSString* profile = [NSString stringWithFormat:
-            @"{\"id\": %@,\
-            \"nickname\": %@,\
-            \"email\": %@,\
-            \"display_id\": %@,\
-            \"phone_number\": %@,\
-            \"email_verified\": %@,\
-            \"kakaotalk_user\": %@,\
-            \"profile_image_path\": %@,\
-            \"thumb_image_path\": %@,\
-            \"has_signed_up\": %@}",
-            [self quotedStringOrNull: result.ID],
-            [self quotedStringOrNull: result.nickname],
-            [self quotedStringOrNull: result.account.email],
-            [self quotedStringOrNull: result.account.displayID],
-            [self quotedStringOrNull: result.account.phoneNumber],
-            result.account.isEmailVerified ? @"true" : @"false",
-            result.account.isKakaotalkUser ? @"true" : @"false",
-            [self quotedStringOrNull: [result.profileImageURL absoluteString]],
-            [self quotedStringOrNull: [result.thumbnailImageURL absoluteString]],
-            result.hasSignedUp ? @"true" : @"false"
-        ];
-
+        
+        NSDictionary* profile = @{
+                                  @"id": handleNullableString(me.ID),
+                                  @"nickname": handleNullableString(me.account.profile.nickname),
+                                  @"email": handleNullableString(me.account.email),
+                                  @"display_id": handleNullableString(me.account.displayID),
+                                  @"phone_number": handleNullableString(me.account.phoneNumber),
+                                  @"profile_image_url": handleNullableString(me.account.profile.profileImageURL.absoluteString),
+                                  @"thumb_image_url": handleNullableString(me.account.profile.thumbnailImageURL.absoluteString),
+                                  @"is_email_verified": handleKOBoolean(me.account.isEmailVerified),
+                                  @"is_kakaotalk_user": handleKOBoolean(me.account.isKakaotalkUser),
+                                  @"has_signed_up": handleKOBoolean(me.hasSignedUp),
+                                  };
+        
         callback(@[[NSNull null], profile]);
     }];
 }
