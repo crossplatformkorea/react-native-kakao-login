@@ -3,27 +3,14 @@ import { NativeModules } from 'react-native';
 const { RNKakaoLogins } = NativeModules;
 
 const processNativeOutput = (userCallback) => {
-  return (errorString, resultString) => {
-    let error;
-    let resultJSON;
-
+  return (errorString, result) => {
     if (errorString) {
       error = new Error(errorString);
       userCallback(error, undefined);
-
       return;
     }
 
-    try {
-      resultJSON = JSON.parse(resultString);
-    } catch (_) {
-      error = new Error(resultString);
-      userCallback(error, undefined);
-
-      return;
-    }
-
-    userCallback(undefined, resultJSON);
+    userCallback(undefined, result);
   };
 }
 

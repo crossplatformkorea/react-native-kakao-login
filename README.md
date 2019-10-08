@@ -171,26 +171,29 @@ AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
 
 | Func       | Param |                         Return                         | Description      |
 | :--------- | :---: | :----------------------------------------------------: | :--------------- |
-| login      |       | `callback (err: string, result: JSONObject in string)` | 로그인.          |
-| getProfile |       | `callback (err: string, result: JSONObject in string)` | 프로필 불러오기. |
-| logout     |       |        `callback (err: string, result: null)`        | 로그아웃.        |
+| login      |       | `callback (err: string, result: object)`               | 로그인.            |
+| getProfile |       | `callback (err: string, result: object)`               | 프로필 불러오기.     |
+| logout     |       | `callback (err: string, result: null)`                 | 로그아웃.           |
 
 #### params in result when `getProfile`
 
-|                      | iOS | Android | Comment            |
-| -------------------- | --- | ------- | ------------------ |
-| `id`                 | ✓   | ✓       | 카카오 고유 아이디 |
-| `nickname`           | ✓   | ✓       | 별칭               |
-| `email`              | ✓   | ✓       | 이메일 주소        |
-| `display_id`         |     | ✓       | 별칭 id            |
-| `phone_number`       |     | ✓       | 휴대폰 번호        |
-| `email_verified`     | ✓   | ✓       | 이메일 인증 여부   |
-| `kakaotalk_user`     |     | ✓       | 카카오톡 유저 여부 |
-| `profile_image_path` | ✓   | ✓       | 프로필 이미지      |
-| `thumb_image_path`   | ✓   | ✓       | 썸네일 이미지      |
-| `has_signed_up`      |     | ✓       | 가입 여부          |
+|                       | iOS | Android | Description           |
+| --------------------- | --- | ------- | --------------------- |
+| `id`                  |  ✓  |    ✓    | 카카오 고유 아이디        |
+| `nickname`            |  ✓  |    ✓    | 별칭        |
+| `profile_image_url`   |  ✓  |    ✓    | 프로필 이미지       |
+| `thumb_image_url`     |  ✓  |    ✓    | 썸네일 이미지       |
+| `email`               |  ✓  |    ✓    | 이메일 주소        |
+| `display_id`          |  ✓  |    ✓    | 별칭 id     |
+| `phone_number`        |  ✓  |    ✓    | 휴대폰 번호        |
+| `is_email_verified`   |  ✓  |    ✓    | 이메일 인증 여부     |
+| `is_kakaotalk_user`   |  ✓  |    ✓    | 카카오톡 유저 여부    |
+| `has_signed_up`       |  ✓  |    ✓    | 가입 여부     |
 
-- 4가지 attribute 대해 아직 ios에서 아직 어떻게 받는지 확인이 안되어 `android`와 상이한 부분이 있습니다.
+- `email` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up`
+
+> 해당 값들은 사용자의 동의 혹은 제휴를 통해 권한이 부여된 특정 앱에서만 획득할 수 있습니다.
+권한이 있다면 그에 맞는 값을 리턴하고, 권한이 없다면 null 값을 반환합니다.
 
 ## Usage
 
@@ -257,7 +260,7 @@ export default function App() {
     });
   };
 
-  const {id, email, profile_image_path: photo} = profile;
+  const {id, email, profile_image_url: photo} = profile;
 
   return (
     <View style={styles.container}>
