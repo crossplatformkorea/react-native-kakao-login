@@ -17,14 +17,14 @@ React Native 카카오 로그인 라이브러리 입니다.
 
 ## Getting started
 
- - RN >= 0.60 
+ - RN >= 0.60 (최신 버전)
 ```shell
 $ npm install react-native-kakao-logins
 # OR
 $ yarn add react-native-kakao-logins
 ```
 
-- RN < 0.60 
+- RN < 0.60 (1.3.8 버전 이하로 설치 해주세요)
 ```shell
 $ npm install react-native-kakao-logins@1.3.8
 # OR
@@ -172,14 +172,14 @@ module.exports = {
 2. manifest 파일에서 allowBackup을 "true" 로 설정해주세요.
 3. `android/build.gradle` 에 아래 내용을 추가합니다.
 
-```diff
-+ subprojects {
-+    repositories {
-+        ...
-+        mavenCentral()
-+        maven { url 'http://devrepo.kakao.com:8088/ +nexus/content/groups/public/' }
-+    }
-+}
+```gradle
+subprojects {
+    repositories {
+        ...
+        mavenCentral()
+        maven { url 'http://devrepo.kakao.com:8088/ +nexus/content/groups/public/' }
+    }
+}
 ```
 4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 5. `app/src/main/res/values/strings.xml` 을 열어 다음을 추가합니다
@@ -195,8 +195,9 @@ module.exports = {
 ```
 AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
 ```
-React Native 0.60.x 부터 기본적으로 포함되는 디버깅 키의 해시는 다음과 같고 `../project/android/app`에 디버그용 키스토어가 존재합니다
-예시: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
+React Native 0.60.x 부터 기본적으로 포함되는 디버깅 키의 해시는 다음과 같고 `../project/android/app`에 디버그용 키스토어가 존재합니다  
+
+ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 ## Changelogs
 [링크](https://github.com/react-native-seoul/react-native-kakao-logins/blob/master/CHANGELOG.md)
@@ -211,18 +212,18 @@ React Native 0.60.x 부터 기본적으로 포함되는 디버깅 키의 해시�
 
 #### params in result when `getProfile`
 
-|                       | iOS | Android   | Description      |
-| --------------------- | --- | :-------: | :---------------:|
-| `id`                  |  ✓  |    ✓      | 카카오 고유 아이디 |
-| `nickname`            |  ✓  |    ✓      | 별칭 |
-| `profile_image_url`   |  ✓  |    ✓      | 프로필 이미지 |
-| `thumb_image_url`     |  ✓  |    ✓      | 썸네일 이미지 |
-| `email`               |  ✓  |    ✓      | 이메일 주소 |
-| `display_id`          |  ✓  |    ✓      | 별칭 id |
-| `phone_number`        |  ✓  |    ✓      | 휴대폰 번호 |
-| `is_email_verified`   |  ✓  |    ✓      | 이메일 인증 여부 |
-| `is_kakaotalk_user`   |  ✓  |    ✓      | 카카오톡 유저 여부 |
-| `has_signed_up`       |  ✓  |    ✓      | 가입 여부 |
+|                       | iOS   | Android   | Description      |
+| --------------------- | :---: | :-------: | :---------------:|
+| `id`                  |   ✓   |    ✓      | 카카오 고유 아이디 |
+| `nickname`            |   ✓   |    ✓      | 별칭 |
+| `profile_image_url`   |   ✓   |    ✓      | 프로필 이미지 |
+| `thumb_image_url`     |   ✓   |    ✓      | 썸네일 이미지 |
+| `email`               |   ✓   |    ✓      | 이메일 주소 |
+| `display_id`          |   ✓   |    ✓      | 별칭 id |
+| `phone_number`        |   ✓   |    ✓      | 휴대폰 번호 |
+| `is_email_verified`   |   ✓   |    ✓      | 이메일 인증 여부 |
+| `is_kakaotalk_user`   |   ✓   |    ✓      | 카카오톡 유저 여부 |
+| `has_signed_up`       |   ✓   |    ✓      | 가입 여부 |
 
 - `email` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up`
 
@@ -230,5 +231,6 @@ React Native 0.60.x 부터 기본적으로 포함되는 디버깅 키의 해시�
 <strong>
 
 ## Usage
-[react-native-kakao-logins/KakaoLoginExample/App.js](https://github.com/react-native-seoul/react-native-kakao-logins/blob/master/KakaoLoginExample/App.js)
+[react-native-kakao-logins/KakaoLoginExample/App.js](https://github.com/react-native-seoul/react-native-kakao-logins/blob/master/KakaoLoginExample/App.js)  
+
 로그인 후 result에 들어오는 결과값은 `{token:kakao_token}`입니다.
