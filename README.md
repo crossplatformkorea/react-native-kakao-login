@@ -12,12 +12,13 @@
   </a>
 </p>
 React Native 카카오 로그인 라이브러리 입니다.
-세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주시면 감사하겠습니다.
+세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주세요
 
 
 ## Getting started
 
  - RN >= 0.60 (최신 버전)
+
 ```shell
 $ npm install react-native-kakao-logins
 # OR
@@ -25,6 +26,8 @@ $ yarn add react-native-kakao-logins
 ```
 
 - RN < 0.60 (1.3.8 버전 이하로 설치 해주세요)
+
+
 ```shell
 $ npm install react-native-kakao-logins@1.3.8
 # OR
@@ -35,10 +38,10 @@ $ yarn add react-native-kakao-logins@1.3.8
 ### Automatic installation
 
 ##### RN >= 0.60
-React Native 0.60.X이상부터는 `Auto linking`을 지원합니다. 수동으로 설치를 원하시면 아래의 `Manual installation`를 참조 하세요
+React Native 0.60.X이상부터는 `Auto linking`을 지원합니다. 수동으로 설치를 원하시면 아래의 `Manual installation`를 참조하세요
 
 ##### RN < 0.60
-`$ react-native link react-native-kakao-logins` 또는 아래의 `Manual installation`를 참조 하세요
+`$ react-native link react-native-kakao-logins` 또는 아래의 `Manual installation`를 참조하세요
 
 
 ### Manual installation
@@ -77,7 +80,7 @@ module.exports = {
       - [카카오 홈페이지 다운로드 링크](https://developers.kakao.com/docs/ios/getting-started#kakao-sdk-설치)
       - <b>앱생성 가이드 전</b> 까지 가이드대로 `SDK Framework`를 프로젝트에 import 해주세요
 2. Xcode를 열고, project main navigator, `Libraries` 폴더 우클릭 ➜ `Add Files to [your project's name]` 클릭
-3. 프로젝트의 `node_modules` 폴더 ➜ `react-native-kakao-logins` 그리고 `RNKakaoLogins.xcodeproj` 를 `Libraries`폴더에 추가 합니다
+3. 프로젝트의 `node_modules` 폴더 ➜ `react-native-kakao-logins` 그리고 `RNKakaoLogins.xcodeproj` 를 `Libraries`폴더에 추가합니다
 4. Xcode navigator에서 원하는 Target을 선택하고, `libRNKakaoLogins.a`파일을 `Build Phases` ➜ `Link Binary With Libraries`에 추가합니다
 5. `Post installation`를 참고하세요
 
@@ -200,7 +203,7 @@ React Native 0.60.x 부터 기본적으로 포함되는 디버깅 키의 해시�
 ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 ## Changelogs
-[링크](https://github.com/react-native-seoul/react-native-kakao-logins/blob/master/CHANGELOG.md)
+[Changelogs 링크](https://github.com/react-native-seoul/react-native-kakao-logins/blob/master/CHANGELOG.md)
 
 #### Methods
 
@@ -211,6 +214,8 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 | logout     |       | `callback (err: string, result: null)`                 | 로그아웃.           |
 
 #### params in result when `getProfile`
+ 
+ - version > 1.3.8
 
 |                       | iOS   | Android   | Description      |
 | --------------------- | :---: | :-------: | :---------------:|
@@ -225,10 +230,26 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 | `is_kakaotalk_user`   |   ✓   |    ✓      | 카카오톡 유저 여부 |
 | `has_signed_up`       |   ✓   |    ✓      | 가입 여부 |
 
-- `email` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up`
+`email` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up`  <strong>해당 값들은 사용자의 동의 혹은 제휴를 통해 권한이 부여된 특정 앱에서만 획득할 수 있습니다. 권한이 있다면 그에 맞는 값을 리턴하고, 권한이 없다면 null 값을 반환합니다.</strong>
 
-- <strong>해당 값들은 사용자의 동의 혹은 제휴를 통해 권한이 부여된 특정 앱에서만 획득할 수 있습니다. 권한이 있다면 그에 맞는 값을 리턴하고, 권한이 없다면 null 값을 반환합니다.
-<strong>
+
+- version <= 1.3.8
+
+|                      | iOS   | Android   | Comment            |
+| -------------------- | :---: | :-------: | :----------------: |
+| `id`                 |   ✓   |     ✓     | 카카오 고유 아이디  |
+| `nickname`           |   ✓   |     ✓     | 별칭 |
+| `email`              |   ✓   |     ✓     | 이메일 주소 |
+| `display_id`         |       |     ✓     | 별칭 id |
+| `phone_number`       |       |     ✓     | 휴대폰 번호 |
+| `email_verified`     |   ✓   |     ✓     | 이메일 인증 여부 |
+| `kakaotalk_user`     |       |     ✓     | 카카오톡 유저 여부 |
+| `profile_image_path` |   ✓   |     ✓     | 프로필 이미지 |
+| `thumb_image_path`   |   ✓   |     ✓     | 썸네일 이미지 |
+| `has_signed_up`      |       |     ✓     | 가입 여부 |
+
+ 4가지 `attribute` 대해 아직 ios에서 아직 어떻게 받는지 확인이 안되어 android와 상이한 부분이 있습니다.
+
 
 ## Usage
 [react-native-kakao-logins/KakaoLoginExample/App.js](https://github.com/react-native-seoul/react-native-kakao-logins/blob/master/KakaoLoginExample/App.js)  
