@@ -1,4 +1,15 @@
 ## Changelogs
+- **[1.4.0]**
+  + Upgrade android kakaosdk to 1.23.0. [#55](https://github.com/react-native-seoul/react-native-kakao-logins/pull/55)
+  + Upgrade ios kakaosdk to 1.16.0. [#55](https://github.com/react-native-seoul/react-native-kakao-logins/pull/55)
+  + Support AutoLink for RN >= 0.60 [#55](https://github.com/react-native-seoul/react-native-kakao-logins/pull/55)
+  + bug fix about Logout API [#55](https://github.com/react-native-seoul/react-native-kakao-logins/pull/55)
+  + Update Example code [#55](https://github.com/react-native-seoul/react-native-kakao-logins/pull/55)
+  + Add .npmignore [#61](https://github.com/react-native-seoul/react-native-kakao-logins/pull/61)
+  + Use Native Map and Dictionary for javascript object [#65](https://github.com/react-native-seoul/react-native-kakao-logins/pull/65)
+  + Rename profile properties [#65](https://github.com/react-native-seoul/react-native-kakao-logins/pull/65)
+  + Support real-time profile [#65](https://github.com/react-native-seoul/react-native-kakao-logins/pull/65)
+
 - **[1.3.7]**
   + Upgrade android kakaosdk to 1.15.1.
   + Fix security issue [#37](https://github.com/react-native-seoul/react-native-kakao-logins/issues/37)
