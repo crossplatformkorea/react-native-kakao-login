@@ -12,6 +12,10 @@
     "lint": "eslint -c .eslintrc.js 'index.ts'",
     "validate": "npm run lint && npm run test:typescript && npm run test:flow && npm run test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/react-native-seoul/react-native-kakao-login"
+  },
   "publishConfig": {
     "access": "public"
   },
