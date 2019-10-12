@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Platform, StyleSheet, Text, View, Image} from 'react-native';
 
-import RNKakaoLogins from 'react-native-kakao-logins';
+import RNKakaoLogins from '@react-native-seoul/kakao-login';
 import NativeButton from 'apsl-react-native-button';
 
 if (!RNKakaoLogins) {

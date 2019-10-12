@@ -20,7 +20,7 @@
     "react": "16.8.6",
     "react-native": "0.60.5",
     "react-native-extended-stylesheet": "^0.11.1",
-    "react-native-kakao-logins": "file:../",
+    "@react-native-seoul/kakao-login": "file:../",
     "react-navigation": "^3.0.8"
   },
   "devDependencies": {

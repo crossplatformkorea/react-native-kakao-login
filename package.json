@@ -1,6 +1,6 @@
 {
-  "name": "react-native-kakao-logins",
-  "version": "1.4.0",
+  "name": "@react-native-seoul/kakao-login",
+  "version": "1.0.0",
   "description": "React Native Module for Kakao Login",
   "main": "index.js",
   "types": "index.d.ts",
@@ -13,7 +13,8 @@
     "kakao",
     "login",
     "kakao-login",
-    "kakao-logins"
+    "react-native-seoul",
+    "dooboolab"
   ],
   "author": "dooboolab",
   "license": "MIT",
