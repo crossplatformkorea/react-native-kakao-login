@@ -47,3 +47,4 @@ buck-out/
 
 index.js
 index.d.ts
+index.js.flow
