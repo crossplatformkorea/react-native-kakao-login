@@ -6,7 +6,11 @@
   "types": "index.d.ts",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && flowgen index.d.ts -o index.js.flow",
+    "flow": "flow",
+    "lint": "eslint -c .eslintrc.js 'index.ts'",
+    "validate": "npm run lint && npm run test:typescript && npm run test:flow && npm run test"
   },
   "keywords": [
     "react-native",
@@ -24,5 +28,16 @@
   },
   "dependencies": {
     "dooboolab-welcome": "^1.1.0"
+  },
+  "devDependencies": {
+    "@dooboo/eslint-config": "^0.2.0",
+    "@types/eslint": "^6.1.1",
+    "@types/react": "16.9.5",
+    "@types/react-native": "^0.60.19",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.4.0",
+    "flow-bin": "^0.104.0",
+    "flowgen": "^1.10.0",
+    "typescript": "^3.6.3"
   }
 }
