@@ -28,9 +28,9 @@ $ yarn add @react-native-seoul/kakao-login
 - RN < 0.60 (1.3.8 버전 이하로 설치 해주세요)
 
 ```shell
-$ npm install @react-native-seoul/kakao-login@1.3.8
+$ npm install react-native-kakao-logins@1.3.8
 # OR
-$ yarn add @react-native-seoul/kakao-login@1.3.8
+$ yarn add react-native-kakao-login@s1.3.8
 ```
 
 ### Automatic installation
