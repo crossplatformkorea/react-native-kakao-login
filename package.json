@@ -1,9 +1,8 @@
 {
   "name": "@react-native-seoul/kakao-login",
-  "version": "1.0.0-rc2",
+  "version": "1.0.1-rc2",
   "description": "React Native Module for Kakao Login",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "index.ts",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
