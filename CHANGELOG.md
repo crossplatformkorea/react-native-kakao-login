@@ -1,4 +1,9 @@
 ## Changelogs
+- **[1.0.0-rc-2]**
+
+  -Migrate/typescript [#69](https://github.com/react-native-seoul/react-native-kakao-login/pull/69)
+  -Migrate to @react-native-seoul/kakao-login [#68](https://github.com/react-native-seoul/@react-native-seoul/kakao-login/pull/69)
+  
 
 - **[1.4.0]**
 
