@@ -41,7 +41,7 @@ React Native 0.60.X이상부터는 `Auto linking`을 지원합니다. 수동으�
 
 ##### RN < 0.60
 
-`$ react-native link @react-native-seoul/kakao-login` 또는 아래의 `Manual installation`를 참조하세요
+`$ react-native link react-native-kakao-logins` 또는 아래의 `Manual installation`를 참조하세요
 
 ### Manual installation
 
