@@ -214,15 +214,16 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 ## Changelogs
 
-[Changelogs 링크](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/CHANGELOG.md)
+[Changelogs 링크](./CHANGELOG.md)
 
-#### Methods
 
-| Func       | Param |                  Return                  | Description      |
-| :--------- | :---: | :--------------------------------------: | :--------------- |
-| login      |       | `callback (err: string, result: object)` | 로그인.          |
-| getProfile |       | `callback (err: string, result: object)` | 프로필 불러오기. |
-| logout     |       |  `callback (err: string, result: null)`  | 로그아웃.        |
+#### Methods (callback is optional)
+
+| Func       |                   Param                    |      Return      | Description      |
+| :--------- | :----------------------------------------: | :--------------: | :--------------- |
+| login      | `callback? (err: Error, result: Object)`   | Promise{Object}  | 로그인.            |
+| getProfile | `callback? (err: Error, result: Object)`   | Promise{Object}  | 프로필 불러오기.     |
+| logout     | `callback? (err: Error, result: String)`   | Promise{String}  | 로그아웃.           |
 
 #### params in result when `getProfile`
 
@@ -259,6 +260,43 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 | `has_signed_up`      |     |    ✓    |     가입 여부      |
 
 4가지 `attribute` 대해 아직 ios에서 아직 어떻게 받는지 확인이 안되어 android와 상이한 부분이 있습니다.
+
+#### Error code support partially
+> KAKAO_ERROR 에러 코드<br/>
+모든 에러코드가 등록되어있지는 않습니다, 숫자로 반환되는 에러코드는 아래의 링크를 참조하세요
+
+[Android Link](https://developers.kakao.com/docs/android-reference/com/kakao/auth/ApiErrorCode.html)
+
+[iOS Link](https://developers.kakao.com/docs/ios-reference/KOError_h/index.html#//apple_ref/c/tdef/KOErrorCode)
+```js
+  // SHARED   : 공통 에러코드
+  // IOS      : iOS 에러코드
+  // ANDROID  : Android 에러코드
+
+  // SHARED
+  E_UNKNOWN
+  E_CANCELLED_OPERATION
+  E_ILLEGAL_STATE
+
+  // IOS
+  E_IN_PROGRESS_OPERATION
+  E_TOKEN_NOT_FOUND
+  E_DEACTIVATED_SESSION
+  E_ALREADY_LOGINED 
+  E_HTTP_ERROR 
+  E_BAD_RESPONSE 
+  E_NETWORK_ERROR 
+  E_NOT_SUPPORTED 
+  E_BAD_PARAMETER
+
+  // ANDROID
+  E_ILLEGAL_ARGUMENT 
+  E_MISS_CONFIGURATION 
+  E_AUTHORIZATION_FAILED 
+  E_JSON_PARSING_ERROR 
+  E_URI_LENGTH_EXCEEDED
+  E_KAKAOTALK_NOT_INSTALLED
+```
 
 ## Usage
 

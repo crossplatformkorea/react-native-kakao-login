@@ -1,5 +1,4 @@
 import { NativeModules } from 'react-native';
-
 const { RNKakaoLogins } = NativeModules;
 
 export interface ICallback<T> {
@@ -13,57 +12,130 @@ export interface ITokenInfo {
 export interface IProfile {
   id: string;
   nickname: string;
+  profile_image_url: string | null;
+  thumb_image_url: string | null;
   email: string | null;
   display_id: string | null;
   phone_number: string | null;
-  email_verified: boolean;
-  kakaotalk_user: boolean;
-  profile_image_path: string | null;
-  thumb_image_path: string | null;
-  has_signed_up: boolean;
+  is_email_verified: boolean | null;
+  is_kakaotalk_user: boolean | null;
+  has_signed_up: boolean | null;
 }
 
-const processNativeOutput = (
-  userCallback: ICallback<string | ITokenInfo | IProfile>,
-) => {
-  return (errorString: string, result: string): Error | void => {
-    if (errorString) {
-      const error = new Error(errorString);
-      userCallback(error, undefined);
-      return;
-    }
+/**
+ * KAKAO_ERROR 에러 코드
+ * 모든 에러코드가 등록되어있지는 않습니다. 아래의 링크를 참조하세요
+ *
+ * SHARED   : 공통 에러
+ * IOS      : iOS 에러코드
+ * ANDROID  : Android 에러코드
+ *
+ * @url Android : https://developers.kakao.com/docs/android-reference/com/kakao/auth/ApiErrorCode.html
+ * @url iOS     : https://developers.kakao.com/docs/ios-reference/KOError_h/index.html#//apple_ref/c/tdef/KOErrorCode
+ * */
+export enum KAKAO_ERROR {
+  // SHARED
+  E_UNKNOWN = 'E_UNKNOWN',
+  E_CANCELLED_OPERATION = 'E_CANCELLED_OPERATION',
+  E_ILLEGAL_STATE = 'E_ILLEGAL_STATE',
 
-    userCallback(undefined, result);
-  };
-};
+  // IOS
+  E_IN_PROGRESS_OPERATION = 'E_IN_PROGRESS_OPERATION',
+  E_TOKEN_NOT_FOUND = 'E_TOKEN_NOT_FOUND',
+  E_DEACTIVATED_SESSION = 'E_DEACTIVATED_SESSION',
+  E_ALREADY_LOGINED = 'E_ALREADY_LOGINED',
+  E_HTTP_ERROR = 'E_HTTP_ERROR',
+  E_BAD_RESPONSE = 'E_BAD_RESPONSE',
+  E_NETWORK_ERROR = 'E_NETWORK_ERROR',
+  E_NOT_SUPPORTED = 'E_NOT_SUPPORTED',
+  E_BAD_PARAMETER ='E_BAD_PARAMETER',
+
+  // ANDROID
+  E_ILLEGAL_ARGUMENT = 'E_ILLEGAL_ARGUMENT',
+  E_MISS_CONFIGURATION = 'E_MISS_CONFIGURATION',
+  E_AUTHORIZATION_FAILED = 'E_AUTHORIZATION_FAILED',
+  E_JSON_PARSING_ERROR = 'E_JSON_PARSING_ERROR',
+  E_URI_LENGTH_EXCEEDED = 'E_URI_LENGTH_EXCEEDED',
+  E_KAKAOTALK_NOT_INSTALLED = 'E_KAKAOTALK_NOT_INSTALLED',
+}
+
+function isFunction(item): boolean {
+  return item ? typeof item === 'function' : false;
+}
+
+/**
+ * login
+ * @param {ICallback<ITokenInfo>} [callback] callback function
+ * @returns {Promise<ITokenInfo>}
+ */
+export function login(callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
+  return RNKakaoLogins.login()
+    .then((result) => {
+      if (isFunction(callback)) {
+        callback(null, result);
+      }
+
+      return result;
+    })
+    .catch((error) => {
+      if (isFunction(callback)) {
+        callback(error, null);
+      }
+
+      throw error;
+    });
+}
+
+/**
+ * logout
+ * @param {ICallback<string>} [callback] callback function
+ * @returns {Promise<ITokenInfo>}
+ */
+export function logout(callback?: ICallback<string>): Promise<string> {
+  return RNKakaoLogins.logout()
+    .then((result) => {
+      if (isFunction(callback)) {
+        callback(null, result);
+      }
+
+      return result;
+    })
+    .catch((error) => {
+      if (isFunction(callback)) {
+        callback(error, null);
+      }
+
+      throw error;
+    });
+}
+
+/**
+ * getProfile
+ * @param {ICallback<IProfile>} [callback] callback function. id, nickname, email, display_id, phone_number, email_verified, kakatalk_user, profile_image_path, has_signed_up values will be received with json string in result field.
+ * @returns {Promise<ITokenInfo>}
+ */
+export function getProfile(callback?: ICallback<IProfile>): Promise<IProfile> {
+  return RNKakaoLogins.getProfile()
+    .then((result) => {
+      if (isFunction(callback)) {
+        callback(null, result);
+      }
+
+      return result;
+    })
+    .catch((error) => {
+      if (isFunction(callback)) {
+        callback(error, null);
+      }
+
+      throw error;
+    });
+}
 
 const KakaoLogins = {
-  /**
-   * login
-   * @param {callbackType} callback callback received from native module
-   * @returns {void}
-   */
-  login(callback: ICallback<ITokenInfo>): void {
-    RNKakaoLogins.login(processNativeOutput(callback));
-  },
-
-  /**
-   * logout
-   * @param {callbackType} callback callback received from native module
-   * @returns {void}
-   */
-  logout(callback: ICallback<string>): void {
-    RNKakaoLogins.logout(processNativeOutput(callback));
-  },
-
-  /**
-   * getProfile
-   * @param {callbackType} callback callback received from native module. id, nickname, email, display_id, phone_number, email_verified, kakatalk_user, profile_image_path, has_signed_up values will be received with json string in result field.
-   * @returns {void}
-   */
-  getProfile(callback: ICallback<IProfile>): void {
-    RNKakaoLogins.getProfile(processNativeOutput(callback));
-  },
+  login,
+  logout,
+  getProfile,
 };
 
 export default KakaoLogins;

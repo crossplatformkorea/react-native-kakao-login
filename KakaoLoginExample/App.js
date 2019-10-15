@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet, Text, View, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, YellowBox} from 'react-native';
 
-import RNKakaoLogins from '@react-native-seoul/kakao-login';
+import KakaoLogins from '@react-native-seoul/kakao-login';
 import NativeButton from 'apsl-react-native-button';
 
-if (!RNKakaoLogins) {
+if (!KakaoLogins) {
   console.error('Module is Not Linked');
 }
 
@@ -31,50 +31,57 @@ export default function App() {
   const kakaoLogin = () => {
     logCallback('Login Start', setLoginLoading(true));
 
-    RNKakaoLogins.login((err, result) => {
-      if (err) {
-        return logCallback(
-          `Login Failed:${err.toString()}`,
-          setLoginLoading(false),
-        );
-      }
-      setToken(result.token);
-      logCallback(`Login Finished:${result.token}`, setLoginLoading(false));
-    });
+    KakaoLogins.login()
+      .then(result => {
+        setToken(result.token);
+        logCallback(`Login Finished:${result.token}`, setLoginLoading(false));
+      })
+      .catch(err => {
+        if (err.code === 'E_CANCELLED_OPERATION') {
+          logCallback(`Login Cancelled:${err.message}`, setLoginLoading(false));
+        } else {
+          logCallback(
+            `Login Failed:${err.code} ${err.message}`,
+            setLoginLoading(false),
+          );
+        }
+      });
   };
 
   const kakaoLogout = () => {
     logCallback('Logout Start', setLogoutLoading(true));
 
-    RNKakaoLogins.logout((err, result) => {
-      if (err) {
-        return logCallback(
-          `Logout Failed:${err.toString()}`,
+    KakaoLogins.logout()
+      .then(result => {
+        setToken(TOKEN_EMPTY);
+        setProfile(PROFILE_EMPTY);
+        logCallback(`Logout Finished:${result}`, setLogoutLoading(false));
+      })
+      .catch(err => {
+        logCallback(
+          `Logout Failed:${err.code} ${err.message}`,
           setLogoutLoading(false),
         );
-      }
-      setToken(TOKEN_EMPTY);
-      setProfile(PROFILE_EMPTY);
-      logCallback(`Logout Finished:${result}`, setLogoutLoading(false));
-    });
+      });
   };
 
   const getProfile = () => {
     logCallback('Get Profile Start', setProfileLoading(true));
 
-    RNKakaoLogins.getProfile((err, result) => {
-      if (err) {
-        return logCallback(
-          `Get Profile Failed:${err.toString()}`,
+    KakaoLogins.getProfile()
+      .then(result => {
+        setProfile(result);
+        logCallback(
+          `Get Profile Finished:${JSON.stringify(result)}`,
           setProfileLoading(false),
         );
-      }
-      setProfile(result);
-      logCallback(
-        `Get Profile Finished:${JSON.stringify(result)}`,
-        setProfileLoading(false),
-      );
-    });
+      })
+      .catch(err => {
+        logCallback(
+          `Get Profile Failed:${err.code} ${err.message}`,
+          setProfileLoading(false),
+        );
+      });
   };
 
   const {id, email, profile_image_url: photo} = profile;
@@ -168,3 +175,5 @@ const styles = StyleSheet.create({
     color: '#3d3d3d',
   },
 });
+
+YellowBox.ignoreWarnings(['source.uri']);
