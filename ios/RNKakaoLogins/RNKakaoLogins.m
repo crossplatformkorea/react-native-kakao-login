@@ -27,29 +27,29 @@ NSString* getErrorCode(NSError *error){
     int errorCode = (int)error.code;
     
     switch(errorCode){
-        case 1:
+        case KOErrorUnknown:
             return @"E_UNKNOWN";
-        case 2:
+        case KOErrorCancelled:
             return @"E_CANCELLED_OPERATION";
-        case 3:
+        case KOErrorOperationInProgress:
             return @"E_IN_PROGRESS_OPERATION";
-        case 4:
+        case KOErrorTokenNotFound:
             return @"E_TOKEN_NOT_FOUND";
-        case 5:
+        case KOErrorDeactivatedSession:
             return @"E_DEACTIVATED_SESSION";
-        case 6:
+        case KOErrorAlreadyLoginedUser:
             return @"E_ALREADY_LOGINED";
-        case 9:
+        case KOErrorHTTP:
             return @"E_HTTP_ERROR";
-        case 7:
+        case KOErrorBadResponse:
             return @"E_BAD_RESPONSE";
-        case 8:
+        case KOErrorNetworkError:
             return @"E_NETWORK_ERROR";
-        case 10:
+        case KOErrorNotSupported:
             return @"E_NOT_SUPPORTED";
-        case 11:
+        case KOErrorBadParameter:
             return @"E_BAD_PARAMETER";
-        case 14:
+        case KOErrorIllegalState:
             return @"E_ILLEGAL_STATE";
             
         default:
