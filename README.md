@@ -214,7 +214,7 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 ## Changelogs
 
-[Changelogs 링크](https://github.com/react-native-seoul/@react-native-seoul/kakao-login/blob/master/CHANGELOG.md)
+[Changelogs 링크](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/CHANGELOG.md)
 
 #### Methods
 
@@ -262,6 +262,6 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 ## Usage
 
-[@react-native-seoul/kakao-login/KakaoLoginExample/App.js](https://github.com/react-native-seoul/@react-native-seoul/kakao-login/blob/master/KakaoLoginExample/App.js)
+[@react-native-seoul/kakao-login/KakaoLoginExample/App.js](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/KakaoLoginExample/App.js)
 
 로그인 후 result에 들어오는 결과값은 `{token:kakao_token}`입니다.
