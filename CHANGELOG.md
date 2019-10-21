@@ -1,6 +1,6 @@
 ## Changelogs
 
-- **[1.1.0-rc-2]**
+- **[2.0.0]**
   - support promises [#67](https://github.com/react-native-seoul/@react-native-seoul/kakao-login/pull/67)
   - support error code partially [#67](https://github.com/react-native-seoul/@react-native-seoul/kakao-login/pull/67)
   - update example code [#67](https://github.com/react-native-seoul/@react-native-seoul/kakao-login/pull/67)
