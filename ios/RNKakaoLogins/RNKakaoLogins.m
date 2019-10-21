@@ -9,7 +9,7 @@
     return dispatch_get_main_queue();
 }
 
-NSObject* handleNullableString(NSString* _Nullable string)
+NSObject* handleNullableString(NSString *_Nullable string)
 {
     return string != nil ? string : [NSNull null];
 }
@@ -23,59 +23,96 @@ NSObject* handleKOBoolean(KOOptionalBoolean boolean)
     }
 }
 
+NSString* getErrorCode(NSError *error){
+    int errorCode = (int)error.code;
+    
+    switch(errorCode){
+        case KOErrorUnknown:
+            return @"E_UNKNOWN";
+        case KOErrorCancelled:
+            return @"E_CANCELLED_OPERATION";
+        case KOErrorOperationInProgress:
+            return @"E_IN_PROGRESS_OPERATION";
+        case KOErrorTokenNotFound:
+            return @"E_TOKEN_NOT_FOUND";
+        case KOErrorDeactivatedSession:
+            return @"E_DEACTIVATED_SESSION";
+        case KOErrorAlreadyLoginedUser:
+            return @"E_ALREADY_LOGINED";
+        case KOErrorHTTP:
+            return @"E_HTTP_ERROR";
+        case KOErrorBadResponse:
+            return @"E_BAD_RESPONSE";
+        case KOErrorNetworkError:
+            return @"E_NETWORK_ERROR";
+        case KOErrorNotSupported:
+            return @"E_NOT_SUPPORTED";
+        case KOErrorBadParameter:
+            return @"E_BAD_PARAMETER";
+        case KOErrorIllegalState:
+            return @"E_ILLEGAL_STATE";
+            
+        default:
+            return @(error.code).stringValue;
+    }
+}
+
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(login:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(login:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
     KOSession *session = [KOSession sharedSession];
-    
-    // ensure old session was closed
-    [session close];
+    [session close]; // ensure old session was closed
     
     [session openWithCompletionHandler:^(NSError *error) {
         if ([session isOpen]) {
-            callback(@[[NSNull null], @{@"token": session.token.accessToken}]);
+            resolve(@{@"token": session.token.accessToken});
         } else {
             RCTLogInfo(@"Error=%@", error);
-            callback(@[@"SignIn failed.\n", [NSNull null]]);
+            reject(getErrorCode(error), error.localizedDescription, error);
         }
     }];
 }
 
-RCT_EXPORT_METHOD(logout:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(logout:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
     KOSession *session = [KOSession sharedSession];
     
     [session logoutAndCloseWithCompletionHandler:^(BOOL success, NSError *error) {
         if(success){
-            callback(@[[NSNull null], [NSNull null]]);
+            resolve(@"Logged Out");
         } else {
             RCTLogInfo(@"Error=%@", error);
-            callback(@[@"Logout failed.\n", [NSNull null]]);
+            reject(getErrorCode(error), error.localizedDescription, error);
         }
     }];
 }
 
-RCT_EXPORT_METHOD(getProfile:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
     [KOSessionTask userMeTaskWithCompletion:^(NSError *error, KOUserMe* me) {
         if (error) {
             RCTLogInfo(@"Error=%@", error);
-            callback(@[@"Error while getting profile.", [NSNull null]]);
-            return;
+            reject(getErrorCode(error), error.localizedDescription, error);
+        } else {
+            NSDictionary* profile = @{
+                @"id": handleNullableString(me.ID),
+                @"nickname": handleNullableString(me.account.profile.nickname),
+                @"email": handleNullableString(me.account.email),
+                @"display_id": handleNullableString(me.account.displayID),
+                @"phone_number": handleNullableString(me.account.phoneNumber),
+                @"profile_image_url": handleNullableString(me.account.profile.profileImageURL.absoluteString),
+                @"thumb_image_url": handleNullableString(me.account.profile.thumbnailImageURL.absoluteString),
+                @"is_email_verified": handleKOBoolean(me.account.isEmailVerified),
+                @"is_kakaotalk_user": handleKOBoolean(me.account.isKakaotalkUser),
+                @"has_signed_up": handleKOBoolean(me.hasSignedUp),
+            };
+            
+            resolve(profile);
         }
-        
-        NSDictionary* profile = @{
-                                  @"id": handleNullableString(me.ID),
-                                  @"nickname": handleNullableString(me.account.profile.nickname),
-                                  @"email": handleNullableString(me.account.email),
-                                  @"display_id": handleNullableString(me.account.displayID),
-                                  @"phone_number": handleNullableString(me.account.phoneNumber),
-                                  @"profile_image_url": handleNullableString(me.account.profile.profileImageURL.absoluteString),
-                                  @"thumb_image_url": handleNullableString(me.account.profile.thumbnailImageURL.absoluteString),
-                                  @"is_email_verified": handleKOBoolean(me.account.isEmailVerified),
-                                  @"is_kakaotalk_user": handleKOBoolean(me.account.isKakaotalkUser),
-                                  @"has_signed_up": handleKOBoolean(me.hasSignedUp),
-                                  };
-        
-        callback(@[[NSNull null], profile]);
     }];
 }
 

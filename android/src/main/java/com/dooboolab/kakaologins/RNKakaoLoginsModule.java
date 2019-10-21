@@ -26,10 +26,9 @@ import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
-import com.kakao.auth.AccessTokenCallback;
+import com.facebook.react.bridge.Promise;
+
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.KakaoSDK;
@@ -37,26 +36,39 @@ import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.UserAccount;
-import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
-import com.kakao.util.helper.log.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener{
-    
+
     private static final String TAG = "RNKakaoLoginModule";
     private final ReactApplicationContext reactContext;
     public static SessionCallback callback;
-    private static Callback loginCallback;
-    
+
+    private static Promise loginPromise;
+
+    private static void loginResolver(WritableMap result){
+        if(loginPromise != null){
+            loginPromise.resolve(result);
+            loginPromise = null;
+        }
+    }
+
+    private static void loginRejecter(KakaoException exception){
+        if(loginPromise != null){
+            String ErrorCode = getLoginErrorCode(exception);
+            loginPromise.reject(ErrorCode, exception.getMessage(), exception);
+            loginPromise = null;
+        }
+    }
+
     private static class Item {
         final int textId;
         public final int icon;
@@ -69,7 +81,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             this.authType = authType;
         }
     }
-    
+
     private List<AuthType> getAuthTypes() {
         final List<AuthType> availableAuthTypes = new ArrayList<>();
         if (Session.getCurrentSession().getAuthCodeManager().isTalkLoginAvailable()) {
@@ -79,21 +91,21 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             availableAuthTypes.add(AuthType.KAKAO_STORY);
         }
         availableAuthTypes.add(AuthType.KAKAO_ACCOUNT);
-        
+
         AuthType[] authTypes = KakaoSDK.getAdapter().getSessionConfig().getAuthTypes();
         if (authTypes == null || authTypes.length == 0 || (authTypes.length == 1 && authTypes[0] == AuthType.KAKAO_LOGIN_ALL)) {
             authTypes = AuthType.values();
         }
         availableAuthTypes.retainAll(Arrays.asList(authTypes));
-        
+
         // 개발자가 설정한 것과 available 한 타입이 없다면 직접계정 입력이 뜨도록 한다.
         if(availableAuthTypes.size() == 0){
             availableAuthTypes.add(AuthType.KAKAO_ACCOUNT);
         }
-        
+
         return availableAuthTypes;
     }
-    
+
     private Item[] createAuthItemArray(final List<AuthType> authTypes) {
         final List<Item> itemList = new ArrayList<Item>();
         if(authTypes.contains(AuthType.KAKAO_TALK)) {
@@ -105,10 +117,10 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         if(authTypes.contains(AuthType.KAKAO_ACCOUNT)){
             itemList.add(new Item(com.kakao.usermgmt.R.string.com_kakao_other_kakaoaccount, com.kakao.usermgmt.R.drawable.account, com.kakao.usermgmt.R.string.com_kakao_other_kakaoaccount_tts, AuthType.KAKAO_ACCOUNT));
         }
-        
+
         return itemList.toArray(new Item[itemList.size()]);
     }
-    
+
     private void handleOptionalBooleanWithMap(WritableMap map, String key, OptionalBoolean bool){
         switch(bool){
             case NONE:
@@ -119,21 +131,20 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                 break;
         }
     }
-    
+
     @SuppressWarnings("deprecation")
     private ListAdapter createLoginAdapter(final Item[] authItems) {
         /*
          가능한 auth type들을 유저에게 보여주기 위한 준비.
          */
         return new ArrayAdapter<Item>(
-                                      reactContext,
-                                      android.R.layout.select_dialog_item,
-                                      android.R.id.text1, authItems){
+                reactContext,
+                android.R.layout.select_dialog_item,
+                android.R.id.text1, authItems){
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     convertView = inflater.inflate(com.kakao.usermgmt.R.layout.layout_login_item, parent, false);
                 }
                 ImageView imageView = (ImageView) convertView.findViewById(com.kakao.usermgmt.R.id.login_method_icon);
@@ -148,7 +159,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             }
         };
     }
-    
+
     /**
      * 실제로 유저에게 보여질 dialog 객체를 생성한다.
      * @param authItems 가능한 AuthType들의 정보를 담고 있는 Item array
@@ -162,13 +173,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         if (dialog.getWindow() != null) {
             dialog.getWindow().setGravity(Gravity.CENTER);
         }
-        
-        //        TextView textView = (TextView) dialog.findViewById(R.id.login_title_text);
-        //        Typeface customFont = Typeface.createFromAsset(getContext().getAssets(), "fonts/KakaoOTFRegular.otf");
-        //        if (customFont != null) {
-        //            textView.setTypeface(customFont);
-        //        }
-        
+
         ListView listView = (ListView) dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -181,7 +186,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                 dialog.dismiss();
             }
         });
-        
+
         Button closeButton = (Button) dialog.findViewById(com.kakao.usermgmt.R.id.login_close_button);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,15 +196,14 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         });
         return dialog;
     }
-    
+
     public void openSession(final AuthType authType) {
-        Log.d(TAG, "openSession: " + authType.toString());
         if (reactContext.getCurrentActivity() == null) {
             Log.d(TAG, "getCurrentActivity is null.");
         }
         Session.getCurrentSession().open(authType, reactContext.getCurrentActivity());
     }
-    
+
     public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
@@ -213,68 +217,63 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         Session.getCurrentSession().addCallback(callback);
         Session.getCurrentSession().checkAndImplicitOpen();
     }
-    
+
     @Override
     public String getName() {
         return "RNKakaoLogins";
     }
-    
+
     @ReactMethod
-    private void login(final Callback cb) {
-        loginCallback = cb;
-        // btnKakaoLogin.callOnClick();
-        final List<AuthType> authTypes = getAuthTypes();
-        if (authTypes.size() == 1) {
-            Session.getCurrentSession().open(authTypes.get(0), reactContext.getCurrentActivity());
+    private void login(Promise promise) {
+        loginPromise = promise;
+
+        if (getAuthTypes().size() == 1) {
+            Session.getCurrentSession().open(getAuthTypes().get(0), reactContext.getCurrentActivity());
         } else {
-            final Item[] authItems = createAuthItemArray(authTypes);
+            final Item[] authItems = createAuthItemArray(getAuthTypes());
             ListAdapter adapter = createLoginAdapter(authItems);
             final Dialog dialog = createLoginDialog(authItems, adapter);
             dialog.show();
         }
     }
-    
+
     @ReactMethod
-    private void logout(final Callback cb) {
+    private void logout(final Promise promise) {
         UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
             @Override
-            public void onSessionClosed(ErrorResult errorResult) {
-                Log.w(TAG, "sessionClosed!!\n" + errorResult.toString());
-                cb.invoke(errorResult.toString(), null);
+            public void onSessionClosed(ErrorResult error) {
+                Log.e(TAG, "Logout::Error\n" + error);
+                promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
             }
-            @Override
-            public void onNotSignedUp() {
-                Log.w(TAG, "NotSignedUp!!");
-            }
-            @Override
-            public void onSuccess(Long result) {
-                Log.d(TAG, "Logout!");
-                cb.invoke(null, String.valueOf(result));
-            }
+
             @Override
             public void onCompleteLogout() {
-                Log.d(TAG, "Complete Logout!");
-                cb.invoke(null, "Logged out");
+                promise.resolve("Logged out");
             }
         });
     }
-    
+
     @ReactMethod
-    private void getProfile(final Callback cb) {
-        Log.d(TAG, "getProfile");
-        
+    private void getProfile(final Promise promise) {
         UserManagement.getInstance().me(new MeV2ResponseCallback() {
             @Override
-            public void onSessionClosed(ErrorResult errorResult) {
-                cb.invoke(errorResult.toString(), null);
+            public void onSessionClosed(ErrorResult error) {
+                Log.e(TAG, "getProfile::Error\n" + error);
+                promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
             }
-            
+
+            @Override
+            public void onFailure(ErrorResult error) {
+                Log.e(TAG, "getProfile::Error\n" + error);
+                promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
+            }
+
             @Override
             public void onSuccess(MeV2Response me) {
                 try {
                     WritableMap profile = Arguments.createMap();
                     UserAccount kakaoAccount = me.getKakaoAccount();
-                    
+
                     profile.putString("id", String.valueOf(me.getId()));
                     profile.putString("nickanme", kakaoAccount.getProfile().getNickname());
                     profile.putString("email", kakaoAccount.getEmail());
@@ -282,111 +281,88 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                     profile.putString("phone_number", kakaoAccount.getPhoneNumber());
                     profile.putString("profile_image_url", kakaoAccount.getProfile().getProfileImageUrl());
                     profile.putString("thumb_image_url", kakaoAccount.getProfile().getThumbnailImageUrl());
-                    
+
                     handleOptionalBooleanWithMap(profile, "is_email_verified", kakaoAccount.isEmailVerified());
                     handleOptionalBooleanWithMap(profile, "is_kakaotalk_user", kakaoAccount.isKakaoTalkUser());
                     handleOptionalBooleanWithMap(profile, "has_signed_up", me.hasSignedUp());
-                    
-                    cb.invoke(null, profile);
+
+                    promise.resolve(profile);
                 } catch (Exception e) {
-                    cb.invoke(e.toString(), null);
+                    promise.reject("E_UNKOWN", e.getMessage(), e);
+                    Log.e(TAG, "getProfile::Error\n" + e);
                 }
             }
         });
-        
-        /*
-         UserManagement.getInstance().requestMe(new MeResponseCallback() {
-         @Override
-         public void onFailure(ErrorResult errorResult) {
-         String message = "failed to get user info. msg=" + errorResult;
-         Log.e(TAG, message);
-         cb.invoke(message, null);
-         }
-         
-         @Override
-         public void onSessionClosed(ErrorResult errorResult) {
-         Log.e(TAG, "sessionClosed");
-         }
-         
-         @Override
-         public void onSuccess(UserProfile userProfile) {
-         try {
-         JSONObject jsonObject = new JSONObject();
-         jsonObject.put("nickname", userProfile.getNickname());
-         jsonObject.put("email", userProfile.getEmail());
-         jsonObject.put("emailVerified", userProfile.getEmailVerified());
-         jsonObject.put("thumbImagePath", userProfile.getThumbnailImagePath());
-         jsonObject.put("profileImagePath", userProfile.getProfileImagePath());
-         jsonObject.put("uuid", userProfile.getUUID());
-         jsonObject.put("serviceUserId", userProfile.getServiceUserId());
-         jsonObject.put("remainingInviteCount", userProfile.getRemainingInviteCount());
-         jsonObject.put("remainingGroupMsgCount", userProfile.getRemainingGroupMsgCount());
-         jsonObject.put("properties", userProfile.getProperties());
-         cb.invoke(null, jsonObject.toString());
-         } catch (JSONException e) {
-         cb.invoke(e.toString(), null);
-         }
-         }
-         
-         @Override
-         public void onNotSignedUp() {
-         cb.invoke("NotSignedUp", null);
-         }
-         });
-         */
     }
-    
+
     public static class SessionCallback implements ISessionCallback {
         @Override
         public void onSessionOpened() {
-            Log.d(TAG, "Logged in!\ntoken: " + Session.getCurrentSession().getTokenInfo().getAccessToken());
-            
-            if (loginCallback != null) {
-                WritableMap result = Arguments.createMap();
-                result.putString("token", Session.getCurrentSession().getTokenInfo().getAccessToken());
-                
-                loginCallback.invoke(null, result);
-                loginCallback = null;
-            }
+            WritableMap result = Arguments.createMap();
+            result.putString("token", Session.getCurrentSession().getTokenInfo().getAccessToken());
+
+            loginResolver(result);
         }
-        
+
         @Override
         public void onSessionOpenFailed(KakaoException exception) {
             if(exception != null) {
-                if (loginCallback != null) {
-                    loginCallback.invoke(null, exception.toString());
-                    loginCallback = null;
-                }
-                Log.e(TAG, "Logged in!\nSessionOpenFailed");
-                Logger.e(exception);
+                Log.e(TAG, "Login::SessionOpenFailed\n" + exception);
+                loginRejecter(exception);
             }
         }
     }
-    
+
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
             return;
         }
     }
-    
+
     @Override
     public void onNewIntent(Intent intent) {
-        
+
     }
-    
+
     @Override
     public void onHostDestroy() {
         Session.getCurrentSession().removeCallback(this.callback);
     }
-    
+
     @Override
     public void onHostPause() {
-        
+
     }
-    
+
     @Override
     public void onHostResume() {
-        
+
+    }
+    
+    public static String getLoginErrorCode(KakaoException exception) {
+        switch(exception.getErrorType()){
+            case UNSPECIFIED_ERROR:
+                return "E_UNKNOWN";
+            case CANCELED_OPERATION:
+                return "E_CANCELLED_OPERATION";
+            case ILLEGAL_ARGUMENT:
+                return "E_ILLEGAL_ARGUMENT";
+            case ILLEGAL_STATE:
+                return "E_ILLEGAL_STATE";
+            case MISS_CONFIGURATION:
+                return "E_MISS_CONFIGURATION";
+            case AUTHORIZATION_FAILED:
+                return "E_AUTHORIZATION_FAILED";
+            case JSON_PARSING_ERROR:
+                return "E_JSON_PARSING_ERROR";
+            case URI_LENGTH_EXCEEDED:
+                return "E_URI_LENGTH_EXCEEDED";
+            case KAKAOTALK_NOT_INSTALLED:
+                return "E_KAKAOTALK_NOT_INSTALLED";
+            default:
+                return "E_UNKNOWN";
+                
+        }
     }
 }
