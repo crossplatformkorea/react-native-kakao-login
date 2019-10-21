@@ -174,12 +174,6 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             dialog.getWindow().setGravity(Gravity.CENTER);
         }
 
-        //        TextView textView = (TextView) dialog.findViewById(R.id.login_title_text);
-        //        Typeface customFont = Typeface.createFromAsset(getContext().getAssets(), "fonts/KakaoOTFRegular.otf");
-        //        if (customFont != null) {
-        //            textView.setTypeface(customFont);
-        //        }
-
         ListView listView = (ListView) dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -204,7 +198,6 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     }
 
     public void openSession(final AuthType authType) {
-        Log.d(TAG, "openSession: " + authType);
         if (reactContext.getCurrentActivity() == null) {
             Log.d(TAG, "getCurrentActivity is null.");
         }
@@ -232,7 +225,6 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void login(Promise promise) {
-        Log.d(TAG, "login::Start");
         loginPromise = promise;
 
         if (getAuthTypes().size() == 1) {
@@ -247,18 +239,15 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void logout(final Promise promise) {
-        Log.d(TAG, "logout::Start");
-
         UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
             @Override
             public void onSessionClosed(ErrorResult error) {
-                Log.e(TAG, "Logout::SessionClosed\n" + error);
+                Log.e(TAG, "Logout::Error\n" + error);
                 promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
             }
 
             @Override
             public void onCompleteLogout() {
-                Log.d(TAG, "Logeout::CompleteLogout");
                 promise.resolve("Logged out");
             }
         });
@@ -266,18 +255,16 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void getProfile(final Promise promise) {
-        Log.d(TAG, "getProfile::Start");
-
         UserManagement.getInstance().me(new MeV2ResponseCallback() {
             @Override
             public void onSessionClosed(ErrorResult error) {
-                Log.e(TAG, "getProfile::SessionClosed\n" + error);
+                Log.e(TAG, "getProfile::Error\n" + error);
                 promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
             }
 
             @Override
             public void onFailure(ErrorResult error) {
-                Log.e(TAG, "getProfile::Failure\n" + error);
+                Log.e(TAG, "getProfile::Error\n" + error);
                 promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
             }
 
@@ -300,7 +287,6 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                     handleOptionalBooleanWithMap(profile, "has_signed_up", me.hasSignedUp());
 
                     promise.resolve(profile);
-                    Log.d(TAG, "getProfile::End\n" + profile);
                 } catch (Exception e) {
                     promise.reject("E_UNKOWN", e.getMessage(), e);
                     Log.e(TAG, "getProfile::Error\n" + e);
@@ -315,7 +301,6 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             WritableMap result = Arguments.createMap();
             result.putString("token", Session.getCurrentSession().getTokenInfo().getAccessToken());
 
-            Log.d(TAG, "Login::SessionOpened\n" + result);
             loginResolver(result);
         }
 
