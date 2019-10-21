@@ -11,6 +11,7 @@
     <img src="http://img.shields.io/npm/l/@react-native-seoul/kakao-login.svg?style=flat-square">
   </a>
 </p>
+
 React Native 카카오 로그인 라이브러리 입니다.
 세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주세요.
 해당 라이브러리는 `flow`와 `typescript`를 지원합니다.
