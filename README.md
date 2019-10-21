@@ -11,6 +11,7 @@
     <img src="http://img.shields.io/npm/l/@react-native-seoul/kakao-login.svg?style=flat-square">
   </a>
 </p>
+
 React Native 카카오 로그인 라이브러리 입니다.
 세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주세요.
 해당 라이브러리는 `flow`와 `typescript`를 지원합니다.
@@ -303,3 +304,23 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 [@react-native-seoul/kakao-login/KakaoLoginExample/App.js](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/KakaoLoginExample/App.js)
 
 로그인 후 result에 들어오는 결과값은 `{token:kakao_token}`입니다.
+
+
+## 예제 프로젝트 실행방법
+1. `clone` 받은 레포에서 `KakaoLoginExample` 폴더로 이동합니다
+
+  ```bash
+    cd KakaoLoginExample  
+  ```
+2. 필요한 모듈을 설치 합니다(`preinstall`이 실행됩니다)
+
+```bash
+    npm install 
+    #OR
+    yarn install
+  ```
+3. 프로젝트 실행
+ - `KAKAO_APP_KEY`등 필요한 SDK 연동 설정은 기본으로 되어 있습니다
+ - `npm run start`
+ - `npm run ios` or `npm run android`로 앱 실행
+ -  ios의 경우 `ios`폴더에서 `pod install`을 먼저 실행해 주세요 (충돌시 `lock파일` 삭제 후 설치)
