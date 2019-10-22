@@ -33,8 +33,11 @@ export default function App() {
 
     KakaoLogins.login()
       .then(result => {
-        setToken(result.token);
-        logCallback(`Login Finished:${result.token}`, setLoginLoading(false));
+        setToken(result.accessToken);
+        logCallback(
+          `Login Finished:${JSON.stringify(result)}`,
+          setLoginLoading(false),
+        );
       })
       .catch(err => {
         if (err.code === 'E_CANCELLED_OPERATION') {
