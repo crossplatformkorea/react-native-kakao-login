@@ -226,6 +226,25 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 | getProfile | `callback? (err: Error, result: Object)`   | Promise{Object}  | 프로필 불러오기.     |
 | logout     | `callback? (err: Error, result: String)`   | Promise{String}  | 로그아웃.           |
 
+#### params in result when `login`
+
+- version > 1.3.8
+
+|                         | iOS | Android |          type         | Description |
+| ----------------------- | :-: | :-----: | :--------------------:|:---------: |
+| `accessToken`           |  ✓  |    ✓    |       `string`        |토큰 |
+| `refreshToken`          |  ✓  |    ✓    |       `string`        |리프레쉬 토큰 |
+| `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` |토큰 만료 시간 |
+| `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` |리프레쉬 토큰 만료 시간 |
+| `scopes`                |  ✓  |         | `yyyy-MM-ddThh:mm:ss` |사용자로 부터 받은 권한 |
+
+- version <= 1.3.8
+
+|                         | iOS | Android |          type         | Description |
+| ----------------------- | :-: | :-----: | :--------------------:|:---------: |
+| `token`                 |  ✓  |    ✓    |       `string`        |토큰 |
+
+
 #### params in result when `getProfile`
 
 - version > 1.3.8
@@ -303,10 +322,8 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 [@react-native-seoul/kakao-login/KakaoLoginExample/App.js](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/KakaoLoginExample/App.js)
 
-로그인 후 result에 들어오는 결과값은 `{token:kakao_token}`입니다.
 
-
-## 예제 프로젝트 실행방법
+## How to run example project
 1. `clone` 받은 레포에서 `KakaoLoginExample` 폴더로 이동합니다
 
   ```bash
