@@ -6,7 +6,11 @@ export interface ICallback<T> {
 }
 
 export interface ITokenInfo {
-  token: string;
+  accessTokenExpiresAt: string;
+  refreshToken: string;
+  refreshTokenExpiresAt: string;
+  accessToken: string;
+  scopes?: string[]; // iOS only
 }
 
 export interface IProfile {
@@ -48,7 +52,7 @@ export enum KAKAO_ERROR {
   E_BAD_RESPONSE = 'E_BAD_RESPONSE',
   E_NETWORK_ERROR = 'E_NETWORK_ERROR',
   E_NOT_SUPPORTED = 'E_NOT_SUPPORTED',
-  E_BAD_PARAMETER ='E_BAD_PARAMETER',
+  E_BAD_PARAMETER = 'E_BAD_PARAMETER',
 
   // ANDROID
   E_ILLEGAL_ARGUMENT = 'E_ILLEGAL_ARGUMENT',
@@ -70,12 +74,17 @@ function isFunction(item): boolean {
  */
 export function login(callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
   return RNKakaoLogins.login()
-    .then((result) => {
+    .then((result: ITokenInfo) => {
+      const timeReFormattedResult = {
+        ...result,
+        accessTokenExpiresAt: result.accessTokenExpiresAt.replace(' ', 'T'),
+        refreshTokenExpiresAt: result.refreshTokenExpiresAt.replace(' ', 'T'),
+      };
       if (isFunction(callback)) {
-        callback(null, result);
+        callback(null, timeReFormattedResult);
       }
 
-      return result;
+      return timeReFormattedResult;
     })
     .catch((error) => {
       if (isFunction(callback)) {
@@ -116,7 +125,7 @@ export function logout(callback?: ICallback<string>): Promise<string> {
  */
 export function getProfile(callback?: ICallback<IProfile>): Promise<IProfile> {
   return RNKakaoLogins.getProfile()
-    .then((result) => {
+    .then((result: IProfile) => {
       if (isFunction(callback)) {
         callback(null, result);
       }
