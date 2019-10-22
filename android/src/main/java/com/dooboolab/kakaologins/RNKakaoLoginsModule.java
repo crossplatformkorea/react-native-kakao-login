@@ -42,6 +42,7 @@ import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -299,7 +300,12 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         @Override
         public void onSessionOpened() {
             WritableMap result = Arguments.createMap();
-            result.putString("token", Session.getCurrentSession().getTokenInfo().getAccessToken());
+            SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            result.putString("accessToken", Session.getCurrentSession().getTokenInfo().getAccessToken());
+            result.putString("refreshToken", Session.getCurrentSession().getTokenInfo().getRefreshToken());
+            result.putString("accessTokenExpiresAt", transFormat.format(Session.getCurrentSession().getTokenInfo().accessTokenExpiresAt()));
+            result.putString("refreshTokenExpiresAt", transFormat.format(Session.getCurrentSession().getTokenInfo().refreshTokenExpiresAt()));
 
             loginResolver(result);
         }

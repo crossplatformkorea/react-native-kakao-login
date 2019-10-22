@@ -67,7 +67,14 @@ RCT_EXPORT_METHOD(login:(RCTPromiseResolveBlock)resolve
     
     [session openWithCompletionHandler:^(NSError *error) {
         if ([session isOpen]) {
-            resolve(@{@"token": session.token.accessToken});
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+
+            resolve(@{@"accessToken": session.token.accessToken, 
+                      @"refreshToken": session.token.refreshToken, 
+                      @"accessTokenExpiresAt": [formatter stringFromDate: session.token.accessTokenExpiresAt], 
+                      @"refreshTokenExpiresAt": [formatter stringFromDate: session.token.refreshTokenExpiresAt], 
+                      @"scopes": session.token.scopes});
         } else {
             RCTLogInfo(@"Error=%@", error);
             reject(getErrorCode(error), error.localizedDescription, error);
