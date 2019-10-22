@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.1.0]**
+  - Add token info properties at login[#77](https://github.com/react-native-seoul/react-native-kakao-login/pull/77)
+  
+
 - **[2.0.0]**
   - support promises [#67](https://github.com/react-native-seoul/react-native-kakao-login/pull/67)
   - support error code partially [#67](https://github.com/react-native-seoul/react-native-kakao-login/pull/67)
