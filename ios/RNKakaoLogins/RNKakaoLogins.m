@@ -68,7 +68,7 @@ RCT_EXPORT_METHOD(login:(RCTPromiseResolveBlock)resolve
     [session openWithCompletionHandler:^(NSError *error) {
         if ([session isOpen]) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            [formatter setDateFormat:@"yyyy-MM-ddThh:mm:ss"];
+            [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
 
             resolve(@{@"accessToken": session.token.accessToken, 
                       @"refreshToken": session.token.refreshToken, 
