@@ -31,7 +31,7 @@ $ yarn add @react-native-seoul/kakao-login
 ```shell
 $ npm install react-native-kakao-logins@1.3.8
 # OR
-$ yarn add react-native-kakao-login@s1.3.8
+$ yarn add react-native-kakao-logins@1.3.8
 ```
 
 ### Automatic installation
