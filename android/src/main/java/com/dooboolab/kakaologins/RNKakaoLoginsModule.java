@@ -276,7 +276,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                     UserAccount kakaoAccount = me.getKakaoAccount();
 
                     profile.putString("id", String.valueOf(me.getId()));
-                    profile.putString("nickanme", kakaoAccount.getProfile().getNickname());
+                    profile.putString("nickname", kakaoAccount.getProfile().getNickname());
                     profile.putString("email", kakaoAccount.getEmail());
                     profile.putString("display_id", kakaoAccount.getDisplayId());
                     profile.putString("phone_number", kakaoAccount.getPhoneNumber());
