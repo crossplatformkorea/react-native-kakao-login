@@ -54,14 +54,14 @@ React Native 0.60.X이상부터는 `Auto linking`을 지원합니다. 수동으�
 // react-native.config.js
 module.exports = {
   dependencies: {
-    '@react-native-seoul/kakao-login': {
+    "@react-native-seoul/kakao-login": {
       // Set null on platform that you want manual installation
       platforms: {
         ios: null,
-        android: null,
-      },
-    },
-  },
+        android: null
+      }
+    }
+  }
 };
 ```
 
@@ -187,7 +187,7 @@ subprojects {
     repositories {
         ...
         mavenCentral()
-        maven { url 'http://devrepo.kakao.com:8088/ +nexus/content/groups/public/' }
+        maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
     }
 }
 ```
@@ -217,33 +217,31 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 [Changelogs 링크](./CHANGELOG.md)
 
-
 #### Methods (callback is optional)
 
-| Func       |                   Param                    |      Return      | Description      |
-| :--------- | :----------------------------------------: | :--------------: | :--------------- |
-| login      | `callback? (err: Error, result: Object)`   | Promise{Object}  | 로그인.            |
-| getProfile | `callback? (err: Error, result: Object)`   | Promise{Object}  | 프로필 불러오기.     |
-| logout     | `callback? (err: Error, result: String)`   | Promise{String}  | 로그아웃.           |
+| Func       |                  Param                   |     Return      | Description      |
+| :--------- | :--------------------------------------: | :-------------: | :--------------- |
+| login      | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인.          |
+| getProfile | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기. |
+| logout     | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃.        |
 
 #### params in result when `login`
 
 - version > 1.3.8
 
-|                         | iOS | Android |          type         | Description |
-| ----------------------- | :-: | :-----: | :--------------------:|:---------: |
-| `accessToken`           |  ✓  |    ✓    |       `string`        |토큰 |
-| `refreshToken`          |  ✓  |    ✓    |       `string`        |리프레쉬 토큰 |
-| `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` |토큰 만료 시간 |
-| `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` |리프레쉬 토큰 만료 시간 |
-| `scopes`                |  ✓  |         | `yyyy-MM-ddThh:mm:ss` |사용자로 부터 받은 권한 |
+|                         | iOS | Android |         type          |       Description       |
+| ----------------------- | :-: | :-----: | :-------------------: | :---------------------: |
+| `accessToken`           |  ✓  |    ✓    |       `string`        |          토큰           |
+| `refreshToken`          |  ✓  |    ✓    |       `string`        |      리프레쉬 토큰      |
+| `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` |     토큰 만료 시간      |
+| `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` | 리프레쉬 토큰 만료 시간 |
+| `scopes`                |  ✓  |         | `yyyy-MM-ddThh:mm:ss` | 사용자로 부터 받은 권한 |
 
 - version <= 1.3.8
 
-|                         | iOS | Android |          type         | Description |
-| ----------------------- | :-: | :-----: | :--------------------:|:---------: |
-| `token`                 |  ✓  |    ✓    |       `string`        |토큰 |
-
+|         | iOS | Android |   type   | Description |
+| ------- | :-: | :-----: | :------: | :---------: |
+| `token` |  ✓  |    ✓    | `string` |    토큰     |
 
 #### params in result when `getProfile`
 
@@ -282,62 +280,67 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 4가지 `attribute` 대해 아직 ios에서 아직 어떻게 받는지 확인이 안되어 android와 상이한 부분이 있습니다.
 
 #### Error code support partially
+
 > KAKAO_ERROR 에러 코드<br/>
-모든 에러코드가 등록되어있지는 않습니다, 숫자로 반환되는 에러코드는 아래의 링크를 참조하세요
+> 모든 에러코드가 등록되어있지는 않습니다, 숫자로 반환되는 에러코드는 아래의 링크를 참조하세요
 
 [Android Link](https://developers.kakao.com/docs/android-reference/com/kakao/auth/ApiErrorCode.html)
 
 [iOS Link](https://developers.kakao.com/docs/ios-reference/KOError_h/index.html#//apple_ref/c/tdef/KOErrorCode)
+
 ```js
-  // SHARED   : 공통 에러코드
-  // IOS      : iOS 에러코드
-  // ANDROID  : Android 에러코드
+// SHARED   : 공통 에러코드
+// IOS      : iOS 에러코드
+// ANDROID  : Android 에러코드
 
-  // SHARED
-  E_UNKNOWN
-  E_CANCELLED_OPERATION
-  E_ILLEGAL_STATE
+// SHARED
+E_UNKNOWN;
+E_CANCELLED_OPERATION;
+E_ILLEGAL_STATE;
 
-  // IOS
-  E_IN_PROGRESS_OPERATION
-  E_TOKEN_NOT_FOUND
-  E_DEACTIVATED_SESSION
-  E_ALREADY_LOGINED 
-  E_HTTP_ERROR 
-  E_BAD_RESPONSE 
-  E_NETWORK_ERROR 
-  E_NOT_SUPPORTED 
-  E_BAD_PARAMETER
+// IOS
+E_IN_PROGRESS_OPERATION;
+E_TOKEN_NOT_FOUND;
+E_DEACTIVATED_SESSION;
+E_ALREADY_LOGINED;
+E_HTTP_ERROR;
+E_BAD_RESPONSE;
+E_NETWORK_ERROR;
+E_NOT_SUPPORTED;
+E_BAD_PARAMETER;
 
-  // ANDROID
-  E_ILLEGAL_ARGUMENT 
-  E_MISS_CONFIGURATION 
-  E_AUTHORIZATION_FAILED 
-  E_JSON_PARSING_ERROR 
-  E_URI_LENGTH_EXCEEDED
-  E_KAKAOTALK_NOT_INSTALLED
+// ANDROID
+E_ILLEGAL_ARGUMENT;
+E_MISS_CONFIGURATION;
+E_AUTHORIZATION_FAILED;
+E_JSON_PARSING_ERROR;
+E_URI_LENGTH_EXCEEDED;
+E_KAKAOTALK_NOT_INSTALLED;
 ```
 
 ## Usage
 
 [@react-native-seoul/kakao-login/KakaoLoginExample/App.js](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/KakaoLoginExample/App.js)
 
-
 ## How to run example project
+
 1. `clone` 받은 레포에서 `KakaoLoginExample` 폴더로 이동합니다
 
-  ```bash
-    cd KakaoLoginExample  
-  ```
+```bash
+  cd KakaoLoginExample
+```
+
 2. 필요한 모듈을 설치 합니다(`preinstall`이 실행됩니다)
 
 ```bash
-    npm install 
+    npm install
     #OR
     yarn install
-  ```
+```
+
 3. 프로젝트 실행
- - `KAKAO_APP_KEY`등 필요한 SDK 연동 설정은 기본으로 되어 있습니다
- - `npm run start`
- - `npm run ios` or `npm run android`로 앱 실행
- -  ios의 경우 `ios`폴더에서 `pod install`을 먼저 실행해 주세요 (충돌시 `lock파일` 삭제 후 설치)
+
+- `KAKAO_APP_KEY`등 필요한 SDK 연동 설정은 기본으로 되어 있습니다
+- `npm run start`
+- `npm run ios` or `npm run android`로 앱 실행
+- ios의 경우 `ios`폴더에서 `pod install`을 먼저 실행해 주세요 (충돌시 `lock파일` 삭제 후 설치)
