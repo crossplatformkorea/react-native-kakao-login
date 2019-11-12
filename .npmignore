@@ -1,3 +1,7 @@
 .git
-KakaoLoginExample
+.idea/
+gen/
+node_modules/
+KakaoLoginExample/
+
 index.ts
