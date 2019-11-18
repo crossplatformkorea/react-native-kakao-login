@@ -125,13 +125,13 @@ module.exports = {
 
 2) `android/settings.gradle`에 다음을 추가합니다:
    ```diff
-   +  include ':@react-native-seoul/kakao-login'
-   +  project(':@react-native-seoul/kakao-login').projectDir = new File(rootProject.projectDir,     '../node_modules/@react-native-seoul/kakao-login/android')
+   +  include ':react-native-seoul-kakao-login'
+   +  project(':react-native-seoul-kakao-login').projectDir = new File(rootProject.projectDir,     '../node_modules/@react-native-seoul/kakao-login/android')
    ```
 3) `android/app/build.gradle`의 dependencies block 에 다음을 추가합니다:
    ```diff
      implementation "com.facebook.react:react-native:+"  // From node_modules
-   + implementation project(':@react-native-seoul/kakao-login')
+   + implementation project(':react-native-seoul-kakao-login')
    ```
 
 ### Post installation
