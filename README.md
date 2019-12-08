@@ -235,7 +235,7 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 | `refreshToken`          |  ✓  |    ✓    |       `string`        |      리프레쉬 토큰      |
 | `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` |     토큰 만료 시간      |
 | `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` | 리프레쉬 토큰 만료 시간 |
-| `scopes`                |  ✓  |         | `yyyy-MM-ddThh:mm:ss` | 사용자로 부터 받은 권한 |
+| `scopes`                |  ✓  |         |      `string[]`       | 사용자로 부터 받은 권한 |
 
 - version <= 1.3.8
 
