@@ -18,5 +18,6 @@ Pod::Spec.new do |s|
   s.static_framework = true
 
   s.dependency 'React'
-  s.dependency 'KakaoOpenSDK', '~> 1.18.0'
+  s.dependency 'KakaoOpenSDK', '~> 1.20.0'
 end
+

@@ -11,22 +11,22 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - kakao-login (2.1.0):
-    - KakaoOpenSDK (~> 1.18.0)
+  - kakao-login (2.1.2):
+    - KakaoOpenSDK (~> 1.20.0)
     - React
-  - KakaoOpenSDK (1.18.0):
-    - KakaoOpenSDK/KakaoCommon (= 1.18.0)
-    - KakaoOpenSDK/KakaoLink (= 1.18.0)
-    - KakaoOpenSDK/KakaoMessageTemplate (= 1.18.0)
-    - KakaoOpenSDK/KakaoNavi (= 1.18.0)
-    - KakaoOpenSDK/KakaoOpenSDK (= 1.18.0)
-  - KakaoOpenSDK/KakaoCommon (1.18.0)
-  - KakaoOpenSDK/KakaoLink (1.18.0):
+  - KakaoOpenSDK (1.20.0):
+    - KakaoOpenSDK/KakaoCommon (= 1.20.0)
+    - KakaoOpenSDK/KakaoLink (= 1.20.0)
+    - KakaoOpenSDK/KakaoMessageTemplate (= 1.20.0)
+    - KakaoOpenSDK/KakaoNavi (= 1.20.0)
+    - KakaoOpenSDK/KakaoOpenSDK (= 1.20.0)
+  - KakaoOpenSDK/KakaoCommon (1.20.0)
+  - KakaoOpenSDK/KakaoLink (1.20.0):
     - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoMessageTemplate (1.18.0)
-  - KakaoOpenSDK/KakaoNavi (1.18.0):
+  - KakaoOpenSDK/KakaoMessageTemplate (1.20.0)
+  - KakaoOpenSDK/KakaoNavi (1.20.0):
     - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoOpenSDK (1.18.0)
+  - KakaoOpenSDK/KakaoOpenSDK (1.20.0)
   - React (0.60.5):
     - React-Core (= 0.60.5)
     - React-DevSupport (= 0.60.5)
@@ -177,8 +177,8 @@ SPEC CHECKSUMS:
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
-  kakao-login: 38cbb16bda08a1b74dfde72e283c2bf27141ddfb
-  KakaoOpenSDK: 016f24ab128c4e05c76a6a0965d6c379c0fafb58
+  kakao-login: 28a46971b8caee0c71d002db87c6046f86de96ff
+  KakaoOpenSDK: 797d97ec4a7074a23d7175147f13ec274c81c9b9
   React: 53c53c4d99097af47cf60594b8706b4e3321e722
   React-Core: ba421f6b4f4cbe2fb17c0b6fc675f87622e78a64
   React-cxxreact: 8384287780c4999351ad9b6e7a149d9ed10a2395
@@ -200,4 +200,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d0eed8782467d6c06f8755e17a4d5b7a9e3d0180
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4
