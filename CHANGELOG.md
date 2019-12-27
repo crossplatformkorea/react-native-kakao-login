@@ -1,6 +1,6 @@
 ## Changelogs
 
-- **[2.1.3]**
+- **[2.2.0]**
 
   - upgrade kakao sdk version (ios: 1.20.0, android: 1.26.0) [#93](https://github.com/react-native-seoul/react-native-kakao-login/pull/93)
 
