@@ -4,6 +4,7 @@ package com.dooboolab.kakaologins;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -167,13 +168,21 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
      * @param adapter Dialog의 list view에 쓰일 adapter
      * @return 로그인 방법들을 팝업으로 보여줄 dialog
      */
-    private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter) {
+    private Dialog createLoginDialog(final Item[] authItems, final ListAdapter adapter, final Promise promise) {
         final Dialog dialog = new Dialog(reactContext.getCurrentActivity(), com.kakao.usermgmt.R.style.LoginDialog);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(com.kakao.usermgmt.R.layout.layout_login_dialog);
         if (dialog.getWindow() != null) {
             dialog.getWindow().setGravity(Gravity.CENTER);
         }
+
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener () {
+          @Override
+          public void onCancel(DialogInterface dialog) {
+            promise.reject("E_CANCELLED_OPERATION", "로그인을 취소하였습니다. 다시 시도해주세요.");
+            dialog.dismiss();
+          }
+        });
 
         ListView listView = (ListView) dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
         listView.setAdapter(adapter);
@@ -192,6 +201,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                promise.reject("E_CANCELLED_OPERATION", "로그인을 취소하였습니다. 다시 시도해주세요.");
                 dialog.dismiss();
             }
         });
@@ -233,7 +243,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         } else {
             final Item[] authItems = createAuthItemArray(getAuthTypes());
             ListAdapter adapter = createLoginAdapter(authItems);
-            final Dialog dialog = createLoginDialog(authItems, adapter);
+            final Dialog dialog = createLoginDialog(authItems, adapter, promise);
             dialog.show();
         }
     }
