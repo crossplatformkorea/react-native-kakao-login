@@ -116,6 +116,8 @@ RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
                 @"is_email_verified": handleKOBoolean(me.account.isEmailVerified),
                 @"is_kakaotalk_user": handleKOBoolean(me.account.isKakaotalkUser),
                 @"has_signed_up": handleKOBoolean(me.hasSignedUp),
+                @"gender": handleKOBoolean(me.account.gender),
+                @"birthday": handleKOBoolean(me.account.birthday),
             };
             
             resolve(profile);
