@@ -39,6 +39,7 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.usermgmt.response.model.Gender;
 import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
@@ -133,6 +134,24 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                 break;
         }
     }
+
+    private String handleOptionalEnumGender(Gender gender){
+        if (gender == null) {
+            return null;
+        }
+
+        switch(gender){
+
+            case FEMALE:
+                return "FEMALE";
+            case MALE:
+                return "MALE";
+            default:
+                return null;
+        }
+    }
+
+
 
     @SuppressWarnings("deprecation")
     private ListAdapter createLoginAdapter(final Item[] authItems) {
@@ -284,14 +303,17 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                 try {
                     WritableMap profile = Arguments.createMap();
                     UserAccount kakaoAccount = me.getKakaoAccount();
+                    Gender gender = kakaoAccount.getGender();
 
                     profile.putString("id", String.valueOf(me.getId()));
                     profile.putString("nickname", kakaoAccount.getProfile().getNickname());
                     profile.putString("email", kakaoAccount.getEmail());
+                    profile.putString("birthday", kakaoAccount.getBirthday());
                     profile.putString("display_id", kakaoAccount.getDisplayId());
                     profile.putString("phone_number", kakaoAccount.getPhoneNumber());
                     profile.putString("profile_image_url", kakaoAccount.getProfile().getProfileImageUrl());
                     profile.putString("thumb_image_url", kakaoAccount.getProfile().getThumbnailImageUrl());
+                    profile.putString("gender", handleOptionalEnumGender(gender));
 
                     handleOptionalBooleanWithMap(profile, "is_email_verified", kakaoAccount.isEmailVerified());
                     handleOptionalBooleanWithMap(profile, "is_kakaotalk_user", kakaoAccount.isKakaoTalkUser());
