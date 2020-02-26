@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.4.0]**
+
+  - Add gender and birthday information in the GetProfile method [#102](https://github.com/react-native-seoul/react-native-kakao-login/pull/102)
+
 - **[2.3.0]**
 
   - implement onCancelHandler on android [#96](https://github.com/react-native-seoul/react-native-kakao-login/pull/96)
