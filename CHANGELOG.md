@@ -2,7 +2,7 @@
 
 - **[2.4.1]**
 
-  - fix typo in readme [#103](https://github.com/react-native-seoul/react-native-kakao-login/pull/103)
+  - fix typo in readme [#104](https://github.com/react-native-seoul/react-native-kakao-login/pull/104)
 
 - **[2.4.0]**
 
