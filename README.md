@@ -38,13 +38,14 @@ $ yarn add react-native-kakao-logins@1.3.8
 
 ##### RN >= 0.60
 
-React Native 0.60.X이상부터는 `Auto linking`을 지원합니다. 수동으로 설치를 원하시면 아래의 `Manual installation`를 참조하세요
+React Native 0.60.X이상부터는 `Auto linking`을 지원합니다
+바로 PostInstall을 참고해서 설치를 진행하세요
 
 ##### RN < 0.60
 
 `$ react-native link react-native-kakao-logins` 또는 아래의 `Manual installation`를 참조하세요
 
-### Manual installation
+### Manual installation (특별한 경우가 아니라면 필요하지 않습니다)
 
 ##### [RN >= 0.60] Manual installation을 원한다면 다음 설정을 먼저 해주세요
 
@@ -134,8 +135,8 @@ module.exports = {
    + implementation project(':react-native-seoul-kakao-login')
    ```
 
-### Post installation
-
+### Post installation (important)
+설치가 제대로 되지 않는다면 example project의 설정을 참고하세요 👍
 #### iOS
 
 1. 프로젝트의 ios 폴더에서 `$ pod install` 명령어를 실행합니다. (KaKao SDK를 직접 다운받아서 설치한 경우는 제외)
@@ -183,10 +184,9 @@ module.exports = {
 3. `android/build.gradle` 에 아래 내용을 추가합니다.
 
 ```gradle
-subprojects {
+allprojects {
     repositories {
         ...
-        mavenCentral()
         maven { url 'http://devrepo.kakao.com:8088/nexus/content/groups/public/' }
     }
 }
