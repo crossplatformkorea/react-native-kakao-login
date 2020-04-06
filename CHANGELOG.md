@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.4.2]**
+
+  - upgrade sdk versions for bugfix [#116](https://github.com/react-native-seoul/react-native-kakao-login/pull/116)
+
 - **[2.4.1]**
 
   - fix typo in readme [#104](https://github.com/react-native-seoul/react-native-kakao-login/pull/104)
