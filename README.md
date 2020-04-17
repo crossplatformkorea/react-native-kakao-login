@@ -59,10 +59,10 @@ module.exports = {
       // Set null on platform that you want manual installation
       platforms: {
         ios: null,
-        android: null
-      }
-    }
-  }
+        android: null,
+      },
+    },
+  },
 };
 ```
 
@@ -136,7 +136,9 @@ module.exports = {
    ```
 
 ### Post installation (important)
+
 설치가 제대로 되지 않는다면 example project의 설정을 참고하세요 👍
+
 #### iOS
 
 1. 프로젝트의 ios 폴더에서 `$ pod install` 명령어를 실행합니다. (KaKao SDK를 직접 다운받아서 설치한 경우는 제외)
@@ -261,8 +263,9 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 | `has_signed_up`     |  ✓  |    ✓    |     가입 여부      |
 | `gender`            |  ✓  |    ✓    |        성별        |
 | `birthday`          |  ✓  |    ✓    |        생일        |
+| `birthyear`         |  ✓  |    ✓    |      출생연도      |
 
-`email` / `gender` / `birthday` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up` <strong>해당 값들은 사용자의 동의 혹은 제휴를 통해 권한이 부여된 특정 앱에서만 획득할 수 있습니다. 권한이 있다면 그에 맞는 값을 리턴하고, 권한이 없다면 null 값을 반환합니다.</strong>
+`email` / `gender` / `birthday` / `birthyear` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up` <strong>해당 값들은 사용자의 동의 혹은 제휴를 통해 권한이 부여된 특정 앱에서만 획득할 수 있습니다. 권한이 있다면 그에 맞는 값을 리턴하고, 권한이 없다면 null 값을 반환합니다.</strong>
 
 - version <= 1.3.8
 

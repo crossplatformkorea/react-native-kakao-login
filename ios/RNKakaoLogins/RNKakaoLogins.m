@@ -29,18 +29,18 @@ NSObject* handleNullableEnumGender(KOUserGender gender)
     if (gender == KOUserGenderMale) {
         return @"MALE";
     }
-    
+
     if (gender == KOUserGenderFemale) {
         return @"FEMALE";
-        
+
     }
-    
+
     return [NSNull null];
 }
 
 NSString* getErrorCode(NSError *error){
     int errorCode = (int)error.code;
-    
+
     switch(errorCode){
         case KOErrorUnknown:
             return @"E_UNKNOWN";
@@ -66,7 +66,7 @@ NSString* getErrorCode(NSError *error){
             return @"E_BAD_PARAMETER";
         case KOErrorIllegalState:
             return @"E_ILLEGAL_STATE";
-            
+
         default:
             return @(error.code).stringValue;
     }
@@ -79,16 +79,16 @@ RCT_EXPORT_METHOD(login:(RCTPromiseResolveBlock)resolve
 {
     KOSession *session = [KOSession sharedSession];
     [session close]; // ensure old session was closed
-    
+
     [session openWithCompletionHandler:^(NSError *error) {
         if ([session isOpen]) {
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
 
-            resolve(@{@"accessToken": session.token.accessToken, 
-                      @"refreshToken": session.token.refreshToken, 
-                      @"accessTokenExpiresAt": [formatter stringFromDate: session.token.accessTokenExpiresAt], 
-                      @"refreshTokenExpiresAt": [formatter stringFromDate: session.token.refreshTokenExpiresAt], 
+            resolve(@{@"accessToken": session.token.accessToken,
+                      @"refreshToken": session.token.refreshToken,
+                      @"accessTokenExpiresAt": [formatter stringFromDate: session.token.accessTokenExpiresAt],
+                      @"refreshTokenExpiresAt": [formatter stringFromDate: session.token.refreshTokenExpiresAt],
                       @"scopes": session.token.scopes});
         } else {
             RCTLogInfo(@"Error=%@", error);
@@ -101,7 +101,7 @@ RCT_EXPORT_METHOD(logout:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     KOSession *session = [KOSession sharedSession];
-    
+
     [session logoutAndCloseWithCompletionHandler:^(BOOL success, NSError *error) {
         if(success){
             resolve(@"Logged Out");
@@ -132,9 +132,10 @@ RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
                 @"is_kakaotalk_user": handleKOBoolean(me.account.isKakaotalkUser),
                 @"has_signed_up": handleKOBoolean(me.hasSignedUp),
                 @"gender": handleNullableEnumGender(me.account.gender),
-                @"birthday": handleNullableString(me.account.birthday)
+                @"birthday": handleNullableString(me.account.birthday),
+                @"birthyear": handleNullableString(me.account.birthyear)
             };
-            
+
             resolve(profile);
         }
     }];

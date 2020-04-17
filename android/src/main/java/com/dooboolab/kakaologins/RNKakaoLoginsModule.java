@@ -308,6 +308,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                     profile.putString("id", String.valueOf(me.getId()));
                     profile.putString("nickname", kakaoAccount.getProfile().getNickname());
                     profile.putString("email", kakaoAccount.getEmail());
+                    profile.putString("birthyear", kakaoAccount.getBirthyear());
                     profile.putString("birthday", kakaoAccount.getBirthday());
                     profile.putString("display_id", kakaoAccount.getDisplayId());
                     profile.putString("phone_number", kakaoAccount.getPhoneNumber());
@@ -377,7 +378,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     public void onHostResume() {
 
     }
-    
+
     public static String getLoginErrorCode(KakaoException exception) {
         switch(exception.getErrorType()){
             case UNSPECIFIED_ERROR:
@@ -400,7 +401,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                 return "E_KAKAOTALK_NOT_INSTALLED";
             default:
                 return "E_UNKNOWN";
-                
+
         }
     }
 }
