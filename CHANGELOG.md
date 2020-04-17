@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.4.3]**
+
+  - Add birthyear information in the GetProfile method [#102](https://github.com/react-native-seoul/react-native-kakao-login/pull/118)
+
 - **[2.4.2]**
 
   - upgrade sdk versions for bugfix [#116](https://github.com/react-native-seoul/react-native-kakao-login/pull/116)
