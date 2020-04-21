@@ -81,7 +81,7 @@ module.exports = {
   ```
 
 - 카카오 홈페이지 Download 를 통한 설치
-  - [카카오 홈페이지 다운로드 링크](https://developers.kakao.com/docs/ios/getting-started#kakao-sdk-설치)
+  - [카카오 홈페이지 다운로드 링크](https://developers.kakao.com/docs/latest/ko/sdk-download/ios-v1)
   - <b>앱생성 가이드 전</b> 까지 가이드대로 `SDK Framework`를 프로젝트에 import 해주세요
 
 2. Xcode를 열고, project main navigator, `Libraries` 폴더 우클릭 ➜ `Add Files to [your project's name]` 클릭
@@ -142,10 +142,10 @@ module.exports = {
 #### iOS
 
 1. 프로젝트의 ios 폴더에서 `$ pod install` 명령어를 실행합니다. (KaKao SDK를 직접 다운받아서 설치한 경우는 제외)
-2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 앱생성](https://developers.kakao.com/docs/ios/getting-started#앱-생성) 을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 앱생성](https://developers.kakao.com/docs/latest/ko/getting-started/app) 을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 3. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
-4. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/ios/getting-started#%EA%B0%9C%EB%B0%9C%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%84%A4%EC%A0%95) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다.
-5. [공식문서 - 로그인](https://developers.kakao.com/docs/ios/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8) 을 참고하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
+4. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios-v1) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다.
+5. [공식문서 - 로그인](https://developers.kakao.com/docs/latest/ko/kakaologin/ios) 을 참고하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
 
    ```
    #import <KakaoOpenSDK/KakaoOpenSDK.h>
@@ -194,7 +194,7 @@ allprojects {
 }
 ```
 
-4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/android/getting-started#앱-생성)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
+4. 안드로이드 카카오 SDK 설치 후의 설정과 관련해서는 [카카오 개발자 페이지 - 앱생성](https://developers.kakao.com/docs/latest/ko/getting-started/app)을 참고해주세요. <b>앱생성</b> 가이드를 따라하고 성공적으로 build가 되는 것을 확인하시면 아래를 진행하시면 됩니다.
 5. `app/src/main/res/values/strings.xml` 을 열어 다음을 추가합니다
 
 ```diff
@@ -205,7 +205,7 @@ allprojects {
 ```
 
 6. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
-7. 아래와 같은 에러가 발생할 경우 [키 해시 등록](https://developers.kakao.com/docs/android/getting-started#키해시-등록)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
+7. 아래와 같은 에러가 발생할 경우 [키 해시 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android-v1#key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
 
 ```
 AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
