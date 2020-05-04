@@ -1,5 +1,10 @@
 ## Changelogs
 
+- **[2.4.4]**
+
+  - update readme [#121](https://github.com/react-native-seoul/react-native-kakao-login/pull/121)
+  - implement onHostResume in android [#126](https://github.com/react-native-seoul/react-native-kakao-login/pull/126)
+
 - **[2.4.3]**
 
   - Add birthyear information in the GetProfile method [#102](https://github.com/react-native-seoul/react-native-kakao-login/pull/118)
