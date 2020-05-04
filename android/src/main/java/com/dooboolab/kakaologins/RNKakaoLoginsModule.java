@@ -375,9 +375,15 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     }
 
     @Override
-    public void onHostResume() {
-
-    }
+     public void onHostResume() {
+      if (KakaoSDK.getAdapter() == null) {
+        KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
+        reactContext.addActivityEventListener(this);
+        callback = new SessionCallback();
+        Session.getCurrentSession().addCallback(callback);
+        Session.getCurrentSession().checkAndImplicitOpen();
+      }
+     }
 
     public static String getLoginErrorCode(KakaoException exception) {
         switch(exception.getErrorType()){
