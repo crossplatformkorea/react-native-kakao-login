@@ -76,7 +76,7 @@ module.exports = {
   ```ruby
   target 'yourApp' do
       ...
-      pod 'KakaoOpenSDK', '~> 1.20.0' # append this line
+      pod 'KakaoOpenSDK', '~> 1.21.0' # append this line
   end
   ```
 
