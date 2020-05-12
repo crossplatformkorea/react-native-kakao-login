@@ -243,6 +243,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             Session.getCurrentSession().clearCallbacks();
         }
         reactContext.addActivityEventListener(this);
+		reactContext.addLifecycleEventListener(this);
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
         Session.getCurrentSession().checkAndImplicitOpen();
