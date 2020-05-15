@@ -1,5 +1,10 @@
 ## Changelogs
 
+- **[2.4.5]**
+
+  - KakaoOpenSDK 수동설치 관련 문서수정 [#129](https://github.com/react-native-seoul/react-native-kakao-login/pull/129)
+  - 라이프 사이클 이벤트 리스너 등록 [#130](https://github.com/react-native-seoul/react-native-kakao-login/pull/130)
+
 - **[2.4.4]**
 
   - update readme [#121](https://github.com/react-native-seoul/react-native-kakao-login/pull/121)
