@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.5.0]**
+
+  - 연결끊기 메소드 구현 [#134](https://github.com/react-native-seoul/react-native-kakao-login/pull/134)
+
 - **[2.4.5]**
 
   - KakaoOpenSDK 수동설치 관련 문서수정 [#129](https://github.com/react-native-seoul/react-native-kakao-login/pull/129)
