@@ -141,4 +141,18 @@ RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
     }];
 }
 
+RCT_EXPORT_METHOD(unlink:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [KOSessionTask unlinkTaskWithCompletionHandler:^(BOOL success, NSError *error) {
+        if (error) {
+            RCTLogInfo(@"Error=%@", error);
+            reject(getErrorCode(error), error.localizedDescription, error);
+        }
+        else {
+            resolve(@"Unlinked");
+        }
+    }];
+}
+
 @end

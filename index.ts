@@ -98,7 +98,7 @@ export function login(callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
 /**
  * logout
  * @param {ICallback<string>} [callback] callback function
- * @returns {Promise<ITokenInfo>}
+ * @returns {Promise<string>}
  */
 export function logout(callback?: ICallback<string>): Promise<string> {
   return RNKakaoLogins.logout()
@@ -141,10 +141,34 @@ export function getProfile(callback?: ICallback<IProfile>): Promise<IProfile> {
     });
 }
 
+/**
+ * unlink
+ * @param {ICallback<string>} [callback] callback function
+ * @returns {Promise<string>}
+ */
+export function unlink(callback?: ICallback<string>): Promise<string> {
+  return RNKakaoLogins.unlink()
+    .then((result) => {
+      if (isFunction(callback)) {
+        callback(null, result);
+      }
+
+      return result;
+    })
+    .catch((error) => {
+      if (isFunction(callback)) {
+        callback(error, null);
+      }
+
+      throw error;
+    });
+}
+
 const KakaoLogins = {
   login,
   logout,
   getProfile,
+  unlink,
 };
 
 export default KakaoLogins;

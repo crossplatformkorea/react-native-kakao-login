@@ -1,6 +1,6 @@
 {
   "name": "@react-native-seoul/kakao-login",
-  "version": "2.4.5",
+  "version": "2.5.0",
   "description": "React Native Module for Kakao Login",
   "main": "index.js",
   "types": "index.d.ts",
