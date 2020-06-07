@@ -24,6 +24,7 @@ export default function App() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
   const [profileLoading, setProfileLoading] = useState(false);
+  const [unlinkLoading, setUnlinkLoading] = useState(false);
 
   const [token, setToken] = useState(TOKEN_EMPTY);
   const [profile, setProfile] = useState(PROFILE_EMPTY);
@@ -87,6 +88,23 @@ export default function App() {
       });
   };
 
+  const unlinkKakao = () => {
+    logCallback('Unlink Start', setUnlinkLoading(true));
+
+    KakaoLogins.unlink()
+      .then(result => {
+        setToken(TOKEN_EMPTY);
+        setProfile(PROFILE_EMPTY);
+        logCallback(`Unlink Finished:${result}`, setUnlinkLoading(false));
+      })
+      .catch(err => {
+        logCallback(
+          `Unlink Failed:${err.code} ${err.message}`,
+          setUnlinkLoading(false),
+        );
+      });
+  };
+
   const {id, email, profile_image_url: photo} = profile;
 
   return (
@@ -121,6 +139,14 @@ export default function App() {
           style={styles.btnKakaoLogin}
           textStyle={styles.txtKakaoLogin}>
           getProfile
+        </NativeButton>
+        <NativeButton
+          isLoading={unlinkLoading}
+          onPress={unlinkKakao}
+          activeOpacity={0.5}
+          style={styles.btnKakaoLogin}
+          textStyle={styles.txtKakaoLogin}>
+          unlink
         </NativeButton>
       </View>
     </View>
