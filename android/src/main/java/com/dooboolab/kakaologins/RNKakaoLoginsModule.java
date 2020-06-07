@@ -37,6 +37,7 @@ import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.Gender;
@@ -329,6 +330,28 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             }
         });
     }
+
+    @ReactMethod
+    private void unlink(final Promise promise) {
+        UserManagement.getInstance()
+                .requestUnlink(new UnLinkResponseCallback() {
+                    @Override
+                    public void onSessionClosed(ErrorResult error) {
+                        promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
+                    }
+
+                    @Override
+                    public void onFailure(ErrorResult error) {
+                        promise.reject(String.valueOf(error.getErrorCode()), error.getErrorMessage(), error.getException());
+
+                    }
+                    @Override
+                    public void onSuccess(Long result) {
+                        promise.resolve("Unlinked");
+                    }
+                });
+    }
+
 
     public static class SessionCallback implements ISessionCallback {
         @Override
