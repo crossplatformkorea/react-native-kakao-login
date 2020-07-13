@@ -32,6 +32,7 @@ import com.facebook.react.bridge.Promise;
 
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
+import com.kakao.auth.AccessTokenCallback;
 import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
@@ -350,6 +351,35 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                         promise.resolve("Unlinked");
                     }
                 });
+    }
+    
+    @ReactMethod
+    private void updateScopes(final ReadableArray scopes, final Promise promise) {
+        List<String> targetScopes = new ArrayList<String>();
+        for (Object scopeObj : scopes.toArrayList()) {
+            String scope = scopeObj.toString();
+            targetScopes.add(scope);
+        }
+
+        Session.getCurrentSession().updateScopes(reactContext.getCurrentActivity(), targetScopes, new AccessTokenCallback() {
+            @Override
+            public void onAccessTokenReceived(AccessToken accessToken) {
+                WritableMap result = Arguments.createMap();
+                SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                result.putString("accessToken", Session.getCurrentSession().getTokenInfo().getAccessToken());
+                result.putString("refreshToken", Session.getCurrentSession().getTokenInfo().getRefreshToken());
+                result.putString("accessTokenExpiresAt", transFormat.format(Session.getCurrentSession().getTokenInfo().accessTokenExpiresAt()));
+                result.putString("refreshTokenExpiresAt", transFormat.format(Session.getCurrentSession().getTokenInfo().refreshTokenExpiresAt()));
+                
+                promise.resolve(result);
+            }
+
+            @Override
+            public void onAccessTokenFailure(ErrorResult errorResult) {
+                promise.reject(String.valueOf(errorResult.getErrorCode()), errorResult.getErrorMessage(), errorResult.getException());
+            }
+        });
     }
 
 
