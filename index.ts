@@ -164,11 +164,36 @@ export function unlink(callback?: ICallback<string>): Promise<string> {
     });
 }
 
+/**
+ * updateScopes
+ * @param {Array<string>} scopes request scopes 
+ * @param {ICallback<ITokenInfo>} [callback] callback function
+ * @returns {Promise<ITokenInfo>}
+ */
+export function updateScopes(scopes: Array<string>, callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
+  return RNKakaoLogins.updateScopes(scopes)
+    .then((result) => {
+      if (isFunction(callback)) {
+        callback(null, result);
+      }
+
+      return result;
+    })
+    .catch((error) => {
+      if (isFunction(callback)) {
+        callback(error, null);
+      }
+
+      throw error;
+    });
+}
+
 const KakaoLogins = {
   login,
   logout,
   getProfile,
   unlink,
+  updateScopes
 };
 
 export default KakaoLogins;
