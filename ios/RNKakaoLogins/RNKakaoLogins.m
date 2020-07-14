@@ -155,4 +155,35 @@ RCT_EXPORT_METHOD(unlink:(RCTPromiseResolveBlock)resolve
     }];
 }
 
+RCT_EXPORT_METHOD(updateScopes:(NSArray<NSString *>*) scopes
+                  resolver:(RCTPromiseResolveBlock) resolve
+                  rejecter:(RCTPromiseRejectBlock) reject)
+{
+    KOSession* session = [KOSession sharedSession];
+    
+    [session updateScopes: scopes
+        completionHandler: ^(NSError *error) {
+        if (error) {
+            RCTLogInfo(@"Error=%@", error);
+            reject(getErrorCode(error), error.localizedDescription, error);
+        } else {
+            [session openWithCompletionHandler:^(NSError *error) {
+                if ([session isOpen]) {
+                    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+
+                    resolve(@{@"accessToken": session.token.accessToken,
+                              @"refreshToken": session.token.refreshToken,
+                              @"accessTokenExpiresAt": [formatter stringFromDate: session.token.accessTokenExpiresAt],
+                              @"refreshTokenExpiresAt": [formatter stringFromDate: session.token.refreshTokenExpiresAt],
+                              @"scopes": session.token.scopes});
+                } else {
+                    RCTLogInfo(@"Error=%@", error);
+                    reject(getErrorCode(error), error.localizedDescription, error);
+                }
+            }];
+        }
+    }];
+}
+
 @end
