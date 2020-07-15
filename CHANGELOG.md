@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.6.0]**
+
+  -추가 동의 요청 기능에 대한 구현 [#144](https://github.com/react-native-seoul/react-native-kakao-login/pull/144)
+
 - **[2.5.0]**
 
   - 연결끊기 메소드 구현 [#134](https://github.com/react-native-seoul/react-native-kakao-login/pull/134)
