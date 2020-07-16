@@ -89,7 +89,7 @@ RCT_EXPORT_METHOD(login:(RCTPromiseResolveBlock)resolve
                       @"refreshToken": session.token.refreshToken,
                       @"accessTokenExpiresAt": [formatter stringFromDate: session.token.accessTokenExpiresAt],
                       @"refreshTokenExpiresAt": session.token.refreshTokenExpiresAt != nil ? [formatter stringFromDate: session.token.refreshTokenExpiresAt] : [NSNull null],
-                      @"scopes": session.token.scopes});
+                      @"scopes": session.token.scopes != nil ? session.token.scopes : @[]});
         } else {
             RCTLogInfo(@"Error=%@", error);
             reject(getErrorCode(error), error.localizedDescription, error);
@@ -176,7 +176,7 @@ RCT_EXPORT_METHOD(updateScopes:(NSArray<NSString *>*) scopes
                               @"refreshToken": session.token.refreshToken,
                               @"accessTokenExpiresAt": [formatter stringFromDate: session.token.accessTokenExpiresAt],
                               @"refreshTokenExpiresAt": session.token.refreshTokenExpiresAt != nil ? [formatter stringFromDate: session.token.refreshTokenExpiresAt] : [NSNull null],
-                              @"scopes": session.token.scopes});
+                              @"scopes": session.token.scopes != nil ? session.token.scopes : @[]});
                 } else {
                     RCTLogInfo(@"Error=%@", error);
                     reject(getErrorCode(error), error.localizedDescription, error);
