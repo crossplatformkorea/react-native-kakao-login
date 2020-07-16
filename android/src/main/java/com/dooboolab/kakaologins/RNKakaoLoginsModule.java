@@ -27,6 +27,7 @@ import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Promise;
 
@@ -35,6 +36,7 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.AccessTokenCallback;
 import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
+import com.kakao.auth.authorization.accesstoken.AccessToken;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
