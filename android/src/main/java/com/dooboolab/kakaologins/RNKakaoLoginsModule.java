@@ -1,4 +1,3 @@
-
 package com.dooboolab.kakaologins;
 
 import android.app.Activity;
@@ -44,6 +43,7 @@ import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.Gender;
+import com.kakao.usermgmt.response.model.Profile;
 import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
 import com.kakao.util.exception.KakaoException;
@@ -51,6 +51,7 @@ import com.kakao.util.exception.KakaoException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements ActivityEventListener, LifecycleEventListener{
@@ -145,7 +146,6 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         }
 
         switch(gender){
-
             case FEMALE:
                 return "FEMALE";
             case MALE:
@@ -155,7 +155,28 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         }
     }
 
+    private HashMap<String, String> getNullableAccountInfo(UserAccount kakaoAccount) {
+        HashMap<String, String> profileMap = new HashMap();
 
+        if(kakaoAccount != null){
+            Profile kakaoProfile = kakaoAccount.getProfile();
+            if(kakaoProfile != null) {
+                profileMap.put("profile_image_url", kakaoProfile.getProfileImageUrl());
+                profileMap.put("thumb_image_url", kakaoProfile.getThumbnailImageUrl());
+                profileMap.put("nickname", kakaoProfile.getNickname());
+            }
+
+            Gender gender = kakaoAccount.getGender();
+            profileMap.put("gender", handleOptionalEnumGender(gender));
+            profileMap.put("email", kakaoAccount.getEmail());
+            profileMap.put("birthyear", kakaoAccount.getBirthyear());
+            profileMap.put("birthday", kakaoAccount.getBirthday());
+            profileMap.put("display_id", kakaoAccount.getDisplayId());
+            profileMap.put("phone_number", kakaoAccount.getPhoneNumber());
+        }
+
+        return profileMap;
+    }
 
     @SuppressWarnings("deprecation")
     private ListAdapter createLoginAdapter(final Item[] authItems) {
@@ -200,11 +221,11 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         }
 
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener () {
-          @Override
-          public void onCancel(DialogInterface dialog) {
-            promise.reject("E_CANCELLED_OPERATION", "로그인을 취소하였습니다. 다시 시도해주세요.");
-            dialog.dismiss();
-          }
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                promise.reject("E_CANCELLED_OPERATION", "로그인을 취소하였습니다. 다시 시도해주세요.");
+                dialog.dismiss();
+            }
         });
 
         ListView listView = (ListView) dialog.findViewById(com.kakao.usermgmt.R.id.login_list_view);
@@ -307,24 +328,28 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             public void onSuccess(MeV2Response me) {
                 try {
                     WritableMap profile = Arguments.createMap();
-                    UserAccount kakaoAccount = me.getKakaoAccount();
-                    Gender gender = kakaoAccount.getGender();
 
                     profile.putString("id", String.valueOf(me.getId()));
-                    profile.putString("nickname", kakaoAccount.getProfile().getNickname());
-                    profile.putString("email", kakaoAccount.getEmail());
-                    profile.putString("birthyear", kakaoAccount.getBirthyear());
-                    profile.putString("birthday", kakaoAccount.getBirthday());
-                    profile.putString("display_id", kakaoAccount.getDisplayId());
-                    profile.putString("phone_number", kakaoAccount.getPhoneNumber());
-                    profile.putString("profile_image_url", kakaoAccount.getProfile().getProfileImageUrl());
-                    profile.putString("thumb_image_url", kakaoAccount.getProfile().getThumbnailImageUrl());
-                    profile.putString("gender", handleOptionalEnumGender(gender));
-
-                    handleOptionalBooleanWithMap(profile, "is_email_verified", kakaoAccount.isEmailVerified());
-                    handleOptionalBooleanWithMap(profile, "is_kakaotalk_user", kakaoAccount.isKakaoTalkUser());
                     handleOptionalBooleanWithMap(profile, "has_signed_up", me.hasSignedUp());
 
+                    if(me.getKakaoAccount() != null) {
+                        handleOptionalBooleanWithMap(profile, "is_email_verified", me.getKakaoAccount().isEmailVerified());
+                        handleOptionalBooleanWithMap(profile, "is_kakaotalk_user", me.getKakaoAccount().isKakaoTalkUser());
+                    } else {
+                        profile.putNull("is_email_verified");
+                        profile.putNull("is_kakaotalk_user");
+                    }
+
+                    HashMap<String,String> nullableAccount = getNullableAccountInfo(me.getKakaoAccount());
+                    profile.putString("profile_image_url", nullableAccount.get("profile_image_url"));
+                    profile.putString("thumb_image_url", nullableAccount.get("thumb_image_url"));
+                    profile.putString("nickname", nullableAccount.get("nickname"));
+                    profile.putString("gender", nullableAccount.get("gender"));
+                    profile.putString("email", nullableAccount.get("email"));
+                    profile.putString("birthyear", nullableAccount.get("birthyear"));
+                    profile.putString("birthday", nullableAccount.get("birthday"));
+                    profile.putString("display_id", nullableAccount.get("display_id"));
+                    profile.putString("phone_number", nullableAccount.get("phone_number"));
                     promise.resolve(profile);
                 } catch (Exception e) {
                     promise.reject("E_UNKOWN", e.getMessage(), e);
@@ -354,7 +379,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                     }
                 });
     }
-    
+
     @ReactMethod
     private void updateScopes(final ReadableArray scopes, final Promise promise) {
         List<String> targetScopes = new ArrayList<String>();
@@ -373,7 +398,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                 result.putString("refreshToken", Session.getCurrentSession().getTokenInfo().getRefreshToken());
                 result.putString("accessTokenExpiresAt", transFormat.format(Session.getCurrentSession().getTokenInfo().accessTokenExpiresAt()));
                 result.putString("refreshTokenExpiresAt", transFormat.format(Session.getCurrentSession().getTokenInfo().refreshTokenExpiresAt()));
-                
+
                 promise.resolve(result);
             }
 
@@ -431,15 +456,15 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     }
 
     @Override
-     public void onHostResume() {
-      if (KakaoSDK.getAdapter() == null) {
-        KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
-        reactContext.addActivityEventListener(this);
-        callback = new SessionCallback();
-        Session.getCurrentSession().addCallback(callback);
-        Session.getCurrentSession().checkAndImplicitOpen();
-      }
-     }
+    public void onHostResume() {
+        if (KakaoSDK.getAdapter() == null) {
+            KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
+            reactContext.addActivityEventListener(this);
+            callback = new SessionCallback();
+            Session.getCurrentSession().addCallback(callback);
+            Session.getCurrentSession().checkAndImplicitOpen();
+        }
+    }
 
     public static String getLoginErrorCode(KakaoException exception) {
         switch(exception.getErrorType()){
