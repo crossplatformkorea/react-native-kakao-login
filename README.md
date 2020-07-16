@@ -233,13 +233,13 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 - version > 1.3.8
 
-|                         | iOS | Android |         type          |       Description       |
-| ----------------------- | :-: | :-----: | :-------------------: | :---------------------: |
-| `accessToken`           |  ✓  |    ✓    |       `string`        |          토큰           |
-| `refreshToken`          |  ✓  |    ✓    |       `string`        |      리프레쉬 토큰      |
-| `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` |     토큰 만료 시간      |
-| `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` | 리프레쉬 토큰 만료 시간 |
-| `scopes`                |  ✓  |         |      `string[]`       | 사용자로 부터 받은 권한 |
+|                         | iOS | Android |         type                    |       Description       |
+| ----------------------- | :-: | :-----: | :-----------------------------: | :---------------------: |
+| `accessToken`           |  ✓  |    ✓    |       `string`                  |          토큰           |
+| `refreshToken`          |  ✓  |    ✓    |       `string`                  |      리프레쉬 토큰      |
+| `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss`           |     토큰 만료 시간      |
+| `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` or `null` | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
+| `scopes`                |  ✓  |         |      `string[]`                 | 사용자로 부터 받은 권한 |
 
 - version <= 1.3.8
 
