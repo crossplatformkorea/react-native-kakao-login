@@ -24,6 +24,8 @@ export interface IProfile {
   is_email_verified: boolean | null;
   is_kakaotalk_user: boolean | null;
   has_signed_up: boolean | null;
+  birthday: string | null;
+  gender: string | null;
 }
 
 /**
