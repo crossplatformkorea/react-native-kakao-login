@@ -8,14 +8,14 @@ export interface ICallback<T> {
 export interface ITokenInfo {
   accessTokenExpiresAt: string;
   refreshToken: string;
-  refreshTokenExpiresAt: string;
+  refreshTokenExpiresAt: string | null;
   accessToken: string;
   scopes?: string[]; // iOS only
 }
 
 export interface IProfile {
   id: string;
-  nickname: string;
+  nickname: string | null;
   profile_image_url: string | null;
   thumb_image_url: string | null;
   email: string | null;
