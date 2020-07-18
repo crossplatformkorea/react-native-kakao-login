@@ -1,8 +1,18 @@
 ## Changelogs
 
+- **[2.7.0]**
+
+  - [Android] 동의 항목이 존재하지 않는 경우, me.account 및 me.account.profile 데이터가 null 로 들어오는 이슈 수정 [#151](https://github.com/react-native-seoul/react-native-kakao-login/pull/151)
+
+  - [iOS] 동의 항목이 존재하지 않는 경우,scopes 가 nil 로 들어오는 이슈 수정 [#151](https://github.com/react-native-seoul/react-native-kakao-login/pull/151)
+
+  - [iOS] 구버전 SDK에서 이미 세션을 생성(로그인) 한 상태에서 최신 SDK 로 업데이트 한 경우, refreshTokenExpiresAt 가 nil 로 들어오는 이슈 수정 [#151](https://github.com/react-native-seoul/react-native-kakao-login/pull/151)
+
+  - Add birthday and gender to IProfile [#148](https://github.com/react-native-seoul/react-native-kakao-login/pull/148)
+
 - **[2.6.0]**
 
-  -추가 동의 요청 기능에 대한 구현 [#144](https://github.com/react-native-seoul/react-native-kakao-login/pull/144)
+  - 추가 동의 요청 기능에 대한 구현 [#144](https://github.com/react-native-seoul/react-native-kakao-login/pull/144)
 
 - **[2.5.0]**
 
