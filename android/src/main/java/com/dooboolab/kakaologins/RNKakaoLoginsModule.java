@@ -61,6 +61,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     public static SessionCallback callback;
 
     private static Promise loginPromise;
+    private static boolean hasInit; // becomes true after KakaoSDK.init() is called
 
     private static void loginResolver(WritableMap result){
         if(loginPromise != null){
@@ -262,6 +263,12 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     public RNKakaoLoginsModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+    }
+
+    private void initKakaoSDK() {
+        if (hasInit) {
+            return;
+        }
         if (KakaoSDK.getAdapter() == null) {
             KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
         } else {
@@ -272,6 +279,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
         Session.getCurrentSession().checkAndImplicitOpen();
+        hasInit = true;
     }
 
     @Override
@@ -281,6 +289,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void login(Promise promise) {
+        initKakaoSDK();
         loginPromise = promise;
 
         if (getAuthTypes().size() == 1) {
@@ -295,6 +304,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void logout(final Promise promise) {
+        initKakaoSDK();
         UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
             @Override
             public void onSessionClosed(ErrorResult error) {
@@ -311,6 +321,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void getProfile(final Promise promise) {
+        initKakaoSDK();
         UserManagement.getInstance().me(new MeV2ResponseCallback() {
             @Override
             public void onSessionClosed(ErrorResult error) {
@@ -361,6 +372,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void unlink(final Promise promise) {
+        initKakaoSDK();
         UserManagement.getInstance()
                 .requestUnlink(new UnLinkResponseCallback() {
                     @Override
@@ -382,6 +394,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void updateScopes(final ReadableArray scopes, final Promise promise) {
+        initKakaoSDK();
         List<String> targetScopes = new ArrayList<String>();
         for (Object scopeObj : scopes.toArrayList()) {
             String scope = scopeObj.toString();
@@ -435,6 +448,9 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+        if (!hasInit) {
+           return;
+        }
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
             return;
         }
@@ -447,6 +463,9 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @Override
     public void onHostDestroy() {
+        if (!hasInit) {
+           return;
+        }
         Session.getCurrentSession().removeCallback(this.callback);
     }
 
@@ -457,6 +476,9 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @Override
     public void onHostResume() {
+        if (!hasInit) {
+           return;
+        }
         if (KakaoSDK.getAdapter() == null) {
             KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
             reactContext.addActivityEventListener(this);
