@@ -1,5 +1,11 @@
 ## Changelogs
 
+- **[2.8.0]**
+
+  - Always add callbacks in onHostResume() [#156](https://github.com/react-native-seoul/react-native-kakao-login/pull/156)
+
+  - Make KakaoSDK.init() lazy [#157](https://github.com/react-native-seoul/react-native-kakao-login/pull/157)
+
 - **[2.7.0]**
 
   - [Android] 동의 항목이 존재하지 않는 경우, me.account 및 me.account.profile 데이터가 null 로 들어오는 이슈 수정 [#151](https://github.com/react-native-seoul/react-native-kakao-login/pull/151)
