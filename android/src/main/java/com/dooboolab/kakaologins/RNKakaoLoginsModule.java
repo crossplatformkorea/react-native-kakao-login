@@ -30,12 +30,15 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Promise;
 
+import com.kakao.auth.ApiResponseCallback;
+import com.kakao.auth.AuthService;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.AccessTokenCallback;
 import com.kakao.auth.KakaoSDK;
 import com.kakao.auth.Session;
 import com.kakao.auth.authorization.accesstoken.AccessToken;
+import com.kakao.auth.network.response.AccessTokenInfoResponse;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
@@ -426,23 +429,25 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     private void getTokens(final Promise promise) {
         initKakaoSDK();
         AuthService.getInstance()
-        .requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
-            @Override
-            public void onSessionClosed(ErrorResult errorResult) {
-                promise.reject(String.valueOf(errorResult.getErrorCode()), errorResult.getErrorMessage(), errorResult.getException());
-            }
+                .requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
+                    @Override
+                    public void onSessionClosed(ErrorResult errorResult) {
+                        promise.reject(String.valueOf(errorResult.getErrorCode()), errorResult.getErrorMessage(), errorResult.getException());
+                    }
 
-            @Override
-            public void onFailure(ErrorResult errorResult) {
-                promise.reject(String.valueOf(errorResult.getErrorCode()), errorResult.getErrorMessage(), errorResult.getException());
-            }
+                    @Override
+                    public void onFailure(ErrorResult errorResult) {
+                        promise.reject(String.valueOf(errorResult.getErrorCode()), errorResult.getErrorMessage(), errorResult.getException());
+                    }
 
-            @Override
-            public void onSuccess(AccessTokenInfoResponse result) {
-                result.putString("accessToken", Session.getCurrentSession().getTokenInfo().getAccessToken());
-                result.putString("refreshToken", Session.getCurrentSession().getTokenInfo().getRefreshToken());
-            }
-        });
+                    @Override
+                    public void onSuccess(AccessTokenInfoResponse result) {
+                        WritableMap tokenInfo = Arguments.createMap();
+                        tokenInfo.putString("accessToken", Session.getCurrentSession().getTokenInfo().getAccessToken());
+                        tokenInfo.putString("refreshToken", Session.getCurrentSession().getTokenInfo().getRefreshToken());
+                        promise.resolve(tokenInfo);
+                    }
+                });
     }
 
 
@@ -472,7 +477,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
         if (!hasInit) {
-           return;
+            return;
         }
         if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)){
             return;
@@ -487,7 +492,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     @Override
     public void onHostDestroy() {
         if (!hasInit) {
-           return;
+            return;
         }
         Session.getCurrentSession().removeCallback(this.callback);
     }
@@ -500,7 +505,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     @Override
     public void onHostResume() {
         if (!hasInit) {
-           return;
+            return;
         }
         if (KakaoSDK.getAdapter() == null) {
             KakaoSDK.init(new KakaoSDKAdapter(reactContext.getApplicationContext()));
