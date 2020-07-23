@@ -194,7 +194,7 @@ RCT_EXPORT_METHOD(getAccessToken:(RCTPromiseResolveBlock)resolve
         RCTLogInfo(@"Error=%@", error);
         reject(getErrorCode(error), error.localizedDescription, error);
     } else {
-        resolve(@{@"accessToken": accessTokenInfo});
+        resolve(@{@"accessToken": accessTokenInfo.getAccessToken()});
     }
 }];
 }
