@@ -193,10 +193,10 @@ export function updateScopes(
     });
 }
 
-export function getAccessToken(
-  callback?: ICallback<{ accessToken: string }>
-): Promise<{ accessToken: string }> {
-  return RNKakaoLogins.getAccessToken()
+export function getTokens(
+  callback?: ICallback<{ accessToken: string; refreshToken: string }>
+): Promise<{ accessToken: string; refreshToken: string }> {
+  return RNKakaoLogins.getTokens()
     .then((result) => {
       if (isFunction(callback)) {
         callback(null, result);
@@ -217,7 +217,7 @@ const KakaoLogins = {
   getProfile,
   unlink,
   updateScopes,
-  getAccessToken,
+  getTokens,
 };
 
 export default KakaoLogins;

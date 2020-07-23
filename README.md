@@ -221,14 +221,14 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 #### Methods (callback is optional)
 
-| Func           |                  Param                   |     Return      | Description      |
-| :------------- | :--------------------------------------: | :-------------: | :--------------- |
-| login          | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인           |
-| getProfile     | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기  |
-| logout         | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃         |
-| unlink         | `callback? (err: Error, result: String)` | Promise{String} | 연결끊기         |
-| updateScopes   | `callback? (err: Error, result: String)` | Promise{Object} | 추가 권한 요청   |
-| getAccessToken | `callback? (err: Error, result: String)` | Promise{Object} | 액세스 토큰 조회 |
+| Func         |                  Param                   |     Return      | Description                     |
+| :----------- | :--------------------------------------: | :-------------: | :------------------------------ |
+| login        | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인                          |
+| getProfile   | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기                 |
+| logout       | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃                        |
+| unlink       | `callback? (err: Error, result: String)` | Promise{String} | 연결끊기                        |
+| updateScopes | `callback? (err: Error, result: String)` | Promise{Object} | 추가 권한 요청                  |
+| getTokens    | `callback? (err: Error, result: String)` | Promise{Object} | 액세스 토큰, 리프레시 토큰 조회 |
 
 #### params in result when `login` and `updateScopes`
 

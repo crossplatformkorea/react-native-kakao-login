@@ -186,7 +186,7 @@ RCT_EXPORT_METHOD(updateScopes:(NSArray<NSString *>*) scopes
     }];
 }
 
-RCT_EXPORT_METHOD(getAccessToken:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(getTokens:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     KOSession* session = [KOSession sharedSession];
@@ -196,11 +196,10 @@ RCT_EXPORT_METHOD(getAccessToken:(RCTPromiseResolveBlock)resolve
             RCTLogInfo(@"Error=%@", error);
             reject(getErrorCode(error), error.localizedDescription, error);
         } else {
-            rsolve(@{@"accessToken": session.token.getAccessToken,
+            resolve(@{@"accessToken": session.token.accessToken,
                      @"refreshToken": session.token.refreshToken});
         }
     }];
-}];
 }
 
 @end

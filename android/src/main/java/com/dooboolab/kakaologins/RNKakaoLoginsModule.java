@@ -423,7 +423,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
     }
 
     @ReactMethod
-    private void getAccessToken(final Promise promise) {
+    private void getTokens(final Promise promise) {
         initKakaoSDK();
         AuthService.getInstance()
         .requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
