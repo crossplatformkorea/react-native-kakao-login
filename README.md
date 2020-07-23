@@ -221,25 +221,26 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 #### Methods (callback is optional)
 
-| Func        |                  Param                   |     Return      | Description      |
-| :---------  | :--------------------------------------: | :-------------: | :--------------- |
-| login       | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인          |
-| getProfile  | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기 |
-| logout      | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃        |
-| unlink      | `callback? (err: Error, result: String)` | Promise{String} | 연결끊기        |
-| updateScopes| `callback? (err: Error, result: String)` | Promise{Object} | 추가 권한 요청   |
+| Func           |                  Param                   |     Return      | Description      |
+| :------------- | :--------------------------------------: | :-------------: | :--------------- |
+| login          | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인           |
+| getProfile     | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기  |
+| logout         | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃         |
+| unlink         | `callback? (err: Error, result: String)` | Promise{String} | 연결끊기         |
+| updateScopes   | `callback? (err: Error, result: String)` | Promise{Object} | 추가 권한 요청   |
+| getAccessToken | `callback? (err: Error, result: String)` | Promise{Object} | 액세스 토큰 조회 |
 
 #### params in result when `login` and `updateScopes`
 
 - version > 1.3.8
 
-|                         | iOS | Android |         type                    |       Description       |
-| ----------------------- | :-: | :-----: | :-----------------------------: | :---------------------: |
-| `accessToken`           |  ✓  |    ✓    |       `string`                  |          토큰           |
-| `refreshToken`          |  ✓  |    ✓    |       `string`                  |      리프레쉬 토큰      |
-| `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss`           |     토큰 만료 시간      |
+|                         | iOS | Android |              type               |                                         Description                                         |
+| ----------------------- | :-: | :-----: | :-----------------------------: | :-----------------------------------------------------------------------------------------: |
+| `accessToken`           |  ✓  |    ✓    |            `string`             |                                            토큰                                             |
+| `refreshToken`          |  ✓  |    ✓    |            `string`             |                                        리프레쉬 토큰                                        |
+| `accessTokenExpiresAt`  |  ✓  |    ✓    |      `yyyy-MM-ddThh:mm:ss`      |                                       토큰 만료 시간                                        |
 | `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` or `null` | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
-| `scopes`                |  ✓  |         |      `string[]`                 | 사용자로 부터 받은 권한 |
+| `scopes`                |  ✓  |         |           `string[]`            |                                   사용자로 부터 받은 권한                                   |
 
 - version <= 1.3.8
 

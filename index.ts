@@ -195,7 +195,7 @@ export function updateScopes(
 
 export function getAccessToken(
   callback?: ICallback<{ accessToken: string }>
-): Promise<string> {
+): Promise<{ accessToken: string }> {
   return RNKakaoLogins.getAccessToken()
     .then((result) => {
       if (isFunction(callback)) {
