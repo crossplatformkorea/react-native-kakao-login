@@ -422,6 +422,28 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         });
     }
 
+    @ReactMethod
+    private void getAccessToken(final Promise promise) {
+        initKakaoSDK();
+        AuthService.getInstance()
+        .requestAccessTokenInfo(new ApiResponseCallback<AccessTokenInfoResponse>() {
+            @Override
+            public void onSessionClosed(ErrorResult errorResult) {
+                promise.reject(String.valueOf(errorResult.getErrorCode()), errorResult.getErrorMessage(), errorResult.getException());
+            }
+
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+                promise.reject(String.valueOf(errorResult.getErrorCode()), errorResult.getErrorMessage(), errorResult.getException());
+            }
+
+            @Override
+            public void onSuccess(AccessTokenInfoResponse result) {
+                result.putString("accessToken", result.getAccessToken());
+            }
+        });
+    }
+
 
     public static class SessionCallback implements ISessionCallback {
         @Override

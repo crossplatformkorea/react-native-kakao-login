@@ -1,4 +1,4 @@
-import { NativeModules } from 'react-native';
+import { NativeModules } from "react-native";
 const { RNKakaoLogins } = NativeModules;
 
 export interface ICallback<T> {
@@ -41,32 +41,32 @@ export interface IProfile {
  * */
 export enum KAKAO_ERROR {
   // SHARED
-  E_UNKNOWN = 'E_UNKNOWN',
-  E_CANCELLED_OPERATION = 'E_CANCELLED_OPERATION',
-  E_ILLEGAL_STATE = 'E_ILLEGAL_STATE',
+  E_UNKNOWN = "E_UNKNOWN",
+  E_CANCELLED_OPERATION = "E_CANCELLED_OPERATION",
+  E_ILLEGAL_STATE = "E_ILLEGAL_STATE",
 
   // IOS
-  E_IN_PROGRESS_OPERATION = 'E_IN_PROGRESS_OPERATION',
-  E_TOKEN_NOT_FOUND = 'E_TOKEN_NOT_FOUND',
-  E_DEACTIVATED_SESSION = 'E_DEACTIVATED_SESSION',
-  E_ALREADY_LOGINED = 'E_ALREADY_LOGINED',
-  E_HTTP_ERROR = 'E_HTTP_ERROR',
-  E_BAD_RESPONSE = 'E_BAD_RESPONSE',
-  E_NETWORK_ERROR = 'E_NETWORK_ERROR',
-  E_NOT_SUPPORTED = 'E_NOT_SUPPORTED',
-  E_BAD_PARAMETER = 'E_BAD_PARAMETER',
+  E_IN_PROGRESS_OPERATION = "E_IN_PROGRESS_OPERATION",
+  E_TOKEN_NOT_FOUND = "E_TOKEN_NOT_FOUND",
+  E_DEACTIVATED_SESSION = "E_DEACTIVATED_SESSION",
+  E_ALREADY_LOGINED = "E_ALREADY_LOGINED",
+  E_HTTP_ERROR = "E_HTTP_ERROR",
+  E_BAD_RESPONSE = "E_BAD_RESPONSE",
+  E_NETWORK_ERROR = "E_NETWORK_ERROR",
+  E_NOT_SUPPORTED = "E_NOT_SUPPORTED",
+  E_BAD_PARAMETER = "E_BAD_PARAMETER",
 
   // ANDROID
-  E_ILLEGAL_ARGUMENT = 'E_ILLEGAL_ARGUMENT',
-  E_MISS_CONFIGURATION = 'E_MISS_CONFIGURATION',
-  E_AUTHORIZATION_FAILED = 'E_AUTHORIZATION_FAILED',
-  E_JSON_PARSING_ERROR = 'E_JSON_PARSING_ERROR',
-  E_URI_LENGTH_EXCEEDED = 'E_URI_LENGTH_EXCEEDED',
-  E_KAKAOTALK_NOT_INSTALLED = 'E_KAKAOTALK_NOT_INSTALLED',
+  E_ILLEGAL_ARGUMENT = "E_ILLEGAL_ARGUMENT",
+  E_MISS_CONFIGURATION = "E_MISS_CONFIGURATION",
+  E_AUTHORIZATION_FAILED = "E_AUTHORIZATION_FAILED",
+  E_JSON_PARSING_ERROR = "E_JSON_PARSING_ERROR",
+  E_URI_LENGTH_EXCEEDED = "E_URI_LENGTH_EXCEEDED",
+  E_KAKAOTALK_NOT_INSTALLED = "E_KAKAOTALK_NOT_INSTALLED",
 }
 
 function isFunction(item): boolean {
-  return item ? typeof item === 'function' : false;
+  return item ? typeof item === "function" : false;
 }
 
 /**
@@ -79,8 +79,8 @@ export function login(callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
     .then((result: ITokenInfo) => {
       const timeReFormattedResult = {
         ...result,
-        accessTokenExpiresAt: result.accessTokenExpiresAt.replace(' ', 'T'),
-        refreshTokenExpiresAt: result.refreshTokenExpiresAt.replace(' ', 'T'),
+        accessTokenExpiresAt: result.accessTokenExpiresAt.replace(" ", "T"),
+        refreshTokenExpiresAt: result.refreshTokenExpiresAt.replace(" ", "T"),
       };
       if (isFunction(callback)) {
         callback(null, timeReFormattedResult);
@@ -168,11 +168,14 @@ export function unlink(callback?: ICallback<string>): Promise<string> {
 
 /**
  * updateScopes
- * @param {Array<string>} scopes request scopes 
+ * @param {Array<string>} scopes request scopes
  * @param {ICallback<ITokenInfo>} [callback] callback function
  * @returns {Promise<ITokenInfo>}
  */
-export function updateScopes(scopes: Array<string>, callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
+export function updateScopes(
+  scopes: Array<string>,
+  callback?: ICallback<ITokenInfo>
+): Promise<ITokenInfo> {
   return RNKakaoLogins.updateScopes(scopes)
     .then((result) => {
       if (isFunction(callback)) {
@@ -190,12 +193,31 @@ export function updateScopes(scopes: Array<string>, callback?: ICallback<ITokenI
     });
 }
 
+export function getAccessToken(
+  callback?: ICallback<{ accessToken: string }>
+): Promise<string> {
+  return RNKakaoLogins.getAccessToken()
+    .then((result) => {
+      if (isFunction(callback)) {
+        callback(null, result);
+      }
+      return result;
+    })
+    .catch((error) => {
+      if (isFunction(callback)) {
+        callback(error, null);
+      }
+      throw error;
+    });
+}
+
 const KakaoLogins = {
   login,
   logout,
   getProfile,
   unlink,
-  updateScopes
+  updateScopes,
+  getAccessToken,
 };
 
 export default KakaoLogins;
