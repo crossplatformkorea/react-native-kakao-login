@@ -189,13 +189,17 @@ RCT_EXPORT_METHOD(updateScopes:(NSArray<NSString *>*) scopes
 RCT_EXPORT_METHOD(getAccessToken:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
+    KOSession* session = [KOSession sharedSession];
+    
     [KOSessionTask accessTokenInfoTaskWithCompletionHandler:^(KOAccessTokenInfo *accessTokenInfo, NSError *error) {
-    if (error) {
-        RCTLogInfo(@"Error=%@", error);
-        reject(getErrorCode(error), error.localizedDescription, error);
-    } else {
-        resolve(@{@"accessToken": accessTokenInfo.getAccessToken()});
-    }
+        if (error) {
+            RCTLogInfo(@"Error=%@", error);
+            reject(getErrorCode(error), error.localizedDescription, error);
+        } else {
+            rsolve(@{@"accessToken": session.token.getAccessToken,
+                     @"refreshToken": session.token.refreshToken});
+        }
+    }];
 }];
 }
 

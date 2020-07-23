@@ -439,7 +439,8 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
             @Override
             public void onSuccess(AccessTokenInfoResponse result) {
-                result.putString("accessToken", result.getAccessToken());
+                result.putString("accessToken", Session.getCurrentSession().getTokenInfo().getAccessToken());
+                result.putString("refreshToken", Session.getCurrentSession().getTokenInfo().getRefreshToken());
             }
         });
     }
