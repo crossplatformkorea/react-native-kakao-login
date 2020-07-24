@@ -38,6 +38,44 @@ NSObject* handleNullableEnumGender(KOUserGender gender)
     return [NSNull null];
 }
 
+NSObject* handleNullableEnumAgeRange(KOUserAgeRange ageRange)
+{
+    if (ageRange == KOUserAgeRangeType0) {
+        return @"0세~9세";
+    }
+    if (ageRange == KOUserAgeRangeType10 ) {
+        return @"10세~14세";
+    }
+    if (ageRange == KOUserAgeRangeType15 ) {
+        return @"15세~19세";
+    }
+    if (ageRange == KOUserAgeRangeType20 ) {
+        return @"20세~29세";
+    }
+    if (ageRange == KOUserAgeRangeType30 ) {
+        return @"30세~39세";
+    }
+    if (ageRange == KOUserAgeRangeType40 ) {
+        return @"40세~49세";
+    }
+    if (ageRange == KOUserAgeRangeType50 ) {
+        return @"50세~59세";
+    }
+    if (ageRange == KOUserAgeRangeType60 ) {
+        return @"60세~69세";
+    }
+    if (ageRange == KOUserAgeRangeType70 ) {
+        return @"70~79세";
+    }
+    if (ageRange == KOUserAgeRangeType80 ) {
+        return @"80세~89세";
+    }
+    if (ageRange == KOUserAgeRangeType90 ) {
+        return @"90세 이상";
+    }
+    return [NSNull null];
+}
+
 NSString* getErrorCode(NSError *error){
     int errorCode = (int)error.code;
 
@@ -134,7 +172,7 @@ RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
                 @"gender": handleNullableEnumGender(me.account.gender),
                 @"birthday": handleNullableString(me.account.birthday),
                 @"birthyear": handleNullableString(me.account.birthyear),
-                @"age_range": handleNullableString(me.account.ageRange)
+                @"age_range": handleNullableEnumAgeRange(me.account.ageRange)
             };
 
             resolve(profile);
