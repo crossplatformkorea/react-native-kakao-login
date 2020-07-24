@@ -41,34 +41,34 @@ NSObject* handleNullableEnumGender(KOUserGender gender)
 NSObject* handleNullableEnumAgeRange(KOUserAgeRange ageRange)
 {
     if (ageRange == KOUserAgeRangeType0) {
-        return @"0세~9세";
+        return @"0~9";
     }
     if (ageRange == KOUserAgeRangeType10 ) {
-        return @"10세~14세";
+        return @"10~14";
     }
     if (ageRange == KOUserAgeRangeType15 ) {
-        return @"15세~19세";
+        return @"15~19";
     }
     if (ageRange == KOUserAgeRangeType20 ) {
-        return @"20세~29세";
+        return @"20~29";
     }
     if (ageRange == KOUserAgeRangeType30 ) {
-        return @"30세~39세";
+        return @"30~39";
     }
     if (ageRange == KOUserAgeRangeType40 ) {
-        return @"40세~49세";
+        return @"40~49";
     }
     if (ageRange == KOUserAgeRangeType50 ) {
-        return @"50세~59세";
+        return @"50~59";
     }
     if (ageRange == KOUserAgeRangeType60 ) {
-        return @"60세~69세";
+        return @"60~69";
     }
     if (ageRange == KOUserAgeRangeType70 ) {
-        return @"70~79세";
+        return @"70~79";
     }
     if (ageRange == KOUserAgeRangeType80 ) {
-        return @"80세~89세";
+        return @"80~89";
     }
     if (ageRange == KOUserAgeRangeType90 ) {
         return @"90세 이상";
