@@ -26,6 +26,7 @@ export interface IProfile {
   has_signed_up: boolean | null;
   birthday: string | null;
   gender: string | null;
+  age_range: string | null;
 }
 
 /**
@@ -168,7 +169,7 @@ export function unlink(callback?: ICallback<string>): Promise<string> {
 
 /**
  * updateScopes
- * @param {Array<string>} scopes request scopes 
+ * @param {Array<string>} scopes request scopes
  * @param {ICallback<ITokenInfo>} [callback] callback function
  * @returns {Promise<ITokenInfo>}
  */

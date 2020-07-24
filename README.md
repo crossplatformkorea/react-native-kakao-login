@@ -266,8 +266,9 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 | `gender`            |  ✓  |    ✓    |        성별        |
 | `birthday`          |  ✓  |    ✓    |        생일        |
 | `birthyear`         |  ✓  |    ✓    |      출생연도      |
+| `age_range`         |  ✓  |    ✓    |        연령대      |
 
-`email` / `gender` / `birthday` / `birthyear` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up` <strong>해당 값들은 사용자의 동의 혹은 제휴를 통해 권한이 부여된 특정 앱에서만 획득할 수 있습니다. 권한이 있다면 그에 맞는 값을 리턴하고, 권한이 없다면 null 값을 반환합니다.</strong>
+`email` / `gender` / `birthday` / `birthyear` / `phone_number` / `display_id` / `is_email_verified` / `is_kakaotalk_user` / `has_signed_up` / `age_range` <strong>해당 값들은 사용자의 동의 혹은 제휴를 통해 권한이 부여된 특정 앱에서만 획득할 수 있습니다. 권한이 있다면 그에 맞는 값을 리턴하고, 권한이 없다면 null 값을 반환합니다.</strong>
 
 - version <= 1.3.8
 

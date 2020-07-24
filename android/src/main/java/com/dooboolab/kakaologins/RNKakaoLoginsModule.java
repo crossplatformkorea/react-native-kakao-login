@@ -174,6 +174,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             profileMap.put("birthday", kakaoAccount.getBirthday());
             profileMap.put("display_id", kakaoAccount.getDisplayId());
             profileMap.put("phone_number", kakaoAccount.getPhoneNumber());
+            profileMap.put("age_range", kakaoAccount.getAgeRange().getValue());
         }
 
         return profileMap;
@@ -361,6 +362,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
                     profile.putString("birthday", nullableAccount.get("birthday"));
                     profile.putString("display_id", nullableAccount.get("display_id"));
                     profile.putString("phone_number", nullableAccount.get("phone_number"));
+                    profile.putString("age_range", nullableAccount.get("age_range"));
                     promise.resolve(profile);
                 } catch (Exception e) {
                     promise.reject("E_UNKOWN", e.getMessage(), e);

@@ -133,7 +133,8 @@ RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
                 @"has_signed_up": handleKOBoolean(me.hasSignedUp),
                 @"gender": handleNullableEnumGender(me.account.gender),
                 @"birthday": handleNullableString(me.account.birthday),
-                @"birthyear": handleNullableString(me.account.birthyear)
+                @"birthyear": handleNullableString(me.account.birthyear),
+                @"age_range": handleNullableString(me.account.ageRange)
             };
 
             resolve(profile);
@@ -160,7 +161,7 @@ RCT_EXPORT_METHOD(updateScopes:(NSArray<NSString *>*) scopes
                   rejecter:(RCTPromiseRejectBlock) reject)
 {
     KOSession* session = [KOSession sharedSession];
-    
+
     [session updateScopes: scopes
         completionHandler: ^(NSError *error) {
         if (error) {
