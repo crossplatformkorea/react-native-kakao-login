@@ -175,9 +175,23 @@ module.exports = {
    }
    ```
 
-6. Expo Kit을 사용하여 개발하는 경우 `RNKakaoLogin.xcodeproj`의 Build Settings => Header Search Paths에 `$(SRCROOT)/../../../ios/Pods/Headers/Public`를 `recursive`로 추가해주셔야 합니다.
+6. ios에서는 accessToken의 주기적인 갱신을 위해 [공식문서-토큰 관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt)를 참고하여 `AppDelegate.m` 파일에 아래와 같은 내용을 추가합니다.
 
-7. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    ...
+    [KOSession sharedSession].automaticPeriodicRefresh = YES;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    ...
+    [KOSession handleDidEnterBackground];
+}
+```
+
+7. Expo Kit을 사용하여 개발하는 경우 `RNKakaoLogin.xcodeproj`의 Build Settings => Header Search Paths에 `$(SRCROOT)/../../../ios/Pods/Headers/Public`를 `recursive`로 추가해주셔야 합니다.
+
+8. 잘 안되시면 Example Project를 확인하여 비교해보시면 되겠습니다.
 
 #### Android
 
@@ -204,6 +218,7 @@ allprojects {
 </resources>
 ```
 
+5. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
 6. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 7. 아래와 같은 에러가 발생할 경우 [키 해시 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android-v1#key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
 
@@ -221,31 +236,39 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 #### Methods (callback is optional)
 
-| Func        |                  Param                   |     Return      | Description      |
-| :---------  | :--------------------------------------: | :-------------: | :--------------- |
-| login       | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인          |
-| getProfile  | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기 |
-| logout      | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃        |
-| unlink      | `callback? (err: Error, result: String)` | Promise{String} | 연결끊기        |
-| updateScopes| `callback? (err: Error, result: String)` | Promise{Object} | 추가 권한 요청   |
+| Func         |                  Param                   |     Return      | Description                     |
+| :----------- | :--------------------------------------: | :-------------: | :------------------------------ |
+| login        | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인                          |
+| getProfile   | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기                 |
+| logout       | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃                        |
+| unlink       | `callback? (err: Error, result: String)` | Promise{String} | 연결끊기                        |
+| updateScopes | `callback? (err: Error, result: String)` | Promise{Object} | 추가 권한 요청                  |
+| getTokens    | `callback? (err: Error, result: String)` | Promise{Object} | 액세스 토큰, 리프레시 토큰 조회 |
 
 #### params in result when `login` and `updateScopes`
 
 - version > 1.3.8
 
-|                         | iOS | Android |         type                    |       Description       |
-| ----------------------- | :-: | :-----: | :-----------------------------: | :---------------------: |
-| `accessToken`           |  ✓  |    ✓    |       `string`                  |          토큰           |
-| `refreshToken`          |  ✓  |    ✓    |       `string`                  |      리프레쉬 토큰      |
-| `accessTokenExpiresAt`  |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss`           |     토큰 만료 시간      |
+|                         | iOS | Android |              type               |                                         Description                                         |
+| ----------------------- | :-: | :-----: | :-----------------------------: | :-----------------------------------------------------------------------------------------: |
+| `accessToken`           |  ✓  |    ✓    |            `string`             |                                            토큰                                             |
+| `refreshToken`          |  ✓  |    ✓    |            `string`             |                                        리프레쉬 토큰                                        |
+| `accessTokenExpiresAt`  |  ✓  |    ✓    |      `yyyy-MM-ddThh:mm:ss`      |                                       토큰 만료 시간                                        |
 | `refreshTokenExpiresAt` |  ✓  |    ✓    | `yyyy-MM-ddThh:mm:ss` or `null` | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
-| `scopes`                |  ✓  |         |      `string[]`                 | 사용자로 부터 받은 권한 |
+| `scopes`                |  ✓  |         |           `string[]`            |                                   사용자로 부터 받은 권한                                   |
 
 - version <= 1.3.8
 
 |         | iOS | Android |   type   | Description |
 | ------- | :-: | :-----: | :------: | :---------: |
 | `token` |  ✓  |    ✓    | `string` |    토큰     |
+
+#### params in result when `getTokens`
+
+|                | iOS | Android |   type   |  Description  |
+| -------------- | :-: | :-----: | :------: | :-----------: |
+| `accessToken`  |  ✓  |    ✓    | `string` |  액세스 토큰  |
+| `refreshToken` |  ✓  |    ✓    | `string` | 리프레시 토큰 |
 
 #### params in result when `getProfile`
 

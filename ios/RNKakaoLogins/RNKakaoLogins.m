@@ -186,4 +186,20 @@ RCT_EXPORT_METHOD(updateScopes:(NSArray<NSString *>*) scopes
     }];
 }
 
+RCT_EXPORT_METHOD(getTokens:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    KOSession* session = [KOSession sharedSession];
+    
+    [KOSessionTask accessTokenInfoTaskWithCompletionHandler:^(KOAccessTokenInfo *accessTokenInfo, NSError *error) {
+        if (error) {
+            RCTLogInfo(@"Error=%@", error);
+            reject(getErrorCode(error), error.localizedDescription, error);
+        } else {
+            resolve(@{@"accessToken": session.token.accessToken,
+                     @"refreshToken": session.token.refreshToken});
+        }
+    }];
+}
+
 @end
