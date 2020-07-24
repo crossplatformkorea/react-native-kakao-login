@@ -71,7 +71,7 @@ NSObject* handleNullableEnumAgeRange(KOUserAgeRange ageRange)
         return @"80~89";
     }
     if (ageRange == KOUserAgeRangeType90 ) {
-        return @"90세 이상";
+        return @"90";
     }
     return [NSNull null];
 }
