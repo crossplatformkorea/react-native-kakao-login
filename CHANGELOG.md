@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.9.0]**
+
+  - getTokens for getting accessToken and refreshToken  [#160](https://github.com/react-native-seoul/react-native-kakao-login/pull/160)
+
 - **[2.8.0]**
 
   - Always add callbacks in onHostResume() [#156](https://github.com/react-native-seoul/react-native-kakao-login/pull/156)
