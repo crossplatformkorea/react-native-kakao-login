@@ -38,6 +38,44 @@ NSObject* handleNullableEnumGender(KOUserGender gender)
     return [NSNull null];
 }
 
+NSObject* handleNullableEnumAgeRange(KOUserAgeRange ageRange)
+{
+    if (ageRange == KOUserAgeRangeType0) {
+        return @"0~9";
+    }
+    if (ageRange == KOUserAgeRangeType10 ) {
+        return @"10~14";
+    }
+    if (ageRange == KOUserAgeRangeType15 ) {
+        return @"15~19";
+    }
+    if (ageRange == KOUserAgeRangeType20 ) {
+        return @"20~29";
+    }
+    if (ageRange == KOUserAgeRangeType30 ) {
+        return @"30~39";
+    }
+    if (ageRange == KOUserAgeRangeType40 ) {
+        return @"40~49";
+    }
+    if (ageRange == KOUserAgeRangeType50 ) {
+        return @"50~59";
+    }
+    if (ageRange == KOUserAgeRangeType60 ) {
+        return @"60~69";
+    }
+    if (ageRange == KOUserAgeRangeType70 ) {
+        return @"70~79";
+    }
+    if (ageRange == KOUserAgeRangeType80 ) {
+        return @"80~89";
+    }
+    if (ageRange == KOUserAgeRangeType90 ) {
+        return @"90";
+    }
+    return [NSNull null];
+}
+
 NSString* getErrorCode(NSError *error){
     int errorCode = (int)error.code;
 
@@ -133,7 +171,8 @@ RCT_EXPORT_METHOD(getProfile:(RCTPromiseResolveBlock)resolve
                 @"has_signed_up": handleKOBoolean(me.hasSignedUp),
                 @"gender": handleNullableEnumGender(me.account.gender),
                 @"birthday": handleNullableString(me.account.birthday),
-                @"birthyear": handleNullableString(me.account.birthyear)
+                @"birthyear": handleNullableString(me.account.birthyear),
+                @"age_range": handleNullableEnumAgeRange(me.account.ageRange)
             };
 
             resolve(profile);
@@ -160,7 +199,7 @@ RCT_EXPORT_METHOD(updateScopes:(NSArray<NSString *>*) scopes
                   rejecter:(RCTPromiseRejectBlock) reject)
 {
     KOSession* session = [KOSession sharedSession];
-    
+
     [session updateScopes: scopes
         completionHandler: ^(NSError *error) {
         if (error) {

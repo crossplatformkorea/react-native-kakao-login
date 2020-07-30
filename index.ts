@@ -26,6 +26,7 @@ export interface IProfile {
   has_signed_up: boolean | null;
   birthday: string | null;
   gender: string | null;
+  age_range: string | null;
 }
 
 /**
