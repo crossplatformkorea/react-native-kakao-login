@@ -93,7 +93,8 @@ export function login(
   callback?: ICallback<ITokenInfo>,
   authTypes?: Array<KAKAO_AUTH_TYPES>
 ): Promise<ITokenInfo> {
-  return RNKakaoLogins.login(authTypes)
+  const authTypesWithDefault = authTypes || [];
+  return RNKakaoLogins.login(authTypesWithDefault)
     .then((result: ITokenInfo) => {
       const timeReFormattedResult = {
         ...result,

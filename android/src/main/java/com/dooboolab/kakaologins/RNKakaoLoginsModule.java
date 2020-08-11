@@ -94,7 +94,7 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         }
     }
 
-    private List<AuthType> getAuthTypes() {
+    private List<AuthType> getAuthTypes(final List<Integer> authTypeIntegerList) {
         final List<AuthType> availableAuthTypes = new ArrayList<>();
         if (Session.getCurrentSession().getAuthCodeManager().isTalkLoginAvailable()) {
             availableAuthTypes.add(AuthType.KAKAO_TALK);
@@ -103,6 +103,16 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             availableAuthTypes.add(AuthType.KAKAO_STORY);
         }
         availableAuthTypes.add(AuthType.KAKAO_ACCOUNT);
+
+        // 옵션으로 입력받은 인증타입만 남김 (리스트가 비어있다면 수행하지 않음)
+        final List<AuthType> authTypeListReceived = new ArrayList<>();
+        for (Integer authTypeInteger : authTypeIntegerList) {
+            AuthType authType = convertIntegerToAuthType(authTypeInteger);
+            authTypeListReceived.add(authType);
+        }
+        if (authTypeListReceived.size() > 0) {
+            availableAuthTypes.retainAll(authTypeListReceived);
+        }
 
         AuthType[] authTypes = KakaoSDK.getAdapter().getSessionConfig().getAuthTypes();
         if (authTypes == null || authTypes.length == 0 || (authTypes.length == 1 && authTypes[0] == AuthType.KAKAO_LOGIN_ALL)) {
@@ -181,6 +191,19 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         }
 
         return profileMap;
+    }
+
+    private AuthType convertIntegerToAuthType(Integer type){
+        switch (type) {
+            case 2:
+            return AuthType.KAKAO_TALK;
+            case 4:
+            return AuthType.KAKAO_STORY;
+            case 8:
+            return AuthType.KAKAO_ACCOUNT;
+            default:
+            return null;
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -293,13 +316,30 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
 
     @ReactMethod
     private void login(Promise promise) {
+        List<Integer> array = new ArrayList<Integer>();
+
+        this.internalLogin(array, promise);
+    }
+
+    @ReactMethod
+    private void login(ReadableArray authTypes, Promise promise){
+        List<Integer> authList = new ArrayList<>();
+        int size = authTypes.size();
+        for(int i = 0; i < size; i++) {
+            authList.add(authTypes.getInt(i));
+        }
+
+        this.internalLogin(authList, promise);
+    }
+
+    private void internalLogin(final List<Integer> authTypes, Promise promise) {
         initKakaoSDK();
         loginPromise = promise;
 
-        if (getAuthTypes().size() == 1) {
-            Session.getCurrentSession().open(getAuthTypes().get(0), reactContext.getCurrentActivity());
+        if (getAuthTypes(authTypes).size() == 1) {
+            Session.getCurrentSession().open(getAuthTypes(authTypes).get(0), reactContext.getCurrentActivity());
         } else {
-            final Item[] authItems = createAuthItemArray(getAuthTypes());
+            final Item[] authItems = createAuthItemArray(getAuthTypes(authTypes));
             ListAdapter adapter = createLoginAdapter(authItems);
             final Dialog dialog = createLoginDialog(authItems, adapter, promise);
             dialog.show();
