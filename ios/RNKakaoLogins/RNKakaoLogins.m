@@ -112,7 +112,8 @@ NSString* getErrorCode(NSError *error){
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(login:(RCTPromiseResolveBlock)resolve
+RCT_EXPORT_METHOD(login:(nullable NSArray<NSNumber *> *)authTypes
+                  resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
     KOSession *session = [KOSession sharedSession];
@@ -132,7 +133,7 @@ RCT_EXPORT_METHOD(login:(RCTPromiseResolveBlock)resolve
             RCTLogInfo(@"Error=%@", error);
             reject(getErrorCode(error), error.localizedDescription, error);
         }
-    }];
+    } authTypes:authTypes];
 }
 
 RCT_EXPORT_METHOD(logout:(RCTPromiseResolveBlock)resolve
