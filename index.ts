@@ -86,10 +86,14 @@ function isFunction(item): boolean {
 /**
  * login
  * @param {ICallback<ITokenInfo>} [callback] callback function
+ * @param {Array<KAKAO_AUTH_TYPES>} authTypes authorization methods array
  * @returns {Promise<ITokenInfo>}
  */
-export function login(callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
-  return RNKakaoLogins.login()
+export function login(
+  callback?: ICallback<ITokenInfo>,
+  authTypes?: Array<KAKAO_AUTH_TYPES>
+): Promise<ITokenInfo> {
+  return RNKakaoLogins.login(authTypes)
     .then((result: ITokenInfo) => {
       const timeReFormattedResult = {
         ...result,
