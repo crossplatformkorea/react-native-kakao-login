@@ -90,8 +90,8 @@ function isFunction(item): boolean {
  * @returns {Promise<ITokenInfo>}
  */
 export function login(
-  callback?: ICallback<ITokenInfo>,
-  authTypes?: Array<KAKAO_AUTH_TYPES>
+  authTypes?: Array<KAKAO_AUTH_TYPES>,
+  callback?: ICallback<ITokenInfo>
 ): Promise<ITokenInfo> {
   const authTypesWithDefault = authTypes || [];
   return RNKakaoLogins.login(authTypesWithDefault)

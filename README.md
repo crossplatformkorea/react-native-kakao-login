@@ -238,7 +238,7 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 | Func         |                                       Param                                     |     Return      | Description                |
 | :----------- | :-----------------------------------------------------------------------------: | :-------------: | :--------------------------|
-| login        |  `callback? (err: Error, result: Object)` `authTypes? Array<KAKAO_AUTH_TYPES>`  | Promise{Object} | 로그인                       |
+| login        |  `authTypes? Array<KAKAO_AUTH_TYPES>` `callback? (err: Error, result: Object)`  | Promise{Object} | 로그인                       |
 | getProfile   |                     `callback? (err: Error, result: Object)`                    | Promise{Object} | 프로필 불러오기                |
 | logout       |                     `callback? (err: Error, result: String)`                    | Promise{String} | 로그아웃                     |
 | unlink       |                     `callback? (err: Error, result: String)`                    | Promise{String} | 연결끊기                     |
@@ -355,10 +355,10 @@ E_KAKAOTALK_NOT_INSTALLED;
 
 ```js
 // 카카오톡으로 바로 인증합니다 (미설치시 카카오 계정 로그인)
-KakaoLogins.login(undefined, [KAKAO_AUTH_TYPES.Talk]);
+KakaoLogins.login([KAKAO_AUTH_TYPES.Talk]);
 
 // 카카오톡 또는 카카오 계정 로그인을 유저가 선택하도록 합니다
-KakaoLogins.login(undefined, [KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account]);
+KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account]);
 ```
 
 ## Usage
