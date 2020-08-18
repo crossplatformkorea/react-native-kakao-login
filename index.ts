@@ -66,6 +66,19 @@ export enum KAKAO_ERROR {
   E_KAKAOTALK_NOT_INSTALLED = "E_KAKAOTALK_NOT_INSTALLED",
 }
 
+/**
+ * KAKAO_AUTH_TYPES 인증 수단
+ * iOS 기준의 값이며, Android도 지원합니다
+ *
+ * @url Android : https://developers.kakao.com/sdk/reference/android-legacy/release/index.html
+ * @url iOS     : https://developers.kakao.com/sdk/reference/ios-legacy/release/Constants/KOAuthType.html
+ */
+export enum KAKAO_AUTH_TYPES {
+  Talk = 2,
+  Story = 4,
+  Account = 8,
+}
+
 function isFunction(item): boolean {
   return item ? typeof item === "function" : false;
 }
@@ -73,10 +86,15 @@ function isFunction(item): boolean {
 /**
  * login
  * @param {ICallback<ITokenInfo>} [callback] callback function
+ * @param {Array<KAKAO_AUTH_TYPES>} authTypes authorization methods array
  * @returns {Promise<ITokenInfo>}
  */
-export function login(callback?: ICallback<ITokenInfo>): Promise<ITokenInfo> {
-  return RNKakaoLogins.login()
+export function login(
+  authTypes?: Array<KAKAO_AUTH_TYPES>,
+  callback?: ICallback<ITokenInfo>
+): Promise<ITokenInfo> {
+  const authTypesWithDefault = authTypes || [];
+  return RNKakaoLogins.login(authTypesWithDefault)
     .then((result: ITokenInfo) => {
       const timeReFormattedResult = {
         ...result,

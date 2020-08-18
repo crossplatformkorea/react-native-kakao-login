@@ -236,14 +236,14 @@ ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
 #### Methods (callback is optional)
 
-| Func         |                  Param                   |     Return      | Description                     |
-| :----------- | :--------------------------------------: | :-------------: | :------------------------------ |
-| login        | `callback? (err: Error, result: Object)` | Promise{Object} | 로그인                          |
-| getProfile   | `callback? (err: Error, result: Object)` | Promise{Object} | 프로필 불러오기                 |
-| logout       | `callback? (err: Error, result: String)` | Promise{String} | 로그아웃                        |
-| unlink       | `callback? (err: Error, result: String)` | Promise{String} | 연결끊기                        |
-| updateScopes | `callback? (err: Error, result: String)` | Promise{Object} | 추가 권한 요청                  |
-| getTokens    | `callback? (err: Error, result: String)` | Promise{Object} | 액세스 토큰, 리프레시 토큰 조회 |
+| Func         |                                       Param                                     |     Return      | Description                |
+| :----------- | :-----------------------------------------------------------------------------: | :-------------: | :--------------------------|
+| login        |  `authTypes? Array<KAKAO_AUTH_TYPES>` `callback? (err: Error, result: Object)`  | Promise{Object} | 로그인                       |
+| getProfile   |                     `callback? (err: Error, result: Object)`                    | Promise{Object} | 프로필 불러오기                |
+| logout       |                     `callback? (err: Error, result: String)`                    | Promise{String} | 로그아웃                     |
+| unlink       |                     `callback? (err: Error, result: String)`                    | Promise{String} | 연결끊기                     |
+| updateScopes |                     `callback? (err: Error, result: String)`                    | Promise{Object} | 추가 권한 요청                |
+| getTokens    |                     `callback? (err: Error, result: String)`                    | Promise{Object} | 액세스 토큰, 리프레시 토큰 조회   |
 
 #### params in result when `login` and `updateScopes`
 
@@ -347,6 +347,18 @@ E_AUTHORIZATION_FAILED;
 E_JSON_PARSING_ERROR;
 E_URI_LENGTH_EXCEEDED;
 E_KAKAOTALK_NOT_INSTALLED;
+```
+
+#### Authorization method selection support
+
+> `login` 메서드 호출 시, 사용할 인증 수단을 선택할 수 있습니다.
+
+```js
+// 카카오톡으로 바로 인증합니다 (미설치시 카카오 계정 로그인)
+KakaoLogins.login([KAKAO_AUTH_TYPES.Talk]);
+
+// 카카오톡 또는 카카오 계정 로그인을 유저가 선택하도록 합니다
+KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account]);
 ```
 
 ## Usage
