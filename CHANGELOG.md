@@ -1,5 +1,11 @@
 ## Changelogs
 
+- **[2.10.0]**
+
+  - 연령대 연동 정보 추가  [#163](https://github.com/react-native-seoul/react-native-kakao-login/pull/163)
+
+  - login메서드에 인증 방법 선택 옵션 추가  [#164](https://github.com/react-native-seoul/react-native-kakao-login/pull/164)
+
 - **[2.9.0]**
 
   - getTokens for getting accessToken and refreshToken  [#160](https://github.com/react-native-seoul/react-native-kakao-login/pull/160)
