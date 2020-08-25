@@ -46,6 +46,7 @@ import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.usermgmt.response.model.Gender;
+import com.kakao.usermgmt.response.model.AgeRange;
 import com.kakao.usermgmt.response.model.Profile;
 import com.kakao.usermgmt.response.model.UserAccount;
 import com.kakao.util.OptionalBoolean;
@@ -169,6 +170,13 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
         }
     }
 
+    private String handleOptionalEnumAgeRange(AgeRange ageRange){
+        if (ageRange == null) {
+            return null;
+        }
+        return ageRange.getValue();
+    }
+
     private HashMap<String, String> getNullableAccountInfo(UserAccount kakaoAccount) {
         HashMap<String, String> profileMap = new HashMap();
 
@@ -181,13 +189,14 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule implements A
             }
 
             Gender gender = kakaoAccount.getGender();
+            AgeRange ageRange = kakaoAccount.getAgeRange();
             profileMap.put("gender", handleOptionalEnumGender(gender));
             profileMap.put("email", kakaoAccount.getEmail());
             profileMap.put("birthyear", kakaoAccount.getBirthyear());
             profileMap.put("birthday", kakaoAccount.getBirthday());
             profileMap.put("display_id", kakaoAccount.getDisplayId());
             profileMap.put("phone_number", kakaoAccount.getPhoneNumber());
-            profileMap.put("age_range", kakaoAccount.getAgeRange().getValue());
+            profileMap.put("age_range", handleOptionalEnumAgeRange(ageRange));
         }
 
         return profileMap;
