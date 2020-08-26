@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Platform, StyleSheet, Text, View, Image, YellowBox} from 'react-native';
 
-import KakaoLogins from '@react-native-seoul/kakao-login';
+import KakaoLogins, {KAKAO_AUTH_TYPES} from '@react-native-seoul/kakao-login';
 import NativeButton from 'apsl-react-native-button';
 
 if (!KakaoLogins) {
@@ -32,7 +32,7 @@ export default function App() {
   const kakaoLogin = () => {
     logCallback('Login Start', setLoginLoading(true));
 
-    KakaoLogins.login()
+    KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
       .then(result => {
         setToken(result.accessToken);
         logCallback(
