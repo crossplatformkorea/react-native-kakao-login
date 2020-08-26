@@ -173,11 +173,6 @@
 			attributes = {
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Facebook;
-				TargetAttributes = {
-					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = CMYTYJSJVC;
-					};
-				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "KakaoLoginExample" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -300,7 +295,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = CMYTYJSJVC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = KakaoLoginExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -308,7 +303,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.rn.seoul.kakao.loginslogins;
+				PRODUCT_BUNDLE_IDENTIFIER = org.rn.seoul.kakao.logins;
 				PRODUCT_NAME = KakaoLoginExample;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -320,7 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CMYTYJSJVC;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = KakaoLoginExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -328,7 +323,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.rn.seoul.kakao.loginslogins;
+				PRODUCT_BUNDLE_IDENTIFIER = org.rn.seoul.kakao.logins;
 				PRODUCT_NAME = KakaoLoginExample;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
