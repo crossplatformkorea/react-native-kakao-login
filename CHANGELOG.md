@@ -1,5 +1,11 @@
 ## Changelogs
 
+- **[2.10.1]**
+
+  - 연령대 권한 없을 경우 null 처리  [#167](https://github.com/react-native-seoul/react-native-kakao-login/pull/167)
+
+  - 예제프로젝트 업데이트  [#169](https://github.com/react-native-seoul/react-native-kakao-login/pull/169)
+
 - **[2.10.0]**
 
   - 연령대 연동 정보 추가  [#163](https://github.com/react-native-seoul/react-native-kakao-login/pull/163)
