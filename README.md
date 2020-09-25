@@ -1,5 +1,6 @@
 # @react-native-seoul/kakao-login
 
+<img src="image/main_banner.png" width="100%" height="200px" />
 <p align="left">
   <a href="https://npmjs.org/package/@react-native-seoul/kakao-login">
     <img alt="npm version" src="http://img.shields.io/npm/v/@react-native-seoul/kakao-login.svg?style=flat-square">
