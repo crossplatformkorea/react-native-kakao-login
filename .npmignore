@@ -3,5 +3,6 @@
 gen/
 node_modules/
 KakaoLoginExample/
+image/
 
 index.ts
