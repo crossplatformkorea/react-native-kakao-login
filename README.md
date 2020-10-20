@@ -40,7 +40,10 @@ $ yarn add react-native-kakao-logins@1.3.8
 ##### RN >= 0.60
 
 React Native 0.60.X이상부터는 `Auto linking`을 지원합니다
-바로 PostInstall을 참고해서 설치를 진행하세요
+바로 `Post installation` 섹션을 참고해서 설치를 진행하세요
+
+만약 `iOS에서 'React/RCTBridgeModule.h' file not found` 이슈를 만난다면 해당 이슈를 참고해주세요 [#107](https://github.com/react-native-seoul/react-native-kakao-login/issues/107)
+
 
 ##### RN < 0.60
 
