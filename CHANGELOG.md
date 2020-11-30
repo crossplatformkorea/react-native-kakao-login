@@ -1,5 +1,9 @@
 ## Changelogs
 
+- **[2.10.2]**
+
+  - 안드로이드 릴리즈 빌드 버그 수정  [#179](https://github.com/react-native-seoul/react-native-kakao-login/pull/179)
+
 - **[2.10.1]**
 
   - 연령대 권한 없을 경우 null 처리  [#167](https://github.com/react-native-seoul/react-native-kakao-login/pull/167)
