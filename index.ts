@@ -1,5 +1,6 @@
-import { NativeModules } from "react-native";
-const { RNKakaoLogins } = NativeModules;
+import {NativeModules} from 'react-native';
+
+const {RNKakaoLogins} = NativeModules;
 
 export interface ICallback<T> {
   (error: Error | undefined, result: T | undefined): void;
@@ -43,28 +44,28 @@ export interface IProfile {
  * */
 export enum KAKAO_ERROR {
   // SHARED
-  E_UNKNOWN = "E_UNKNOWN",
-  E_CANCELLED_OPERATION = "E_CANCELLED_OPERATION",
-  E_ILLEGAL_STATE = "E_ILLEGAL_STATE",
+  E_UNKNOWN = 'E_UNKNOWN',
+  E_CANCELLED_OPERATION = 'E_CANCELLED_OPERATION',
+  E_ILLEGAL_STATE = 'E_ILLEGAL_STATE',
 
   // IOS
-  E_IN_PROGRESS_OPERATION = "E_IN_PROGRESS_OPERATION",
-  E_TOKEN_NOT_FOUND = "E_TOKEN_NOT_FOUND",
-  E_DEACTIVATED_SESSION = "E_DEACTIVATED_SESSION",
-  E_ALREADY_LOGINED = "E_ALREADY_LOGINED",
-  E_HTTP_ERROR = "E_HTTP_ERROR",
-  E_BAD_RESPONSE = "E_BAD_RESPONSE",
-  E_NETWORK_ERROR = "E_NETWORK_ERROR",
-  E_NOT_SUPPORTED = "E_NOT_SUPPORTED",
-  E_BAD_PARAMETER = "E_BAD_PARAMETER",
+  E_IN_PROGRESS_OPERATION = 'E_IN_PROGRESS_OPERATION',
+  E_TOKEN_NOT_FOUND = 'E_TOKEN_NOT_FOUND',
+  E_DEACTIVATED_SESSION = 'E_DEACTIVATED_SESSION',
+  E_ALREADY_LOGINED = 'E_ALREADY_LOGINED',
+  E_HTTP_ERROR = 'E_HTTP_ERROR',
+  E_BAD_RESPONSE = 'E_BAD_RESPONSE',
+  E_NETWORK_ERROR = 'E_NETWORK_ERROR',
+  E_NOT_SUPPORTED = 'E_NOT_SUPPORTED',
+  E_BAD_PARAMETER = 'E_BAD_PARAMETER',
 
   // ANDROID
-  E_ILLEGAL_ARGUMENT = "E_ILLEGAL_ARGUMENT",
-  E_MISS_CONFIGURATION = "E_MISS_CONFIGURATION",
-  E_AUTHORIZATION_FAILED = "E_AUTHORIZATION_FAILED",
-  E_JSON_PARSING_ERROR = "E_JSON_PARSING_ERROR",
-  E_URI_LENGTH_EXCEEDED = "E_URI_LENGTH_EXCEEDED",
-  E_KAKAOTALK_NOT_INSTALLED = "E_KAKAOTALK_NOT_INSTALLED",
+  E_ILLEGAL_ARGUMENT = 'E_ILLEGAL_ARGUMENT',
+  E_MISS_CONFIGURATION = 'E_MISS_CONFIGURATION',
+  E_AUTHORIZATION_FAILED = 'E_AUTHORIZATION_FAILED',
+  E_JSON_PARSING_ERROR = 'E_JSON_PARSING_ERROR',
+  E_URI_LENGTH_EXCEEDED = 'E_URI_LENGTH_EXCEEDED',
+  E_KAKAOTALK_NOT_INSTALLED = 'E_KAKAOTALK_NOT_INSTALLED',
 }
 
 /**
@@ -81,7 +82,7 @@ export enum KAKAO_AUTH_TYPES {
 }
 
 function isFunction(item): boolean {
-  return item ? typeof item === "function" : false;
+  return item ? typeof item === 'function' : false;
 }
 
 /**
@@ -92,26 +93,24 @@ function isFunction(item): boolean {
  */
 export function login(
   authTypes?: Array<KAKAO_AUTH_TYPES>,
-  callback?: ICallback<ITokenInfo>
+  callback?: ICallback<ITokenInfo>,
 ): Promise<ITokenInfo> {
   const authTypesWithDefault = authTypes || [];
+
   return RNKakaoLogins.login(authTypesWithDefault)
     .then((result: ITokenInfo) => {
       const timeReFormattedResult = {
         ...result,
-        accessTokenExpiresAt: result.accessTokenExpiresAt.replace(" ", "T"),
-        refreshTokenExpiresAt: result.refreshTokenExpiresAt.replace(" ", "T"),
+        accessTokenExpiresAt: result.accessTokenExpiresAt.replace(' ', 'T'),
+        refreshTokenExpiresAt: result.refreshTokenExpiresAt.replace(' ', 'T'),
       };
-      if (isFunction(callback)) {
-        callback(null, timeReFormattedResult);
-      }
+
+      if (isFunction(callback)) callback(null, timeReFormattedResult);
 
       return timeReFormattedResult;
     })
     .catch((error) => {
-      if (isFunction(callback)) {
-        callback(error, null);
-      }
+      if (isFunction(callback)) callback(error, null);
 
       throw error;
     });
@@ -125,16 +124,12 @@ export function login(
 export function logout(callback?: ICallback<string>): Promise<string> {
   return RNKakaoLogins.logout()
     .then((result) => {
-      if (isFunction(callback)) {
-        callback(null, result);
-      }
+      if (isFunction(callback)) callback(null, result);
 
       return result;
     })
     .catch((error) => {
-      if (isFunction(callback)) {
-        callback(error, null);
-      }
+      if (isFunction(callback)) callback(error, null);
 
       throw error;
     });
@@ -148,16 +143,12 @@ export function logout(callback?: ICallback<string>): Promise<string> {
 export function getProfile(callback?: ICallback<IProfile>): Promise<IProfile> {
   return RNKakaoLogins.getProfile()
     .then((result: IProfile) => {
-      if (isFunction(callback)) {
-        callback(null, result);
-      }
+      if (isFunction(callback)) callback(null, result);
 
       return result;
     })
     .catch((error) => {
-      if (isFunction(callback)) {
-        callback(error, null);
-      }
+      if (isFunction(callback)) callback(error, null);
 
       throw error;
     });
@@ -171,16 +162,12 @@ export function getProfile(callback?: ICallback<IProfile>): Promise<IProfile> {
 export function unlink(callback?: ICallback<string>): Promise<string> {
   return RNKakaoLogins.unlink()
     .then((result) => {
-      if (isFunction(callback)) {
-        callback(null, result);
-      }
+      if (isFunction(callback)) callback(null, result);
 
       return result;
     })
     .catch((error) => {
-      if (isFunction(callback)) {
-        callback(error, null);
-      }
+      if (isFunction(callback)) callback(error, null);
 
       throw error;
     });
@@ -194,39 +181,33 @@ export function unlink(callback?: ICallback<string>): Promise<string> {
  */
 export function updateScopes(
   scopes: Array<string>,
-  callback?: ICallback<ITokenInfo>
+  callback?: ICallback<ITokenInfo>,
 ): Promise<ITokenInfo> {
   return RNKakaoLogins.updateScopes(scopes)
     .then((result) => {
-      if (isFunction(callback)) {
-        callback(null, result);
-      }
+      if (isFunction(callback)) callback(null, result);
 
       return result;
     })
     .catch((error) => {
-      if (isFunction(callback)) {
-        callback(error, null);
-      }
+      if (isFunction(callback)) callback(error, null);
 
       throw error;
     });
 }
 
 export function getTokens(
-  callback?: ICallback<{ accessToken: string; refreshToken: string }>
-): Promise<{ accessToken: string; refreshToken: string }> {
+  callback?: ICallback<{accessToken: string; refreshToken: string}>,
+): Promise<{accessToken: string; refreshToken: string}> {
   return RNKakaoLogins.getTokens()
     .then((result) => {
-      if (isFunction(callback)) {
-        callback(null, result);
-      }
+      if (isFunction(callback)) callback(null, result);
+
       return result;
     })
     .catch((error) => {
-      if (isFunction(callback)) {
-        callback(error, null);
-      }
+      if (isFunction(callback)) callback(error, null);
+
       throw error;
     });
 }
