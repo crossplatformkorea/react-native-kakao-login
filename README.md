@@ -39,6 +39,31 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 2. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
 3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios-v1) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다.
 
+```
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
+    </array>
+  </dict>
+</array>
+<key>CFBundleVersion</key>
+<string>1</string>
+<key>KAKAO_APP_KEY</key>
+<string>{카카오 네이티브앱 아이디를 적어주세요}</string>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
+  <string>kakaokompassauth</string>
+  <string>storykompassauth</string>
+  <string>kakaolink</string>
+</array>
+```
+
 #### Android
 
 1. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.
