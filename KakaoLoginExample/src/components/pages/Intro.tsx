@@ -1,12 +1,14 @@
 import KakaoLogins, {KAKAO_AUTH_TYPES} from '@react-native-seoul/kakao-login';
+import {NativeModules, View} from 'react-native';
 import React, {useState} from 'react';
 
 import Button from '../uis/Button';
 import {IC_MASK} from '../../utils/Icons';
 import ResultView from '../uis/IntroTemp';
-import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {withScreen} from '../../utils/wrapper';
+
+const {RNKakaoLogins} = NativeModules;
 
 const Container = styled.View`
   flex: 1;
@@ -32,17 +34,24 @@ function Intro(): React.ReactElement {
   const [result, setResult] = useState<string>('');
 
   const signInWithKakao = (): void => {
-    KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
-      .then((signInResult) => {
-        setResult(JSON.stringify(signInResult));
+    // KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
+    //   .then((signInResult) => {
+    //     setResult(JSON.stringify(signInResult));
+    //   })
+    //   .catch((err) => {
+    //     console.log(`Sign in error: ${err.message}`);
+    //   });
+    RNKakaoLogins.login()
+      .then((loginResult) => {
+        setResult(JSON.stringify(loginResult));
       })
       .catch((err) => {
-        console.log(`Sign in error: ${err.message}`);
+        console.log(`Sign out error: ${err.message}`);
       });
   };
 
   const signOutWithKakao = (): void => {
-    KakaoLogins.logout()
+    RNKakaoLogins.logout()
       .then((signOutResult) => {
         setResult(JSON.stringify(signOutResult));
       })
@@ -52,7 +61,7 @@ function Intro(): React.ReactElement {
   };
 
   const getProfile = (): void => {
-    KakaoLogins.getProfile()
+    RNKakaoLogins.getProfile()
       .then((profileResult) => {
         setResult(JSON.stringify(profileResult));
       })
@@ -62,7 +71,7 @@ function Intro(): React.ReactElement {
   };
 
   const unlinkKakao = (): void => {
-    KakaoLogins.unlink()
+    RNKakaoLogins.unlink()
       .then((unlinkResult) => {
         setResult(JSON.stringify(unlinkResult));
       })

@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.4.1)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -57,25 +58,48 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - glog (0.3.5)
-  - kakao-login (2.10.2):
-    - KakaoOpenSDK (~> 1.21.0)
+  - kakao-login (3.0.0-rc.1):
+    - KakaoSDK (~> 2.4.0)
+    - KakaoSDKAuth (~> 2.4.0)
+    - KakaoSDKCommon (~> 2.4.0)
+    - KakaoSDKTalk (~> 2.4.0)
+    - KakaoSDKUser (~> 2.4.0)
     - React
-  - KakaoOpenSDK (1.21.1):
-    - KakaoOpenSDK/KakaoCommon (= 1.21.1)
-    - KakaoOpenSDK/KakaoLink (= 1.21.1)
-    - KakaoOpenSDK/KakaoMessageTemplate (= 1.21.1)
-    - KakaoOpenSDK/KakaoNavi (= 1.21.1)
-    - KakaoOpenSDK/KakaoOpenSDK (= 1.21.1)
-    - KakaoOpenSDK/KakaoPlusFriend (= 1.21.1)
-  - KakaoOpenSDK/KakaoCommon (1.21.1)
-  - KakaoOpenSDK/KakaoLink (1.21.1):
-    - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoMessageTemplate (1.21.1)
-  - KakaoOpenSDK/KakaoNavi (1.21.1):
-    - KakaoOpenSDK/KakaoCommon
-  - KakaoOpenSDK/KakaoOpenSDK (1.21.1)
-  - KakaoOpenSDK/KakaoPlusFriend (1.21.1):
-    - KakaoOpenSDK/KakaoCommon
+  - KakaoSDK (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
+    - KakaoSDKLink (= 2.4.1)
+    - KakaoSDKNavi (= 2.4.1)
+    - KakaoSDKStory (= 2.4.1)
+    - KakaoSDKTalk (= 2.4.1)
+    - KakaoSDKTemplate (= 2.4.1)
+    - KakaoSDKUser (= 2.4.1)
+  - KakaoSDKAuth (2.4.1):
+    - KakaoSDKCommon (= 2.4.1)
+  - KakaoSDKCommon (2.4.1):
+    - KakaoSDKCommon/Common (= 2.4.1)
+    - KakaoSDKCommon/Network (= 2.4.1)
+  - KakaoSDKCommon/Common (2.4.1)
+  - KakaoSDKCommon/Network (2.4.1):
+    - Alamofire (~> 5.1)
+    - KakaoSDKCommon/Common (= 2.4.1)
+  - KakaoSDKLink (2.4.1):
+    - KakaoSDKCommon (= 2.4.1)
+    - KakaoSDKTemplate (= 2.4.1)
+  - KakaoSDKNavi (2.4.1):
+    - KakaoSDKCommon/Common (= 2.4.1)
+  - KakaoSDKStory (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
+  - KakaoSDKTalk (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
+    - KakaoSDKTemplate (= 2.4.1)
+  - KakaoSDKTemplate (2.4.1):
+    - KakaoSDKCommon/Common (= 2.4.1)
+  - KakaoSDKUser (2.4.1):
+    - KakaoSDKAuth (= 2.4.1)
+    - KakaoSDKCommon (= 2.4.1)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.180)
   - RCT-Folly (2020.01.13.00):
@@ -441,6 +465,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - boost-for-react-native
     - CocoaAsyncSocket
     - Flipper
@@ -450,7 +475,15 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
-    - KakaoOpenSDK
+    - KakaoSDK
+    - KakaoSDKAuth
+    - KakaoSDKCommon
+    - KakaoSDKLink
+    - KakaoSDKNavi
+    - KakaoSDKStory
+    - KakaoSDKTalk
+    - KakaoSDKTemplate
+    - KakaoSDKUser
     - libevent
     - OpenSSL-Universal
     - YogaKit
@@ -530,6 +563,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
@@ -543,8 +577,16 @@ SPEC CHECKSUMS:
   Flipper-RSocket: 602921fee03edacf18f5d6f3d3594ba477f456e5
   FlipperKit: 8a20b5c5fcf9436cac58551dc049867247f64b00
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  kakao-login: 8d60f757a69784b797395cc2e284a18c85852d7a
-  KakaoOpenSDK: 7a7b728491fc199bf2186fec5bbf2c70ba14f474
+  kakao-login: caa3b82ba626f32c66e93316d20a053c8c3166e5
+  KakaoSDK: 1e80d6877c0eac6a310f93c73fb15ca56c05f2bd
+  KakaoSDKAuth: fcba1c9ede431683f5bdd84c835a96981cb115a5
+  KakaoSDKCommon: 0912aa0c7db051ae8dc07a35395cf644f7728f95
+  KakaoSDKLink: fe6f2ca19092836f8af2a9d7fabe60fd67740104
+  KakaoSDKNavi: c138bce799ebdac6811b56453de5326e49ca5925
+  KakaoSDKStory: cb33db9a04c7c44746b3662991234f52ab61961a
+  KakaoSDKTalk: 749828662e4ac7a9f17bb1664b58526da289d18c
+  KakaoSDKTemplate: 8bb288765bfc0195631da809b2d707f09495acdf
+  KakaoSDKUser: 11955811d99d1ff1f1dfd5428afe69937e31ccef
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   RCT-Folly: ec7a233ccc97cc556cf7237f0db1ff65b986f27c

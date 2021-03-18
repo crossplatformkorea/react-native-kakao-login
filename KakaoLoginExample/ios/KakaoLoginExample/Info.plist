@@ -41,9 +41,6 @@
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
-		<string>kakaotalk-4.5.0</string>
-		<string>kakaostory-2.9.0</string>
-		<string>storylink</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
