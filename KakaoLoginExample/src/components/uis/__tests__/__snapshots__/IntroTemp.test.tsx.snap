@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[IntroTemp] render renders without crashing 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "height": "100%",
+        "justifyContent": "flex-start",
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontSize": 18,
+          "lineHeight": 27,
+        },
+        Object {
+          "marginTop": 100,
+        },
+      ]
+    }
+  >
+    
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontSize": 18,
+          "lineHeight": 27,
+        },
+      ]
+    }
+  >
+    
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontSize": 18,
+          "lineHeight": 27,
+        },
+      ]
+    }
+  >
+    
+  </Text>
+</View>
+`;

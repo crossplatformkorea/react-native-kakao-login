@@ -31,16 +31,20 @@ local.properties
 *.iml
 
 # node.js
-#
+
+dist/
 node_modules/
 npm-debug.log
 yarn-error.log
+
+# eslint
+.eslintcache
 
 # BUCK
 buck-out/
 \.buckd/
 *.keystore
-!debug.keystore
+!android/app/debug.keystore
 
 # fastlane
 #
@@ -55,6 +59,15 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+.jest/
 
-# CocoaPods
-/ios/Pods/
+coverage/
+package-lock.json
+
+ios/Pods/
+
+# fbt
+src/utils/i18n/fbt/.enum_manifest.json
+src/utils/i18n/fbt/.source_strings.json
+src/utils/i18n/fbt/.src_manifest.json
+

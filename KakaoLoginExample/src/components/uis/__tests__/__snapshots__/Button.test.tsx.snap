@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Button] [ThemeType.Light] renders without crashing 1`] = `
+<View
+  activeOpacity={0.7}
+  onPress={[Function]}
+  testID="btn"
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#393D7A",
+          "borderColor": "#393D7A",
+          "borderRadius": 4,
+          "borderWidth": 2,
+          "height": 52,
+          "justifyContent": "center",
+          "width": 320,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#D3D8E8",
+            "fontSize": 14,
+          },
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`[Button] should render [ThemeType.Dark] without crashing 1`] = `
+<View
+  activeOpacity={0.7}
+  onPress={[Function]}
+  testID="btn"
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#8A96DC",
+          "borderColor": "#8A96DC",
+          "borderRadius": 4,
+          "borderWidth": 2,
+          "height": 52,
+          "justifyContent": "center",
+          "width": 320,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontSize": 14,
+          },
+        ]
+      }
+    >
+      
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`[Button] should render [isDisabled] status without crashing 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#00000030",
+        "borderColor": "rgb(200, 200, 200)",
+        "borderRadius": 4,
+        "borderWidth": 2,
+        "height": 52,
+        "justifyContent": "center",
+        "width": 320,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#00000030",
+          "fontSize": 14,
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`[Button] should render [isLoading] status without crashing 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "alignSelf": "center",
+        "backgroundColor": "#393D7A",
+        "borderColor": "#393D7A",
+        "borderRadius": 4,
+        "borderWidth": 2,
+        "height": 52,
+        "justifyContent": "center",
+        "width": 320,
+      },
+    ]
+  }
+>
+  <ActivityIndicator
+    animating={true}
+    color="#999999"
+    hidesWhenStopped={true}
+    size="small"
+  />
+</View>
+`;

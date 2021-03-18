@@ -27,14 +27,14 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaoa166c2caca4cc21f9268a40a29f5a645</string>
+				<string>kakaof25af6b78693a6f92ecd5cf91b9afb34</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>KAKAO_APP_KEY</key>
-	<string>a166c2caca4cc21f9268a40a29f5a645</string>
+	<string>f25af6b78693a6f92ecd5cf91b9afb34</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakao0123456789abcdefghijklmn</string>
@@ -49,8 +49,6 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
