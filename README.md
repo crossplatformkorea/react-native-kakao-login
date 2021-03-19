@@ -2,15 +2,9 @@
 
 <img src="image/main_banner.png" width="100%" height="auto" />
 
-<a href="https://npmjs.org/package/@react-native-seoul/kakao-login">
-  <img alt="npm version" src="http://img.shields.io/npm/v/@react-native-seoul/kakao-login.svg?style=flat-square">
-</a>
-<a href="https://npmjs.org/package/@react-native-seoul/kakao-login">
-  <img src="http://img.shields.io/npm/dm/@react-native-seoul/kakao-login.svg?style=flat-square">
-</a>
-<a href="https://npmjs.org/package/@react-native-seoul/kakao-login">
-  <img src="http://img.shields.io/npm/l/@react-native-seoul/kakao-login.svg?style=flat-square">
-</a>
+[![VERSION](http://img.shields.io/npm/v/@react-native-seoul/kakao-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/kakao-login)
+[![DOWNLOAD](http://img.shields.io/npm/dm/@react-native-seoul/kakao-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/kakao-login)
+[![LICENSE](http://img.shields.io/npm/l/@react-native-seoul/kakao-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/kakao-login)
 [![CI](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml)
 [![CI-EXAMPLE](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-example.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-example.yml)
 
