@@ -18,6 +18,10 @@ React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul
 세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주세요.
 해당 라이브러리는 `flow`와 `typescript`를 지원합니다.
 
+## Changelogs
+
+[Changelogs 링크](./CHANGELOG.md)
+
 ## Demo
 
 [카카오 로그인 Example Project](https://github.com/react-native-seoul/react-native-kakao-login/tree/master/KakaoLoginExample) 데모 화면
@@ -30,7 +34,7 @@ React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul
 
 해당 라이브러리는 `3.0.0` 이후 부터는 react-native `0.61`이상을 지원합니다. 카카오 라이브러리 지원이 아래 버전부터는 지원이 끊길 예정이므로 참고해주시기 바랍니다. 과거에는 [카카오 라이브러리 레거시 iOS](https://developers.kakao.com/docs/latest/ko/kakaologin/ios-v1)와 [카카오 라이브러리 레거시 Android](https://developers.kakao.com/docs/latest/ko/kakaologin/android-v1) 버전을 쓰고 있었습니다.
 
-### Module Installation
+## Module Installation
 
 ##### RN >= 0.60
 
@@ -46,7 +50,6 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 1. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 카카오 로그인 > 설정하기](https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite)를 참고해주세요. 해당 가이드를 통해 카카오 개발자 페이지에서 본인의 어플리케이션을 생성해주세요.
 2. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
 3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios-v1) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
-
    ```
    <key>CFBundleURLTypes</key>
    <array>
@@ -71,6 +74,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
      <string>kakaolink</string>
    </array>
    ```
+4. `3.0.0` 버전부터는 swift 버전의 kakao sdk를 활용하므로 [Swift Bridging Header](https://medium.com/@javedmultani16/adding-a-swift-bridging-header-b6b0a7ab895f)를 추가해야할 수 있습니다.
 
 #### Android
 
@@ -119,9 +123,6 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 5. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
 6. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
-## Changelogs
-
-[Changelogs 링크](./CHANGELOG.md)
 
 #### Methods
 
@@ -143,21 +144,50 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 | `refreshTokenExpiresAt?`|  ✓  |    ✓    | `Date`     | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
 | `scopes`                |  ✓  |    ✓    | `string[]` | 사용자로 부터 받은 권한 |
 
+
 ## Usage
 
-## How to run example project
+### Sample Code
+
+```
+const signInWithKakao = async (): Promise<void> => {
+  const token: KakaoOAuthToken = await login();
+
+  setResult(JSON.stringify(token));
+};
+
+const signOutWithKakao = async (): Promise<void> => {
+  const message = await logout();
+
+  setResult(message);
+};
+
+const getProfile = async (): Promise<void> => {
+  const profile: KakaoProfile = await getKakaoProfile();
+
+  setResult(JSON.stringify(profile));
+};
+
+const unlinkKakao = async (): Promise<void> => {
+  const message = await unlink();
+
+  setResult(message);
+};
+```
+
+### How to run example project
 
 1. `clone` 받은 레포에서 `KakaoLoginExample` 폴더로 이동합니다
 
-```bash
-  cd KakaoLoginExample
-```
+   ```bash
+     cd KakaoLoginExample
+   ```
 
 2. 필요한 모듈을 설치 합니다(`preinstall`이 실행됩니다)
 
-```bash
-    yarn
-```
+   ```bash
+       yarn
+   ```
 
 3. 프로젝트 실행
 
