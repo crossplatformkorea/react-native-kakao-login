@@ -8,7 +8,7 @@
 [![CI](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml)
 [![CI-EXAMPLE](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-example.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-example.yml)
 
-React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul/kakao-login` < 3.0 이하 버전을 쓰시는 분들은 [DEPRECATED README][https://github.com/react-native-seoul/react-native-kakao-login/blob/master/README_DEPRECATED.md]를 참고해주세요.
+React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul/kakao-login` < 3.0 이하 버전을 쓰시는 분들은 [DEPRECATED README](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/README_DEPRECATED.md)를 참고해주세요.
 
 세부 예제는 KakaoLoginExample 폴더 안의 예제 프로젝트를 확인해주세요.
 해당 라이브러리는 `flow`와 `typescript`를 지원합니다.
