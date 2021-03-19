@@ -1,0 +1,45 @@
+{
+  "fb-locale": "ko_KR",
+  "translations": {
+    "8187f7a32af24a016622027a1aaf7c49": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "로그인",
+          "variations": {}
+        }
+      ]
+    },
+    "579290b3f62f0fd93162fd1c69667b80": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "화면 전환",
+          "variations": {}
+        }
+      ]
+    },
+    "266e827836b82d38073d828285fd7b08": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "테마 변경",
+          "variations": {}
+        }
+      ]
+    },
+    "d045dda0e2a4f8df14e676e3adbcf94d": {
+      "tokens": [],
+      "types": [],
+      "translations": [
+        {
+          "translation": "뒤로가기",
+          "variations": {}
+        }
+      ]
+    }
+  }
+}

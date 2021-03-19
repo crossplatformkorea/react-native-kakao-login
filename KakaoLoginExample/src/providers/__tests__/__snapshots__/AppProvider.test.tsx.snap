@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[AppProvider] rendering test should match component and snapshot 1`] = `
+<View>
+  <Text
+    testID="TEXT"
+  >
+    {
+  "user": null
+}
+  </Text>
+  <View
+    accessibilityRole="button"
+    accessibilityState={Object {}}
+    onPress={[Function]}
+    testID="BUTTON"
+  >
+    <View
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#007AFF",
+              "fontSize": 18,
+              "margin": 8,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Button
+      </Text>
+    </View>
+  </View>
+  <View
+    accessibilityRole="button"
+    accessibilityState={Object {}}
+    onPress={[Function]}
+    testID="BUTTON_NOT_VALID"
+  >
+    <View
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#007AFF",
+              "fontSize": 18,
+              "margin": 8,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Button
+      </Text>
+    </View>
+  </View>
+</View>
+`;

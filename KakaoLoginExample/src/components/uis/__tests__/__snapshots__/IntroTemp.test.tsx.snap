@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[IntroTemp] render renders without crashing 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "column",
+        "height": "100%",
+        "justifyContent": "flex-start",
+        "paddingBottom": 24,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+        "paddingTop": 24,
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <RCTScrollView>
+    <View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontSize": 18,
+              "lineHeight": 27,
+            },
+          ]
+        }
+      />
+      <View
+        style={
+          Object {
+            "height": 400,
+          }
+        }
+      />
+    </View>
+  </RCTScrollView>
+</View>
+`;

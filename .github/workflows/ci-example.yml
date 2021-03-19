@@ -1,0 +1,27 @@
+name: CI-EXAMPLE
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'KakaoLoginExample/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Yarn
+      run: yarn
+
+    - name: Lint
+      run: yarn lint
+
+    - name: Build TSC
+      run: yarn tsc
+
+    - name: Test
+      run: yarn test --coverage

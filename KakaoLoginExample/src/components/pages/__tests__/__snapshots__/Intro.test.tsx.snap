@@ -1,0 +1,1501 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Intro] screen rendering test should render [Dark] theme 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#232323",
+          "flexBasis": 0,
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-start",
+          "overflow": "hidden",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "column",
+            "height": "100%",
+            "justifyContent": "flex-start",
+            "paddingBottom": 24,
+            "paddingLeft": 24,
+            "paddingRight": 24,
+            "paddingTop": 24,
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <RCTScrollView>
+        <View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#D3D8E8",
+                  "fontSize": 18,
+                  "lineHeight": 27,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 400,
+              }
+            }
+          />
+        </View>
+      </RCTScrollView>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "bottom": 40,
+            "flexDirection": "column",
+            "position": "absolute",
+            "width": "85%",
+          },
+        ]
+      }
+    >
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그인
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            프로필 조회
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            링크 해제
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그아웃
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 40,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`[Intro] screen rendering test should render [isDisabled] status 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#232323",
+          "flexBasis": 0,
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-start",
+          "overflow": "hidden",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "column",
+            "height": "100%",
+            "justifyContent": "flex-start",
+            "paddingBottom": 24,
+            "paddingLeft": 24,
+            "paddingRight": 24,
+            "paddingTop": 24,
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <RCTScrollView>
+        <View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#D3D8E8",
+                  "fontSize": 18,
+                  "lineHeight": 27,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 400,
+              }
+            }
+          />
+        </View>
+      </RCTScrollView>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "bottom": 40,
+            "flexDirection": "column",
+            "position": "absolute",
+            "width": "85%",
+          },
+        ]
+      }
+    >
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그인
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            프로필 조회
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            링크 해제
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그아웃
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 40,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`[Intro] screen rendering test should render [isLoading] status 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#232323",
+          "flexBasis": 0,
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-start",
+          "overflow": "hidden",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "column",
+            "height": "100%",
+            "justifyContent": "flex-start",
+            "paddingBottom": 24,
+            "paddingLeft": 24,
+            "paddingRight": 24,
+            "paddingTop": 24,
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <RCTScrollView>
+        <View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#D3D8E8",
+                  "fontSize": 18,
+                  "lineHeight": 27,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 400,
+              }
+            }
+          />
+        </View>
+      </RCTScrollView>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "bottom": 40,
+            "flexDirection": "column",
+            "position": "absolute",
+            "width": "85%",
+          },
+        ]
+      }
+    >
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그인
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            프로필 조회
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            링크 해제
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#8A96DC",
+                "borderColor": "#8A96DC",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그아웃
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 40,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
+
+exports[`[Intro] screen rendering test should render outer component and snapshot matches 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "backgroundColor": "#FFFFFF",
+          "flexBasis": 0,
+          "flexDirection": "column",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "flex-start",
+          "overflow": "hidden",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "flexDirection": "column",
+            "height": "100%",
+            "justifyContent": "flex-start",
+            "paddingBottom": 24,
+            "paddingLeft": 24,
+            "paddingRight": 24,
+            "paddingTop": 24,
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <RCTScrollView>
+        <View>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontSize": 18,
+                  "lineHeight": 27,
+                },
+              ]
+            }
+          >
+            
+          </Text>
+          <View
+            style={
+              Object {
+                "height": 400,
+              }
+            }
+          />
+        </View>
+      </RCTScrollView>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "alignSelf": "center",
+            "bottom": 40,
+            "flexDirection": "column",
+            "position": "absolute",
+            "width": "85%",
+          },
+        ]
+      }
+    >
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#393D7A",
+                "borderColor": "#393D7A",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#D3D8E8",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그인
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#393D7A",
+                "borderColor": "#393D7A",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#D3D8E8",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            프로필 조회
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#393D7A",
+                "borderColor": "#393D7A",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#D3D8E8",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            링크 해제
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 12,
+          }
+        }
+      />
+      <View
+        activeOpacity={0.7}
+        onPress={[Function]}
+        testID="btn-login"
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "backgroundColor": "#393D7A",
+                "borderColor": "#393D7A",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "height": 52,
+                "justifyContent": "center",
+                "width": 320,
+              },
+              Object {
+                "backgroundColor": "#FEE500",
+                "borderRadius": 40,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        >
+          <Image
+            source={
+              Object {
+                "canInstrument": true,
+                "createTransformer": [Function],
+                "getCacheKey": [Function],
+                "process": [Function],
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 24,
+                  "left": 16,
+                  "position": "absolute",
+                  "width": 24,
+                },
+              ]
+            }
+          />
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#D3D8E8",
+                  "fontSize": 14,
+                },
+                Object {
+                  "color": "black",
+                  "fontSize": 16,
+                },
+              ]
+            }
+          >
+            카카오 로그아웃
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "marginTop": 40,
+          }
+        }
+      />
+    </View>
+  </View>
+</View>
+`;
