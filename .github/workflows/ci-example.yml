@@ -2,16 +2,10 @@ name: CI-EXAMPLE
 
 on:
   push:
-    branches: [master]
-  pull_request:
-    types: [opened, synchronize, reopened]
-
-on:
-  push:
     branches:
       - master
     paths:
-      - 'example/**'
+      - 'KakaoLoginExample/**'
 
 jobs:
   build:
