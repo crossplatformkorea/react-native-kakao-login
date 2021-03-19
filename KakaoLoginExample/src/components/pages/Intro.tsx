@@ -1,13 +1,19 @@
-import {NativeModules, View} from 'react-native';
+import {
+  KakaoOAuthToken,
+  KakaoProfile,
+  getProfile as getKakaoProfile,
+  login,
+  logout,
+  unlink,
+} from '@react-native-seoul/kakao-login';
 import React, {useState} from 'react';
 
 import Button from '../uis/Button';
 import {IC_MASK} from '../../utils/Icons';
 import ResultView from '../uis/IntroTemp';
+import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {withScreen} from '../../utils/wrapper';
-
-const {RNKakaoLogins} = NativeModules;
 
 const Container = styled.View`
   flex: 1;
@@ -32,51 +38,28 @@ const ButtonWrapper = styled.View`
 function Intro(): React.ReactElement {
   const [result, setResult] = useState<string>('');
 
-  const signInWithKakao = (): void => {
-    // KakaoLogins.login([KAKAO_AUTH_TYPES.Talk, KAKAO_AUTH_TYPES.Account])
-    //   .then((signInResult) => {
-    //     setResult(JSON.stringify(signInResult));
-    //   })
-    //   .catch((err) => {
-    //     console.log(`Sign in error: ${err.message}`);
-    //   });
-    RNKakaoLogins.login()
-      .then((loginResult) => {
-        setResult(JSON.stringify(loginResult));
-      })
-      .catch((err) => {
-        console.log(`Sign out error: ${err.message}`);
-      });
+  const signInWithKakao = async (): Promise<void> => {
+    const token: KakaoOAuthToken = await login();
+
+    setResult(JSON.stringify(token));
   };
 
-  const signOutWithKakao = (): void => {
-    RNKakaoLogins.logout()
-      .then((signOutResult) => {
-        setResult(JSON.stringify(signOutResult));
-      })
-      .catch((err) => {
-        console.log(`Sign out error: ${err.message}`);
-      });
+  const signOutWithKakao = async (): Promise<void> => {
+    const message = await logout();
+
+    setResult(message);
   };
 
-  const getProfile = (): void => {
-    RNKakaoLogins.getProfile()
-      .then((profileResult) => {
-        setResult(JSON.stringify(profileResult));
-      })
-      .catch((err) => {
-        console.log(`Sign out error: ${err.message}`);
-      });
+  const getProfile = async (): Promise<void> => {
+    const profile: KakaoProfile = await getKakaoProfile();
+
+    setResult(JSON.stringify(profile));
   };
 
-  const unlinkKakao = (): void => {
-    RNKakaoLogins.unlink()
-      .then((unlinkResult) => {
-        setResult(JSON.stringify(unlinkResult));
-      })
-      .catch((err) => {
-        console.log(`Sign out error: ${err.message}`);
-      });
+  const unlinkKakao = async (): Promise<void> => {
+    const message = await unlink();
+
+    setResult(message);
   };
 
   return (
@@ -95,7 +78,7 @@ function Intro(): React.ReactElement {
             fontSize: 16,
           }}
           imgLeftSrc={IC_MASK}
-          onPress={(): void => signInWithKakao()}
+          onPress={() => signInWithKakao()}
           text={'카카오 로그인'}
         />
         <View style={{marginTop: 12}} />
@@ -111,7 +94,7 @@ function Intro(): React.ReactElement {
             fontSize: 16,
           }}
           imgLeftSrc={IC_MASK}
-          onPress={(): void => getProfile()}
+          onPress={() => getProfile()}
           text={'프로필 조회'}
         />
         <View style={{marginTop: 12}} />
@@ -127,7 +110,7 @@ function Intro(): React.ReactElement {
             fontSize: 16,
           }}
           imgLeftSrc={IC_MASK}
-          onPress={(): void => unlinkKakao()}
+          onPress={() => unlinkKakao()}
           text={'링크 해제'}
         />
         <View style={{marginTop: 12}} />
@@ -143,7 +126,7 @@ function Intro(): React.ReactElement {
             fontSize: 16,
           }}
           imgLeftSrc={IC_MASK}
-          onPress={(): void => signOutWithKakao()}
+          onPress={() => signOutWithKakao()}
           text={'카카오 로그아웃'}
         />
         <View style={{marginTop: 40}} />
