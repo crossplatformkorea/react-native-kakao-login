@@ -319,53 +319,39 @@ exports[`[Stack] navigator should renders [Dark] mode 1`] = `
                                 "flexDirection": "column",
                                 "height": "100%",
                                 "justifyContent": "flex-start",
+                                "paddingBottom": 24,
+                                "paddingLeft": 24,
+                                "paddingRight": 24,
+                                "paddingTop": 24,
                                 "width": "100%",
                               },
                             ]
                           }
                         >
-                          <Text
-                            style={
-                              Array [
-                                Object {
-                                  "color": "#D3D8E8",
-                                  "fontSize": 18,
-                                  "lineHeight": 27,
-                                },
-                                Object {
-                                  "marginTop": 100,
-                                },
-                              ]
-                            }
-                          >
-                            
-                          </Text>
-                          <Text
-                            style={
-                              Array [
-                                Object {
-                                  "color": "#D3D8E8",
-                                  "fontSize": 18,
-                                  "lineHeight": 27,
-                                },
-                              ]
-                            }
-                          >
-                            
-                          </Text>
-                          <Text
-                            style={
-                              Array [
-                                Object {
-                                  "color": "#D3D8E8",
-                                  "fontSize": 18,
-                                  "lineHeight": 27,
-                                },
-                              ]
-                            }
-                          >
-                            
-                          </Text>
+                          <RCTScrollView>
+                            <View>
+                              <Text
+                                style={
+                                  Array [
+                                    Object {
+                                      "color": "#D3D8E8",
+                                      "fontSize": 18,
+                                      "lineHeight": 27,
+                                    },
+                                  ]
+                                }
+                              >
+                                
+                              </Text>
+                              <View
+                                style={
+                                  Object {
+                                    "height": 400,
+                                  }
+                                }
+                              />
+                            </View>
+                          </RCTScrollView>
                         </View>
                         <View
                           style={
@@ -399,6 +385,11 @@ exports[`[Stack] navigator should renders [Dark] mode 1`] = `
                                     "justifyContent": "center",
                                     "width": 320,
                                   },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
                                 ]
                               }
                             >
@@ -429,24 +420,28 @@ exports[`[Stack] navigator should renders [Dark] mode 1`] = `
                                       "color": "#000000",
                                       "fontSize": 14,
                                     },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
                                   ]
                                 }
                               >
-                                Sign In
+                                카카오 로그인
                               </Text>
                             </View>
                           </View>
                           <View
                             style={
                               Object {
-                                "marginTop": 8,
+                                "marginTop": 12,
                               }
                             }
                           />
                           <View
                             activeOpacity={0.7}
                             onPress={[Function]}
-                            testID="btn-navigate"
+                            testID="btn-login"
                           >
                             <View
                               style={
@@ -462,9 +457,34 @@ exports[`[Stack] navigator should renders [Dark] mode 1`] = `
                                     "justifyContent": "center",
                                     "width": 320,
                                   },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
                                 ]
                               }
                             >
+                              <Image
+                                source={
+                                  Object {
+                                    "canInstrument": true,
+                                    "createTransformer": [Function],
+                                    "getCacheKey": [Function],
+                                    "process": [Function],
+                                  }
+                                }
+                                style={
+                                  Array [
+                                    Object {
+                                      "height": 24,
+                                      "left": 16,
+                                      "position": "absolute",
+                                      "width": 24,
+                                    },
+                                  ]
+                                }
+                              />
                               <Text
                                 style={
                                   Array [
@@ -472,24 +492,28 @@ exports[`[Stack] navigator should renders [Dark] mode 1`] = `
                                       "color": "#000000",
                                       "fontSize": 14,
                                     },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
                                   ]
                                 }
                               >
-                                Navigate
+                                프로필 조회
                               </Text>
                             </View>
                           </View>
                           <View
                             style={
                               Object {
-                                "marginTop": 8,
+                                "marginTop": 12,
                               }
                             }
                           />
                           <View
                             activeOpacity={0.7}
                             onPress={[Function]}
-                            testID="btn-theme"
+                            testID="btn-login"
                           >
                             <View
                               style={
@@ -505,9 +529,34 @@ exports[`[Stack] navigator should renders [Dark] mode 1`] = `
                                     "justifyContent": "center",
                                     "width": 320,
                                   },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
                                 ]
                               }
                             >
+                              <Image
+                                source={
+                                  Object {
+                                    "canInstrument": true,
+                                    "createTransformer": [Function],
+                                    "getCacheKey": [Function],
+                                    "process": [Function],
+                                  }
+                                }
+                                style={
+                                  Array [
+                                    Object {
+                                      "height": 24,
+                                      "left": 16,
+                                      "position": "absolute",
+                                      "width": 24,
+                                    },
+                                  ]
+                                }
+                              />
                               <Text
                                 style={
                                   Array [
@@ -515,13 +564,96 @@ exports[`[Stack] navigator should renders [Dark] mode 1`] = `
                                       "color": "#000000",
                                       "fontSize": 14,
                                     },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
                                   ]
                                 }
                               >
-                                Change Theme
+                                링크 해제
                               </Text>
                             </View>
                           </View>
+                          <View
+                            style={
+                              Object {
+                                "marginTop": 12,
+                              }
+                            }
+                          />
+                          <View
+                            activeOpacity={0.7}
+                            onPress={[Function]}
+                            testID="btn-login"
+                          >
+                            <View
+                              style={
+                                Array [
+                                  Object {
+                                    "alignItems": "center",
+                                    "alignSelf": "center",
+                                    "backgroundColor": "#8A96DC",
+                                    "borderColor": "#8A96DC",
+                                    "borderRadius": 4,
+                                    "borderWidth": 2,
+                                    "height": 52,
+                                    "justifyContent": "center",
+                                    "width": 320,
+                                  },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
+                                ]
+                              }
+                            >
+                              <Image
+                                source={
+                                  Object {
+                                    "canInstrument": true,
+                                    "createTransformer": [Function],
+                                    "getCacheKey": [Function],
+                                    "process": [Function],
+                                  }
+                                }
+                                style={
+                                  Array [
+                                    Object {
+                                      "height": 24,
+                                      "left": 16,
+                                      "position": "absolute",
+                                      "width": 24,
+                                    },
+                                  ]
+                                }
+                              />
+                              <Text
+                                style={
+                                  Array [
+                                    Object {
+                                      "color": "#000000",
+                                      "fontSize": 14,
+                                    },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
+                                  ]
+                                }
+                              >
+                                카카오 로그아웃
+                              </Text>
+                            </View>
+                          </View>
+                          <View
+                            style={
+                              Object {
+                                "marginTop": 40,
+                              }
+                            }
+                          />
                         </View>
                       </View>
                     </View>
@@ -856,53 +988,39 @@ exports[`[Stack] navigator should renders without crashing 1`] = `
                                 "flexDirection": "column",
                                 "height": "100%",
                                 "justifyContent": "flex-start",
+                                "paddingBottom": 24,
+                                "paddingLeft": 24,
+                                "paddingRight": 24,
+                                "paddingTop": 24,
                                 "width": "100%",
                               },
                             ]
                           }
                         >
-                          <Text
-                            style={
-                              Array [
-                                Object {
-                                  "color": "#000000",
-                                  "fontSize": 18,
-                                  "lineHeight": 27,
-                                },
-                                Object {
-                                  "marginTop": 100,
-                                },
-                              ]
-                            }
-                          >
-                            
-                          </Text>
-                          <Text
-                            style={
-                              Array [
-                                Object {
-                                  "color": "#000000",
-                                  "fontSize": 18,
-                                  "lineHeight": 27,
-                                },
-                              ]
-                            }
-                          >
-                            
-                          </Text>
-                          <Text
-                            style={
-                              Array [
-                                Object {
-                                  "color": "#000000",
-                                  "fontSize": 18,
-                                  "lineHeight": 27,
-                                },
-                              ]
-                            }
-                          >
-                            
-                          </Text>
+                          <RCTScrollView>
+                            <View>
+                              <Text
+                                style={
+                                  Array [
+                                    Object {
+                                      "color": "#000000",
+                                      "fontSize": 18,
+                                      "lineHeight": 27,
+                                    },
+                                  ]
+                                }
+                              >
+                                
+                              </Text>
+                              <View
+                                style={
+                                  Object {
+                                    "height": 400,
+                                  }
+                                }
+                              />
+                            </View>
+                          </RCTScrollView>
                         </View>
                         <View
                           style={
@@ -936,6 +1054,11 @@ exports[`[Stack] navigator should renders without crashing 1`] = `
                                     "justifyContent": "center",
                                     "width": 320,
                                   },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
                                 ]
                               }
                             >
@@ -966,24 +1089,28 @@ exports[`[Stack] navigator should renders without crashing 1`] = `
                                       "color": "#D3D8E8",
                                       "fontSize": 14,
                                     },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
                                   ]
                                 }
                               >
-                                Sign In
+                                카카오 로그인
                               </Text>
                             </View>
                           </View>
                           <View
                             style={
                               Object {
-                                "marginTop": 8,
+                                "marginTop": 12,
                               }
                             }
                           />
                           <View
                             activeOpacity={0.7}
                             onPress={[Function]}
-                            testID="btn-navigate"
+                            testID="btn-login"
                           >
                             <View
                               style={
@@ -999,9 +1126,34 @@ exports[`[Stack] navigator should renders without crashing 1`] = `
                                     "justifyContent": "center",
                                     "width": 320,
                                   },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
                                 ]
                               }
                             >
+                              <Image
+                                source={
+                                  Object {
+                                    "canInstrument": true,
+                                    "createTransformer": [Function],
+                                    "getCacheKey": [Function],
+                                    "process": [Function],
+                                  }
+                                }
+                                style={
+                                  Array [
+                                    Object {
+                                      "height": 24,
+                                      "left": 16,
+                                      "position": "absolute",
+                                      "width": 24,
+                                    },
+                                  ]
+                                }
+                              />
                               <Text
                                 style={
                                   Array [
@@ -1009,24 +1161,28 @@ exports[`[Stack] navigator should renders without crashing 1`] = `
                                       "color": "#D3D8E8",
                                       "fontSize": 14,
                                     },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
                                   ]
                                 }
                               >
-                                Navigate
+                                프로필 조회
                               </Text>
                             </View>
                           </View>
                           <View
                             style={
                               Object {
-                                "marginTop": 8,
+                                "marginTop": 12,
                               }
                             }
                           />
                           <View
                             activeOpacity={0.7}
                             onPress={[Function]}
-                            testID="btn-theme"
+                            testID="btn-login"
                           >
                             <View
                               style={
@@ -1042,9 +1198,34 @@ exports[`[Stack] navigator should renders without crashing 1`] = `
                                     "justifyContent": "center",
                                     "width": 320,
                                   },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
                                 ]
                               }
                             >
+                              <Image
+                                source={
+                                  Object {
+                                    "canInstrument": true,
+                                    "createTransformer": [Function],
+                                    "getCacheKey": [Function],
+                                    "process": [Function],
+                                  }
+                                }
+                                style={
+                                  Array [
+                                    Object {
+                                      "height": 24,
+                                      "left": 16,
+                                      "position": "absolute",
+                                      "width": 24,
+                                    },
+                                  ]
+                                }
+                              />
                               <Text
                                 style={
                                   Array [
@@ -1052,13 +1233,96 @@ exports[`[Stack] navigator should renders without crashing 1`] = `
                                       "color": "#D3D8E8",
                                       "fontSize": 14,
                                     },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
                                   ]
                                 }
                               >
-                                Change Theme
+                                링크 해제
                               </Text>
                             </View>
                           </View>
+                          <View
+                            style={
+                              Object {
+                                "marginTop": 12,
+                              }
+                            }
+                          />
+                          <View
+                            activeOpacity={0.7}
+                            onPress={[Function]}
+                            testID="btn-login"
+                          >
+                            <View
+                              style={
+                                Array [
+                                  Object {
+                                    "alignItems": "center",
+                                    "alignSelf": "center",
+                                    "backgroundColor": "#393D7A",
+                                    "borderColor": "#393D7A",
+                                    "borderRadius": 4,
+                                    "borderWidth": 2,
+                                    "height": 52,
+                                    "justifyContent": "center",
+                                    "width": 320,
+                                  },
+                                  Object {
+                                    "backgroundColor": "#FEE500",
+                                    "borderRadius": 40,
+                                    "borderWidth": 1,
+                                  },
+                                ]
+                              }
+                            >
+                              <Image
+                                source={
+                                  Object {
+                                    "canInstrument": true,
+                                    "createTransformer": [Function],
+                                    "getCacheKey": [Function],
+                                    "process": [Function],
+                                  }
+                                }
+                                style={
+                                  Array [
+                                    Object {
+                                      "height": 24,
+                                      "left": 16,
+                                      "position": "absolute",
+                                      "width": 24,
+                                    },
+                                  ]
+                                }
+                              />
+                              <Text
+                                style={
+                                  Array [
+                                    Object {
+                                      "color": "#D3D8E8",
+                                      "fontSize": 14,
+                                    },
+                                    Object {
+                                      "color": "black",
+                                      "fontSize": 16,
+                                    },
+                                  ]
+                                }
+                              >
+                                카카오 로그아웃
+                              </Text>
+                            </View>
+                          </View>
+                          <View
+                            style={
+                              Object {
+                                "marginTop": 40,
+                              }
+                            }
+                          />
                         </View>
                       </View>
                     </View>

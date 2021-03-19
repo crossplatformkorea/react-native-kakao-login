@@ -71,27 +71,3 @@ describe('[Intro] screen rendering test', () => {
     expect(baseElement).toBeTruthy();
   });
 });
-
-describe('[Intro] Interaction', () => {
-  afterEach(cleanup);
-
-  it('should navigate when button has clicked', () => {
-    testingLib = render(component);
-
-    act(() => {
-      fireEvent.press(testingLib.getByTestId('btn-navigate'));
-    });
-
-    expect(props.navigation.navigate).toHaveBeenCalledWith('Temp', {
-      param: 'GO BACK',
-    });
-  });
-
-  it('should change theme when button has clicked', () => {
-    testingLib = render(component);
-
-    act(() => {
-      fireEvent.press(testingLib.getByTestId('btn-theme'));
-    });
-  });
-});
