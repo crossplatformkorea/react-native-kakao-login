@@ -6,11 +6,14 @@ on:
       - master
     paths:
       - 'KakaoLoginExample/**'
-    working-directory: KakaoLoginExample
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./KakaoLoginExample
 
     steps:
     - uses: actions/checkout@v2
@@ -21,8 +24,8 @@ jobs:
     - name: Lint
       run: yarn lint
 
-    - name: Build TSC
-      run: yarn tsc
+    # - name: Build TSC
+    #   run: yarn tsc
 
     - name: Test
       run: yarn test --coverage
