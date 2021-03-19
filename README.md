@@ -43,34 +43,33 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 #### iOS
 
 1. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 카카오 로그인 > 설정하기](https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite)를 참고해주세요. 해당 가이드를 통해 카카오 개발자 페이지에서 본인의 어플리케이션을 생성해주세요.
-2. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
-3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios-v1) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
+2. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios-v1) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
+   ```diff
+    <key>CFBundleURLTypes</key>
+    <array>
+   + <dict>
+   +   <key>CFBundleTypeRole</key>
+   +   <string>Editor</string>
+   +   <key>CFBundleURLSchemes</key>
+   +   <array>
+   +     <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
+   +   </array>
+   + </dict>
+    </array>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+   + <key>KAKAO_APP_KEY</key>
+   + <string>{카카오 네이티브앱 아이디를 적어주세요}</string>
+   + <key>LSApplicationQueriesSchemes</key>
+   + <array>
+   +   <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
+   +   <string>kakaokompassauth</string>
+   +   <string>storykompassauth</string>
+   +   <string>kakaolink</string>
+   + </array>
    ```
-   <key>CFBundleURLTypes</key>
-   <array>
-     <dict>
-       <key>CFBundleTypeRole</key>
-       <string>Editor</string>
-       <key>CFBundleURLSchemes</key>
-       <array>
-         <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
-       </array>
-     </dict>
-   </array>
-   <key>CFBundleVersion</key>
-   <string>1</string>
-   <key>KAKAO_APP_KEY</key>
-   <string>{카카오 네이티브앱 아이디를 적어주세요}</string>
-   <key>LSApplicationQueriesSchemes</key>
-   <array>
-     <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
-     <string>kakaokompassauth</string>
-     <string>storykompassauth</string>
-     <string>kakaolink</string>
-   </array>
-   ```
-4. `3.0.0` 버전부터는 swift 버전의 kakao sdk를 활용하므로 [Swift Bridging Header](https://medium.com/@javedmultani16/adding-a-swift-bridging-header-b6b0a7ab895f)를 추가해야할 수 있습니다.
-
+3. `3.0.0` 버전부터는 swift 버전의 kakao sdk를 활용하므로 [Swift Bridging Header](https://stackoverflow.com/questions/31716413/xcode-not-automatically-creating-bridging-header)를 추가해야할 수 있습니다.
+4. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
 #### Android
 
 1. [키 해시 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android-v1#key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
@@ -83,30 +82,35 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
    ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
-2. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.
-3. Manifest 파일에서 allowBackup을 "true" 로 설정해주세요.
+2. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.  가끔 `kakao sdk`를 못찾겠다는 오류가 나오면 `build.gradle(Project)` 파일에 다음과 같이 android sdk repository를 추가해주세요.
    ```
+   maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
+   ```
+3. Manifest 파일에서 allowBackup을 `true`로 변경해주세요.
+   ```diff
    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kakaologinexample"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:allowBackup="false"
+   + xmlns:tools="http://schemas.android.com/tools"
    >
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-      tools:replace="android:allowBackup"
+   +  tools:replace="android:allowBackup"
    ```
 3. Redirect URI 설정
-   * 카카오 로그인 기능을 구현하기 위해서는 리다이렉션(Redirection)을 통해 [Request Code](https://developers.kakao.com/docs/latest/ko/kakaologin/android)를 받아야 합니다. 아래 `카카오 네이티브 앱 key를 입력해주세요` 텍스트를 본인의 카카오 네이티브 키로 변경해주시면 됩니다.
-     ```diff
-     <intent-filter>
-       <action android:name="android.intent.action.MAIN" />
-       <category android:name="android.intent.category.LAUNCHER" />
-     + <category android:name="android.intent.category.DEFAULT" />
-     + <category android:name="android.intent.category.BROWSABLE" />
+   * 카카오 로그인 기능을 구현하기 위해서는 리다이렉션(Redirection)을 통해 [Request Code](https://developers.kakao.com/docs/latest/ko/kakaologin/android)를 받아야 합니다. 그러기 위해서는 아래 코드를 `AndroidManifest.xml`에 추가해주세요. 그리고 `카카오 네이티브 앱 key를 입력해주세요` 텍스트를 본인의 카카오 네이티브 키로 변경해주시면 됩니다. 
+     ```
+     <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+       <intent-filter>
+           <action android:name="android.intent.action.VIEW" />
+           <category android:name="android.intent.category.DEFAULT" />
+           <category android:name="android.intent.category.BROWSABLE" />
 
-     + <data android:host="oauth" android:scheme="kakao{카카오 네이티브 앱 key를 입력해주세요}" />
-     </intent-filter>
+           <!-- Redirect URI: "kakao{NATIVE_APP_KEY}://oauth“ -->
+           <data android:host="oauth"
+               android:scheme="kakao{카카오 네이티브 앱 key를 입력해주세요}" />
+       </intent-filter>
+     </activity>
      ```
 4. `app/src/main/res/values/strings.xml` 을 열어 다음을 추가합니다
     ```diff
