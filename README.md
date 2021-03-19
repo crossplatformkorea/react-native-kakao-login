@@ -1,5 +1,7 @@
 # @react-native-seoul/kakao-login
 
+[![CI](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml)
+
 <img src="image/main_banner.png" width="100%" height="auto" />
 <p align="left">
   <a href="https://npmjs.org/package/@react-native-seoul/kakao-login">
