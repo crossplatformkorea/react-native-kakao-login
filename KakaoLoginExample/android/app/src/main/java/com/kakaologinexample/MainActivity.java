@@ -1,4 +1,4 @@
-package com.dooboolab.test;
+package com.kakaologinexample;
 
 import android.content.res.Configuration;
 
@@ -18,7 +18,7 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "kakaologinexample";
+        return "KakaoLoginExample";
     }
 
     @Override

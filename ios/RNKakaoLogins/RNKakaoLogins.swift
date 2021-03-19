@@ -43,10 +43,8 @@ class RNKakaoLogins: NSObject {
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
 
             if (UserApi.isKakaoTalkLoginAvailable()) {
-                // 카카오톡 로그인. api 호출 결과를 클로저로 전달.
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     if let error = error {
-                        // 예외 처리 (로그인 취소 등)
                         reject("RNKakaoLogins", error.localizedDescription, nil)
                     }
                     else {

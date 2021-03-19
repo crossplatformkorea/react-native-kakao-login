@@ -1,5 +1,6 @@
+import {ScrollView, View} from 'react-native';
+
 import React from 'react';
-import {ScrollView} from 'react-native';
 import styled from 'styled-components/native';
 
 const ContentWrapper = styled.View`
@@ -26,6 +27,7 @@ function IntroView({result}: Props): React.ReactElement {
     <ContentWrapper>
       <ScrollView>
         <StyledText>{result}</StyledText>
+        <View style={{height: 400}} />
       </ScrollView>
     </ContentWrapper>
   );

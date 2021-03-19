@@ -1,4 +1,3 @@
-import KakaoLogins, {KAKAO_AUTH_TYPES} from '@react-native-seoul/kakao-login';
 import {NativeModules, View} from 'react-native';
 import React, {useState} from 'react';
 
