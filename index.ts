@@ -60,7 +60,7 @@ export const logout = async (): Promise<string> => {
 
 export const unlink = async (): Promise<string> => {
   try {
-    const result: string = await RNKakaoLogins.logout();
+    const result: string = await RNKakaoLogins.unlink();
 
     return result;
   } catch (err) {

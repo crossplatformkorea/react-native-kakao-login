@@ -1,5 +1,8 @@
 ## Changelogs
 
+- **[3.0.1]**
+  - Bugfix: `unlink`가 `logout`과 동일하게 구현되어 있는 부분을 수정했습니다.
+
 - **[3.0.0]**
   - 카카오 SDK V2를 지원합니다 :tada:. 위 버전에서는 `2.4.+` 버전을 쓰고 있습니다. 모든 API들이 새로 업데이트 되었습니다. 기존의 [README](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/README.md)는 [README_DEPRECATED](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/README_DEPRECATED.md) 문서로 이전하였고 새롭게 업데이트 되었습니다.
 

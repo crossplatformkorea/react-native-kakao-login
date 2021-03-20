@@ -37,7 +37,6 @@
 	<string>f25af6b78693a6f92ecd5cf91b9afb34</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>kakao0123456789abcdefghijklmn</string>
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
