@@ -27,6 +27,7 @@
 		0EB6A4CB260306F100A01829 /* RNKakaoLogins-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RNKakaoLogins-Bridging-Header.h"; sourceTree = "<group>"; };
 		0EB6A4CC260306F200A01829 /* RNKakaoLogins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNKakaoLogins.swift; sourceTree = "<group>"; };
 		0EB6A4D02603078000A01829 /* RNKakaoLogins.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNKakaoLogins.m; sourceTree = "<group>"; };
+		0ED6264B260C7CD40033EC0D /* RNKakaoLogins.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNKakaoLogins.h; sourceTree = "<group>"; };
 		134814201AA4EA6300B7C361 /* libRNKakaoLogins.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNKakaoLogins.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -46,6 +47,7 @@
 			children = (
 				0EB6A4CC260306F200A01829 /* RNKakaoLogins.swift */,
 				0EB6A4D02603078000A01829 /* RNKakaoLogins.m */,
+				0ED6264B260C7CD40033EC0D /* RNKakaoLogins.h */,
 			);
 			path = RNKakaoLogins;
 			sourceTree = "<group>";
