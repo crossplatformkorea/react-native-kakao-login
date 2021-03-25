@@ -58,7 +58,7 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - glog (0.3.5)
-  - kakao-login (3.0.0-rc.1):
+  - kakao-login (3.0.1):
     - KakaoSDK (~> 2.4.0)
     - KakaoSDKAuth (~> 2.4.0)
     - KakaoSDKCommon (~> 2.4.0)
@@ -577,7 +577,7 @@ SPEC CHECKSUMS:
   Flipper-RSocket: 602921fee03edacf18f5d6f3d3594ba477f456e5
   FlipperKit: 8a20b5c5fcf9436cac58551dc049867247f64b00
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  kakao-login: caa3b82ba626f32c66e93316d20a053c8c3166e5
+  kakao-login: be8bc216683296728f89b04a6efbe9516da58046
   KakaoSDK: 1e80d6877c0eac6a310f93c73fb15ca56c05f2bd
   KakaoSDKAuth: fcba1c9ede431683f5bdd84c835a96981cb115a5
   KakaoSDKCommon: 0912aa0c7db051ae8dc07a35395cf644f7728f95

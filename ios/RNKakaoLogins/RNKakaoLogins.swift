@@ -14,6 +14,12 @@ import KakaoSDKUser
 
 @objc(RNKakaoLogins)
 class RNKakaoLogins: NSObject {
+
+    public override init() {
+        let appKey: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
+        KakaoSDKCommon.initSDK(appKey: appKey!)
+    }
+
     @objc
     static func requiresMainQueueSetup() -> Bool {
       return true
@@ -26,15 +32,13 @@ class RNKakaoLogins: NSObject {
 
     @objc(handleOpenUrl:)
     public static func handleOpenUrl(url:URL) -> Bool {
-        return AuthController.handleOpenUrl(url: url)
-    }
-    
-    public override init() {
-        let appKey: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
-        KakaoSDKCommon.initSDK(appKey: appKey!)
+        if (AuthApi.isKakaoTalkLoginUrl(url)) {
+            return AuthController.handleOpenUrl(url: url)
+        }
+
+        return false
     }
 
-    
     @objc(login:rejecter:)
     func login(_ resolve: @escaping RCTPromiseResolveBlock,
                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
@@ -135,7 +139,7 @@ class RNKakaoLogins: NSObject {
                 else {
                     resolve([
                         "id": user?.id as Any,
-                        "email": user?.kakaoAccount?.email! as Any,
+                        "email": user?.kakaoAccount?.email as Any,
                         "nickname": user?.kakaoAccount?.profile?.nickname as Any,
                         "profileImageUrl": user?.kakaoAccount?.profile?.profileImageUrl as Any,
                         "thumbnailImageUrl": user?.kakaoAccount?.profile?.thumbnailImageUrl as Any,
