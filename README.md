@@ -88,15 +88,15 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    ```
    #import <RNKakaoLogins.h>
 
-   - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-                                       sourceApplication:(NSString *)sourceApplication
-                                              annotation:(id)annotation {
+- (BOOL)application:(UIApplication *)app
+        openURL:(NSURL *)url
+        options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
       return [RNKakaoLogins handleOpenUrl: url];
     }
 
     return NO;
-  }
+   }
    ```
 
 6. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
