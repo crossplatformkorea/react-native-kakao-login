@@ -155,15 +155,15 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
             map.putString("id", String.valueOf(user.getId()));
 
             Account kakaoUser = user.getKakaoAccount();
-            map.putString("email", kakaoUser.getEmail());
-            map.putString("nickname", kakaoUser.getProfile().getNickname());
-            map.putString("profileImageUrl", kakaoUser.getProfile().getProfileImageUrl());
-            map.putString("thumbnailImageUrl", kakaoUser.getProfile().getThumbnailImageUrl());
-            map.putString("phoneNumber", kakaoUser.getPhoneNumber());
+            map.putString("email", String.valueOf(kakaoUser.getEmail()));
+            map.putString("nickname", String.valueOf(kakaoUser.getProfile().getNickname()));
+            map.putString("profileImageUrl", String.valueOf(kakaoUser.getProfile().getProfileImageUrl()));
+            map.putString("thumbnailImageUrl", String.valueOf(kakaoUser.getProfile().getThumbnailImageUrl()));
+            map.putString("phoneNumber", String.valueOf(kakaoUser.getPhoneNumber()));
             map.putString("ageRange", String.valueOf(user.getKakaoAccount().getAgeRange()));
-            map.putString("birthday", kakaoUser.getBirthday());
+            map.putString("birthday", String.valueOf(kakaoUser.getBirthday()));
             map.putString("birthdayType", String.valueOf(kakaoUser.getBirthdayType()));
-            map.putString("birthyear", kakaoUser.getBirthyear());
+            map.putString("birthyear", String.valueOf(kakaoUser.getBirthyear()));
             map.putString("gender", String.valueOf(kakaoUser.getGender()));
             map.putBoolean("isEmailValid", convertValue(kakaoUser.isEmailValid()));
             map.putBoolean("isEmailVerified", convertValue(kakaoUser.isEmailVerified()));
