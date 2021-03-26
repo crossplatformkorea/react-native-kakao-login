@@ -156,9 +156,17 @@ public class RNKakaoLoginsModule extends ReactContextBaseJavaModule {
 
             Account kakaoUser = user.getKakaoAccount();
             map.putString("email", String.valueOf(kakaoUser.getEmail()));
-            map.putString("nickname", String.valueOf(kakaoUser.getProfile().getNickname()));
-            map.putString("profileImageUrl", String.valueOf(kakaoUser.getProfile().getProfileImageUrl()));
-            map.putString("thumbnailImageUrl", String.valueOf(kakaoUser.getProfile().getThumbnailImageUrl()));
+            
+            if (kakaoUser.getProfile() == null) {
+                map.putString("nickname", "null");
+                map.putString("profileImageUrl", "null");
+                map.putString("thumbnailImageUrl", "null");
+            } else {
+                map.putString("nickname", String.valueOf(kakaoUser.getProfile().getNickname()));
+                map.putString("profileImageUrl", String.valueOf(kakaoUser.getProfile().getProfileImageUrl()));
+                map.putString("thumbnailImageUrl", String.valueOf(kakaoUser.getProfile().getThumbnailImageUrl()));
+            }
+            
             map.putString("phoneNumber", String.valueOf(kakaoUser.getPhoneNumber()));
             map.putString("ageRange", String.valueOf(user.getKakaoAccount().getAgeRange()));
             map.putString("birthday", String.valueOf(kakaoUser.getBirthday()));
