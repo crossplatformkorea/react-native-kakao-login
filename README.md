@@ -84,20 +84,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 4. `3.0.0` 버전부터는 swift 버전의 kakao sdk를 활용하므로 [Swift Bridging Header](https://stackoverflow.com/questions/31716413/xcode-not-automatically-creating-bridging-header)를 추가해야할 수 있습니다.
    <img width="800" alt="1" src="https://user-images.githubusercontent.com/27461460/111863065-8be6e300-899c-11eb-8ad8-6811e0bd0fbd.png">
 
-5. `AppDelegate.m` 파일에 다음을 추가해주세요. 이는 카카오톡 앱이 깔려 있을시 올바로 데이터를 받아오기 위함입니다 [#193](https://github.com/react-native-seoul/react-native-kakao-login/issues/193).
-   ```
-   #import <RNKakaoLogins.h>
-
-- (BOOL)application:(UIApplication *)app
-        openURL:(NSURL *)url
-        options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
-      return [RNKakaoLogins handleOpenUrl: url];
-    }
-
-    return NO;
-   }
-   ```
+5. `AppDelegate.m` 파일에 [해당 부분](https://github.com/react-native-seoul/react-native-kakao-login/issues/193#issuecomment-806475082)을 추가해주세요. 이는 카카오톡 앱이 깔려 있을시 올바로 데이터를 받아오기 위함입니다 [#193](https://github.com/react-native-seoul/react-native-kakao-login/issues/193).
 
 6. Project => Targets 아래 앱 선택 => General 탭으로 이동해서 Bundle Identifier가 본인의 카카오 앱과 동일한지 확인해주세요.
 
