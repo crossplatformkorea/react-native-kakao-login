@@ -27,20 +27,12 @@ class RNKakaoLogins: NSObject {
     
     @objc(isKakaoTalkLoginUrl:)
     public static func isKakaoTalkLoginUrl(url:URL) -> Bool {
-        if (NSClassFromString("AuthApi") != nil) {
-            return AuthApi.isKakaoTalkLoginUrl(url)
-        }
-        
-        return false
+        return AuthApi.isKakaoTalkLoginUrl(url)
     }
 
     @objc(handleOpenUrl:)
     public static func handleOpenUrl(url:URL) -> Bool {
-        if (AuthApi.isKakaoTalkLoginUrl(url)) {
-            return AuthController.handleOpenUrl(url: url)
-        }
-
-        return false
+        return AuthController.handleOpenUrl(url: url)
     }
 
     @objc(login:rejecter:)
