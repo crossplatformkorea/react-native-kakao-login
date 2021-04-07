@@ -27,7 +27,13 @@ class RNKakaoLogins: NSObject {
     
     @objc(isKakaoTalkLoginUrl:)
     public static func isKakaoTalkLoginUrl(url:URL) -> Bool {
-        return AuthApi.isKakaoTalkLoginUrl(url)
+        
+        let appKey = try? KakaoSDKCommon.shared.appKey();
+
+        if (appKey != nil) {
+            return AuthApi.isKakaoTalkLoginUrl(url)
+        }
+        return false
     }
 
     @objc(handleOpenUrl:)

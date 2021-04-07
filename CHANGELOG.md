@@ -1,5 +1,8 @@
 ## Changelogs
 
+- **[3.0.6]**
+  - `isKakaoTalkLoginUrl` 에서 SDK가 준비가 되지 않았으면 `false` return 하도록 수정.
+
 - **[3.0.5]**
   - `3.0.4`에서 잘못 수정된 부분 수정 (regression).
 
