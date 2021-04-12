@@ -2,7 +2,7 @@
   "name": "@react-native-seoul/kakao-login",
   "version": "3.0.6",
   "description": "React Native Module for Kakao Login",
-  "main": "index.js",
+  "main": "index.ts",
   "types": "index.d.ts",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
