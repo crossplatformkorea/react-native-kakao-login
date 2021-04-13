@@ -20,6 +20,7 @@ export type KakaoProfile = {
   email: string;
   nickname: string;
   profileImageUrl: string;
+  thumbnailImageUrl: string;
   phoneNumber: string;
   ageRange: string;
   birthDay: string;
