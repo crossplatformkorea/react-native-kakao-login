@@ -1,5 +1,8 @@
 ## Changelogs
 
+- **[3.0.7]**
+  - `KakaoProfile` 타입 추가 [#207](https://github.com/react-native-seoul/react-native-kakao-login/pull/207).
+
 - **[3.0.6]**
   - `isKakaoTalkLoginUrl` 에서 SDK가 준비가 되지 않았으면 `false` return 하도록 수정.
 
