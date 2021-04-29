@@ -21,6 +21,7 @@ def safeExtGet(prop, fallback) {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 29)
@@ -47,6 +48,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${project.ext.kotlinVersion}"
     implementation "com.kakao.sdk:v2-user:2.4.1"
     implementation "com.kakao.sdk:v2-talk:2.4.1"
     implementation "com.kakao.sdk:v2-story:2.4.1"
