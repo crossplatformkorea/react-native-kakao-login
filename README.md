@@ -145,9 +145,32 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
     </resources>
     ```
 
-6. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
+6. kotlin을 프로젝트에서 해석가능하도록 설치해줍니다. `android/build.gradle` 파일에 아래 변경사항을 적용해주세요.
+   ```diff
+   buildscript {
+     ext {
+         buildToolsVersion = "29.0.3"
+         minSdkVersion = 21
+         compileSdkVersion = 29
+         targetSdkVersion = 29
+     +   kotlinVersion = '1.3.41'
 
-7. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
+         ndkVersion = "20.1.5948944"
+     }
+     repositories {
+         google()
+         jcenter()
+     }
+     dependencies {
+         classpath("com.android.tools.build:gradle:4.1.0")
+     +   classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+     }
+   ...
+   ```
+
+7. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
+
+8. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
 
 ## Methods

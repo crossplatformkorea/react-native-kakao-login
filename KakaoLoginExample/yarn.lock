@@ -1802,8 +1802,10 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
   integrity sha512-rk4sWFsmtOw8oyx8SD3KSvawwaK7gRBSEIy2TAwURyGt+3TizssXP1r8nx3zY+R7v2vYYHXZ+k2/GULAT/bcaQ==
 
-"@react-native-seoul/kakao-login@file:..":
-  version "3.0.0-rc.1"
+"@react-native-seoul/kakao-login@^3.0.7":
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/@react-native-seoul/kakao-login/-/kakao-login-3.0.7.tgz#3401d85bcbfdefce85f53c76236f8afd26b4ea22"
+  integrity sha512-s692o5N+6vXfQ8v2JJrXBNUoCtreUle32sopXSTm+Q0BfvF+pPH0gYx/fUyqrPBb+Smnv93AK5jPpas1AQnL7Q==
   dependencies:
     dooboolab-welcome "^1.2.0"
 
@@ -13667,8 +13669,10 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
+    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
