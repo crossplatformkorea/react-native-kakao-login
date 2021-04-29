@@ -153,7 +153,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
          minSdkVersion = 21
          compileSdkVersion = 29
          targetSdkVersion = 29
-     +   kotlinVersion = '1.3.41'
+   +     kotlinVersion = '1.3.41'
 
          ndkVersion = "20.1.5948944"
      }
@@ -163,7 +163,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
      }
      dependencies {
          classpath("com.android.tools.build:gradle:4.1.0")
-     +   classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+   +     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
      }
    ...
    ```
