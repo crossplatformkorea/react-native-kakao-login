@@ -20,32 +20,34 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
     @ReactMethod
     private fun login(promise: Promise) {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(reactContext)) {
-            UserApiClient.instance.loginWithKakaoTalk(reactContext) { token, error: Throwable? ->
-                if (error != null) {
-                    promise.reject("RNKakaoLogins", error.message, error)
+            reactContext.currentActivity?.let {
+                UserApiClient.instance.loginWithKakaoTalk(it) { token, error: Throwable? ->
+                    if (error != null) {
+                        promise.reject("RNKakaoLogins", error.message, error)
 
-                    return@loginWithKakaoTalk
-                }
-
-                if (token != null) {
-                    val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, scopes) = token
-                    val map = Arguments.createMap()
-                    map.putString("accessToken", accessToken)
-                    map.putString("refreshToken", refreshToken)
-                    map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
-                    map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
-                    val scopeArray = Arguments.createArray()
-                    if (scopes != null) {
-                        for (scope in scopes) {
-                            scopeArray.pushString(scope)
-                        }
+                        return@loginWithKakaoTalk
                     }
-                    map.putArray("scopes", scopeArray)
-                    promise.resolve(map)
-                    return@loginWithKakaoTalk
-                }
 
-                promise.reject("RNKakaoLogins", "Token is null")
+                    if (token != null) {
+                        val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, scopes) = token
+                        val map = Arguments.createMap()
+                        map.putString("accessToken", accessToken)
+                        map.putString("refreshToken", refreshToken)
+                        map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
+                        map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
+                        val scopeArray = Arguments.createArray()
+                        if (scopes != null) {
+                            for (scope in scopes) {
+                                scopeArray.pushString(scope)
+                            }
+                        }
+                        map.putArray("scopes", scopeArray)
+                        promise.resolve(map)
+                        return@loginWithKakaoTalk
+                    }
+
+                    promise.reject("RNKakaoLogins", "Token is null")
+                }
             }
         } else {
             UserApiClient.instance.loginWithKakaoAccount(reactContext) { token, error: Throwable? ->
