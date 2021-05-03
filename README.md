@@ -6,7 +6,7 @@
 [![DOWNLOAD](http://img.shields.io/npm/dm/@react-native-seoul/kakao-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/kakao-login)
 [![LICENSE](http://img.shields.io/npm/l/@react-native-seoul/kakao-login.svg?style=flat-square)](https://npmjs.org/package/@react-native-seoul/kakao-login)
 [![CI](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci.yml)
-[![CI-EXAMPLE](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-example.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-example.yml)
+[![publish-package](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-deploy.yml/badge.svg)](https://github.com/react-native-seoul/react-native-kakao-login/actions/workflows/ci-deploy.yml)
 
 React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul/kakao-login` < 3.0 이하 버전을 쓰시는 분들은 [DEPRECATED README](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/README_DEPRECATED.md)를 참고해주세요.
 
