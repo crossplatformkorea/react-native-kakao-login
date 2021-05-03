@@ -1,5 +1,12 @@
 ## Changelogs
 
+- **[3.2.0]**
+  - Android Kakao SDK upgrade `2.5.0`.
+  - Hotfix on [#217](https://github.com/react-native-seoul/react-native-kakao-login/issues/217)
+
+- **[3.1.+]**
+  - Android `kotlin` 라이브러리로 변환.
+
 - **[3.0.7]**
   - `KakaoProfile` 타입 추가 [#207](https://github.com/react-native-seoul/react-native-kakao-login/pull/207).
 
