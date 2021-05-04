@@ -167,8 +167,7 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             }
 
             promise.reject("RNKakaoLogins", "User is null")
-
-        } as (User?, Throwable?) -> Unit
+        }
     }
 
     companion object {
