@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.authors      = { "dooboolab" => "support@dooboolab.com" }
   s.platforms    = { :ios => "11.0" }
   s.framework     = 'UIKit'
-  s.source       = { :git => "https://github.com/dooboolab/@react-native-seoul/react-native-kakao-login.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/@react-native-seoul/react-native-kakao-login.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,c,cc,cpp,m,mm,swift}"
   s.requires_arc = true
