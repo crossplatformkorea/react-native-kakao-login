@@ -82,7 +82,7 @@ export const getProfile = async (): Promise<KakaoProfile> => {
 
 export const getAccessToken = async (): Promise<KakaoAccessTokenInfo> => {
   try {
-    const result: KakaoAccessTokenInfo = await RNKakaoLogins.logout();
+    const result: KakaoAccessTokenInfo = await RNKakaoLogins.getAccessToken();
 
     return result;
   } catch (err) {
