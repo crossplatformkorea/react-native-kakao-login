@@ -198,7 +198,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 ### Sample Code
 
-```
+```js
 const signInWithKakao = async (): Promise<void> => {
   const token: KakaoOAuthToken = await login();
 
