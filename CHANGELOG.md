@@ -1,5 +1,11 @@
 ## Changelogs
 
+- **[3.2.2]**
+  - HotFix - `getProfile` [#226](https://github.com/react-native-seoul/react-native-kakao-login/pull/226)
+
+- **[3.2.1]**
+  - Resolve [#222](https://github.com/react-native-seoul/react-native-kakao-login/issues/222)
+
 - **[3.2.0]**
   - Android Kakao SDK upgrade `2.5.0`.
   - Hotfix on [#217](https://github.com/react-native-seoul/react-native-kakao-login/issues/217)
