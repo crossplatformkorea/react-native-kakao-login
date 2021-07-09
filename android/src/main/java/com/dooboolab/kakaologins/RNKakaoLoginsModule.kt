@@ -2,6 +2,7 @@ package com.dooboolab.kakaologins
 
 import com.facebook.react.bridge.*
 import com.kakao.sdk.common.KakaoSdk.init
+import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
 import java.text.SimpleDateFormat
