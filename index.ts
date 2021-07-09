@@ -50,6 +50,16 @@ export const login = async (): Promise<KakaoOAuthToken> => {
   }
 };
 
+export const loginWithKakaoAccount = async (): Promise<KakaoOAuthToken> => {
+  try {
+    const result: KakaoOAuthToken = await RNKakaoLogins.loginWithKakaoAccount();
+
+    return result;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export const logout = async (): Promise<string> => {
   try {
     const result: string = await RNKakaoLogins.logout();

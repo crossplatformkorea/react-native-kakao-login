@@ -24,10 +24,10 @@ class RNKakaoLogins: NSObject {
     static func requiresMainQueueSetup() -> Bool {
       return true
     }
-    
+
     @objc(isKakaoTalkLoginUrl:)
     public static func isKakaoTalkLoginUrl(url:URL) -> Bool {
-        
+
         let appKey = try? KakaoSDKCommon.shared.appKey();
 
         if (appKey != nil) {
@@ -43,7 +43,7 @@ class RNKakaoLogins: NSObject {
 
     @objc(login:rejecter:)
     func login(_ resolve: @escaping RCTPromiseResolveBlock,
-               rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         DispatchQueue.main.async {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
@@ -81,7 +81,26 @@ class RNKakaoLogins: NSObject {
             }
         }
     }
-    
+
+    @objc(loginWithKakaoAccount:rejecter:)
+    func loginWithKakaoAccount(_ resolve: @escaping RCTPromiseResolveBlock,
+                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+            if let error = error {
+                reject("RNKakaoLogins", error.localizedDescription, nil)
+            }
+            else {
+                resolve([
+                    "accessToken": oauthToken?.accessToken ?? "",
+                    "refreshToken": oauthToken?.refreshToken ?? "" as Any,
+                    "accessTokenExpiresAt": dateFormatter.string(from: oauthToken!.expiredAt),
+                    "refreshTokenExpiresAt": dateFormatter.string(from: oauthToken!.refreshTokenExpiredAt),
+                    "scopes": oauthToken?.scopes ?? "",
+                ]);
+            }
+        }
+    }
+
     @objc(logout:rejecter:)
     func logout(_ resolve: @escaping RCTPromiseResolveBlock,
                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
