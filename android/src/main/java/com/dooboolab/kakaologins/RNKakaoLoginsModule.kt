@@ -23,8 +23,11 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             reactContext.currentActivity?.let {
                 UserApiClient.instance.loginWithKakaoTalk(it) { token, error: Throwable? ->
                     if (error != null) {
+                        if (error is AuthError && error.statusCode == 302) {
+                            this.loginWithKakaoAccount(promise)
+                            return@loginWithKakaoTalk
+                        }
                         promise.reject("RNKakaoLogins", error.message, error)
-
                         return@loginWithKakaoTalk
                     }
 

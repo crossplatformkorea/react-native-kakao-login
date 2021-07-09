@@ -58,7 +58,7 @@ export const loginWithKakaoAccount = async (): Promise<KakaoOAuthToken> => {
   } catch (err) {
     throw err;
   }
-}
+};
 
 export const logout = async (): Promise<string> => {
   try {
