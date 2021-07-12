@@ -2,6 +2,7 @@ package com.dooboolab.kakaologins
 
 import com.facebook.react.bridge.*
 import com.kakao.sdk.common.KakaoSdk.init
+import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
 import java.text.SimpleDateFormat
@@ -23,8 +24,11 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             reactContext.currentActivity?.let {
                 UserApiClient.instance.loginWithKakaoTalk(it) { token, error: Throwable? ->
                     if (error != null) {
+                        if (error is AuthError && error.statusCode == 302) {
+                            this.loginWithKakaoAccount(promise)
+                            return@loginWithKakaoTalk
+                        }
                         promise.reject("RNKakaoLogins", error.message, error)
-
                         return@loginWithKakaoTalk
                     }
 
@@ -75,6 +79,39 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                 }
 
                 promise.reject("RNKakaoLogins", "Token is null")
+            }
+        }
+    }
+
+    @ReactMethod
+    private fun loginWithKakaoAccount(promise: Promise) {
+        UserApiClient.instance.loginWithKakaoAccount(reactContext) { token, error: Throwable? ->
+            if (error != null) {
+                promise.reject("RNKakaoLogins", error.message, error)
+                return@loginWithKakaoAccount
+            }
+
+            if (token == null) {
+                promise.reject("RNKakaoLogins", "Token is null")
+                return@loginWithKakaoAccount
+            }
+
+            if (token != null) {
+                val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, scopes) = token
+                val map = Arguments.createMap()
+                map.putString("accessToken", accessToken)
+                map.putString("refreshToken", refreshToken)
+                map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
+                map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
+                val scopeArray = Arguments.createArray()
+                if (scopes != null) {
+                    for (scope in scopes) {
+                        scopeArray.pushString(scope)
+                    }
+                }
+                map.putArray("scopes", scopeArray)
+                promise.resolve(map)
+                return@loginWithKakaoAccount
             }
         }
     }
