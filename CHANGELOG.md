@@ -1,5 +1,8 @@
 ## Changelogs
 
+- **[3.2.3]**
+  - loginWithKakaoAccount 추가 [#239](https://github.com/react-native-seoul/react-native-kakao-login/pull/239)
+
 - **[3.2.2]**
   - HotFix - `getProfile` [#226](https://github.com/react-native-seoul/react-native-kakao-login/pull/226)
 
