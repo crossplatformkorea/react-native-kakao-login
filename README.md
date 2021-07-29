@@ -172,7 +172,6 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 8. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
-
 ## Methods
 
 | Func         |                                       Param                                     |     Return      | Description                |
@@ -192,7 +191,6 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 | `accessTokenExpiresAt?` |  ✓  |    ✓    | `Date`     | 토큰 만료 시간 |
 | `refreshTokenExpiresAt?`|  ✓  |    ✓    | `Date`     | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
 | `scopes`                |  ✓  |    ✓    | `string[]` | 사용자로 부터 받은 권한 |
-
 
 ## Usage
 
