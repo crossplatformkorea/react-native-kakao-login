@@ -27,7 +27,7 @@ React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul
 
 ## Tutorial
 
-> 라이브러리르 더욱 편리하게 사용하기 위해서 Youtube 영상을 제작했습니다.
+> 라이브러리를 더욱 편리하게 사용하기 위해서 Youtube 영상을 제작했습니다.
 
 * [iOS에서 사용하기 Youtube](https://www.youtube.com/watch?v=uCn1xIijuos&list=PLMu8UG37vF6oJLNhjsjoy_ApcJFZZwJOo)
 
