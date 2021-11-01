@@ -23,7 +23,7 @@ export type KakaoProfile = {
   thumbnailImageUrl: string;
   phoneNumber: string;
   ageRange: string;
-  birthDay: string;
+  birthday: string;
   birthdayType: string;
   birthyear: string;
   gender: string;
