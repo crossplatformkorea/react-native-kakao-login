@@ -40,6 +40,10 @@ export type KakaoProfile = {
   profileNeedsAgreement?: boolean;
 };
 
+export type KakaoProfileNoneAgreement = {
+  id: string;
+}
+
 export const login = async (): Promise<KakaoOAuthToken> => {
   try {
     const result: KakaoOAuthToken = await RNKakaoLogins.login();
@@ -80,7 +84,7 @@ export const unlink = async (): Promise<string> => {
   }
 };
 
-export const getProfile = async (): Promise<KakaoProfile> => {
+export const getProfile = async (): Promise<KakaoProfile | KakaoProfileNoneAgreement> => {
   try {
     const result: KakaoProfile = await RNKakaoLogins.getProfile();
 
