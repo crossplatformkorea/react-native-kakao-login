@@ -84,7 +84,9 @@ export const unlink = async (): Promise<string> => {
   }
 };
 
-export const getProfile = async (): Promise<KakaoProfile | KakaoProfileNoneAgreement> => {
+export const getProfile = async (): Promise<
+  KakaoProfile | KakaoProfileNoneAgreement
+> => {
   try {
     const result: KakaoProfile = await RNKakaoLogins.getProfile();
 
