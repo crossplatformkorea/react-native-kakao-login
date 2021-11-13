@@ -42,7 +42,7 @@ export type KakaoProfile = {
 
 export type KakaoProfileNoneAgreement = {
   id: string;
-}
+};
 
 export const login = async (): Promise<KakaoOAuthToken> => {
   try {
