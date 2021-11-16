@@ -1,64 +1,85 @@
 ## Changelogs
 
+- **[3.4.1]**
+
+  - 잘못된 KakaoProfile 타입의 필드 이름을 변경(birthDay -> birthday). (#261)
+  - [Android] getProfile error fix (#270)
+  - Resolve #263
+
+  Contributors: @@kr-yeon @junhoyeo
+
 - **[3.3.3]**
+
   - loginWithKakaoAccount 추가 [#239](https://github.com/react-native-seoul/react-native-kakao-login/pull/239)
 
 - **[3.3.1]**
+
   - Resolve [#222](https://github.com/react-native-seoul/react-native-kakao-login/issues/222)
 
 - **[3.3.0]**
+
   - Fix regression in [#221](https://github.com/react-native-seoul/react-native-kakao-login/issues/221), [#222](https://github.com/react-native-seoul/react-native-kakao-login/issues/222)
 
 - **[3.2.2]**
+
   - HotFix - `getProfile` [#226](https://github.com/react-native-seoul/react-native-kakao-login/pull/226)
 
 - **[3.2.1]**
+
   - Resolve [#222](https://github.com/react-native-seoul/react-native-kakao-login/issues/222)
 
 - **[3.2.0]**
+
   - Android Kakao SDK upgrade `2.5.0`.
   - Hotfix on [#217](https://github.com/react-native-seoul/react-native-kakao-login/issues/217)
 
 - **[3.1.+]**
+
   - Android `kotlin` 라이브러리로 변환.
 
 - **[3.0.7]**
+
   - `KakaoProfile` 타입 추가 [#207](https://github.com/react-native-seoul/react-native-kakao-login/pull/207).
 
 - **[3.0.6]**
+
   - `isKakaoTalkLoginUrl` 에서 SDK가 준비가 되지 않았으면 `false` return 하도록 수정.
 
 - **[3.0.5]**
+
   - `3.0.4`에서 잘못 수정된 부분 수정 (regression).
 
 - **[3.0.4]**
+
   - Bugfix: iOS 백그라운드에서 진입시 sdk가 준비가 안되었을 때 튕기는 오류 수정.
 
 - **[3.0.1]**
+
   - Bugfix: `unlink`가 `logout`과 동일하게 구현되어 있는 부분을 수정했습니다.
 
 - **[3.0.0]**
+
   - 카카오 SDK V2를 지원합니다 :tada:. 위 버전에서는 `2.4.+` 버전을 쓰고 있습니다. 모든 API들이 새로 업데이트 되었습니다. 기존의 [README](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/README.md)는 [README_DEPRECATED](https://github.com/react-native-seoul/react-native-kakao-login/blob/master/README_DEPRECATED.md) 문서로 이전하였고 새롭게 업데이트 되었습니다.
 
 - **[2.10.2]**
 
-  - 안드로이드 릴리즈 빌드 버그 수정  [#179](https://github.com/react-native-seoul/react-native-kakao-login/pull/179)
+  - 안드로이드 릴리즈 빌드 버그 수정 [#179](https://github.com/react-native-seoul/react-native-kakao-login/pull/179)
 
 - **[2.10.1]**
 
-  - 연령대 권한 없을 경우 null 처리  [#167](https://github.com/react-native-seoul/react-native-kakao-login/pull/167)
+  - 연령대 권한 없을 경우 null 처리 [#167](https://github.com/react-native-seoul/react-native-kakao-login/pull/167)
 
-  - 예제프로젝트 업데이트  [#169](https://github.com/react-native-seoul/react-native-kakao-login/pull/169)
+  - 예제프로젝트 업데이트 [#169](https://github.com/react-native-seoul/react-native-kakao-login/pull/169)
 
 - **[2.10.0]**
 
-  - 연령대 연동 정보 추가  [#163](https://github.com/react-native-seoul/react-native-kakao-login/pull/163)
+  - 연령대 연동 정보 추가 [#163](https://github.com/react-native-seoul/react-native-kakao-login/pull/163)
 
-  - login메서드에 인증 방법 선택 옵션 추가  [#164](https://github.com/react-native-seoul/react-native-kakao-login/pull/164)
+  - login메서드에 인증 방법 선택 옵션 추가 [#164](https://github.com/react-native-seoul/react-native-kakao-login/pull/164)
 
 - **[2.9.0]**
 
-  - getTokens for getting accessToken and refreshToken  [#160](https://github.com/react-native-seoul/react-native-kakao-login/pull/160)
+  - getTokens for getting accessToken and refreshToken [#160](https://github.com/react-native-seoul/react-native-kakao-login/pull/160)
 
 - **[2.8.0]**
 
