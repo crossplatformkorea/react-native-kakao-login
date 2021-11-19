@@ -142,23 +142,25 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
 
     @ReactMethod
     private fun getAccessToken(promise: Promise) {
-        UserApiClient.instance.accessTokenInfo { token, error: Throwable? ->
+        val accessToken = TokenManagerProvider.instance.manager.getToken()?.accessToken
+
+         UserApiClient.instance.accessTokenInfo { token, error: Throwable? ->
             if (error != null) {
                 promise.reject("RNKakaoLogins", error.message, error)
                 return@accessTokenInfo
             }
 
-            if (token != null) {
-                val (id, expiresIn) = token
+            if (token != null && accessToken != null) {
+                val (expiresIn) = token
                 val map = Arguments.createMap()
-                map.putString("accessToken", id.toString())
+                map.putString("accessToken", accessToken.toString())
                 map.putString("expiresIn", expiresIn.toString())
                 promise.resolve(map)
                 return@accessTokenInfo
             }
 
             promise.reject("RNKakaoLogins", "Token is null")
-        }
+         }
     }
 
     private fun convertValue(`val`: Boolean?): Boolean {
