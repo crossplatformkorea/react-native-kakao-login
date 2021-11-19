@@ -5,6 +5,7 @@ import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
+import com.kakao.sdk.auth.TokenManagerProvider
 import java.text.SimpleDateFormat
 import java.util.*
 
