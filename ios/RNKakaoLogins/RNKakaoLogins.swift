@@ -145,7 +145,7 @@ class RNKakaoLogins: NSObject {
                 }
                 else {
                     resolve([
-                        "accessToken": accessTokenInfo?.id,
+                        "accessToken": TokenManager.manager.getToken()?.accessToken,
                         "expiresIn": accessTokenInfo?.expiresIn,
                     ])
                 }
