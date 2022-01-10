@@ -1,7 +1,11 @@
 ## Changelogs
 
+- **[3.4.3]**
+  - ios getProfile의 결과 중 ageRange가 항상 null로 반환됨 해결 (#278)
+
 - **[3.4.2]**
   - 잘못된 getAccessToken의 token값 수정 (#274)
+
 - **[3.4.1]**
 
   - 잘못된 KakaoProfile 타입의 필드 이름을 변경(birthDay -> birthday). (#261)
