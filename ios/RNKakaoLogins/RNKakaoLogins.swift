@@ -169,7 +169,7 @@ class RNKakaoLogins: NSObject {
                         "profileImageUrl": user?.kakaoAccount?.profile?.profileImageUrl as Any,
                         "thumbnailImageUrl": user?.kakaoAccount?.profile?.thumbnailImageUrl as Any,
                         "phoneNumber": user?.kakaoAccount?.phoneNumber as Any,
-                        "ageRange": user?.kakaoAccount?.ageRange as Any,
+                        "ageRange": user?.kakaoAccount?.ageRange?.rawValue as Any,
                         "birthday": user?.kakaoAccount?.birthday as Any,
                         "birthdayType": user?.kakaoAccount?.birthdayType as Any,
                         "birthyear": user?.kakaoAccount?.birthyear as Any,
