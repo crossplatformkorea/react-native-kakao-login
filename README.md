@@ -209,8 +209,8 @@ const signOutWithKakao = async (): Promise<void> => {
   setResult(message);
 };
 
-const getProfile = async (): Promise<void> => {
-  const profile: KakaoProfile = await getKakaoProfile();
+const getKakaoProfile = async (): Promise<void> => {
+  const profile: KakaoProfile = await getProfile();
 
   setResult(JSON.stringify(profile));
 };
