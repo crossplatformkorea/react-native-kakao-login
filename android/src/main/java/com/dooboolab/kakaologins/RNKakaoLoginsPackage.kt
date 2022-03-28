@@ -12,11 +12,6 @@ class RNKakaoLoginsPackage : ReactPackage {
         return Arrays.asList<NativeModule>(RNKakaoLoginsModule(reactContext))
     }
 
-    // Deprecated from RN 0.47
-    fun createJSModules(): List<Class<out JavaScriptModule?>> {
-        return emptyList()
-    }
-
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
         return emptyList()
     }
