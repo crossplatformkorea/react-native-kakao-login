@@ -34,10 +34,11 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                     }
 
                     if (token != null) {
-                        val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, scopes) = token
+                        val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, idToken, scopes) = token
                         val map = Arguments.createMap()
                         map.putString("accessToken", accessToken)
                         map.putString("refreshToken", refreshToken)
+                        map.putString("idToken", idToken)
                         map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
                         map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
                         val scopeArray = Arguments.createArray()
@@ -62,10 +63,11 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                 }
 
                 if (token != null) {
-                    val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, scopes) = token
+                    val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, idToken, scopes) = token
                     val map = Arguments.createMap()
                     map.putString("accessToken", accessToken)
                     map.putString("refreshToken", refreshToken)
+                    map.putString("idToken", idToken)
                     map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
                     map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
                     val scopeArray = Arguments.createArray()
@@ -98,10 +100,11 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             }
 
             if (token != null) {
-                val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, scopes) = token
+                val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, idToken, scopes) = token
                 val map = Arguments.createMap()
                 map.putString("accessToken", accessToken)
                 map.putString("refreshToken", refreshToken)
+                map.putString("idToken", idToken)
                 map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
                 map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
                 val scopeArray = Arguments.createArray()

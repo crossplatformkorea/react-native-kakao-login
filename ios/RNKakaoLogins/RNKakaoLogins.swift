@@ -17,7 +17,7 @@ class RNKakaoLogins: NSObject {
 
     public override init() {
         let appKey: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
-        KakaoSDKCommon.initSDK(appKey: appKey!)
+        KakaoSDK.initSDK(appKey: appKey!)
     }
 
     @objc
@@ -28,7 +28,7 @@ class RNKakaoLogins: NSObject {
     @objc(isKakaoTalkLoginUrl:)
     public static func isKakaoTalkLoginUrl(url:URL) -> Bool {
 
-        let appKey = try? KakaoSDKCommon.shared.appKey();
+        let appKey = try? KakaoSDK.shared.appKey();
 
         if (appKey != nil) {
             return AuthApi.isKakaoTalkLoginUrl(url)
@@ -57,6 +57,7 @@ class RNKakaoLogins: NSObject {
                         resolve([
                             "accessToken": oauthToken?.accessToken ?? "",
                             "refreshToken": oauthToken?.refreshToken ?? "" as Any,
+                            "idToken": oauthToken?.idToken ?? "",
                             "accessTokenExpiresAt": dateFormatter.string(from: oauthToken!.expiredAt),
                             "refreshTokenExpiresAt": dateFormatter.string(from: oauthToken!.refreshTokenExpiredAt),
                             "scopes": oauthToken?.scopes ?? "",
@@ -72,6 +73,7 @@ class RNKakaoLogins: NSObject {
                         resolve([
                             "accessToken": oauthToken?.accessToken ?? "",
                             "refreshToken": oauthToken?.refreshToken ?? "" as Any,
+                            "idToken": oauthToken?.idToken ?? "",
                             "accessTokenExpiresAt": dateFormatter.string(from: oauthToken!.expiredAt),
                             "refreshTokenExpiresAt": dateFormatter.string(from: oauthToken!.refreshTokenExpiredAt),
                             "scopes": oauthToken?.scopes ?? "",
@@ -96,6 +98,7 @@ class RNKakaoLogins: NSObject {
                     resolve([
                         "accessToken": oauthToken?.accessToken ?? "",
                         "refreshToken": oauthToken?.refreshToken ?? "" as Any,
+                        "idToken": oauthToken?.idToken ?? "",
                         "accessTokenExpiresAt": dateFormatter.string(from: oauthToken!.expiredAt),
                         "refreshTokenExpiresAt": dateFormatter.string(from: oauthToken!.refreshTokenExpiredAt),
                         "scopes": oauthToken?.scopes ?? "",
@@ -163,7 +166,7 @@ class RNKakaoLogins: NSObject {
                 }
                 else {
                     resolve([
-                        "id": String(user!.id) as Any,
+                        "id": user?.id as Any,
                         "email": user?.kakaoAccount?.email as Any,
                         "nickname": user?.kakaoAccount?.profile?.nickname as Any,
                         "profileImageUrl": user?.kakaoAccount?.profile?.profileImageUrl as Any,
