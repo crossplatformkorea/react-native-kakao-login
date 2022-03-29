@@ -6,6 +6,7 @@
   "private": true,
   "postinstall": "npx jetify",
   "scripts": {
+    "preinstall": "cd .. && yarn install && yarn build",
     "postinstall": "yarn fbt:all",
     "dev": "react-native start",
     "tsc": "tsc",
@@ -46,7 +47,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "^0.1.11",
-    "@react-native-seoul/kakao-login": "file:../",
+    "@react-native-seoul/kakao-login": "file:..",
     "@react-navigation/core": "^5.15.3",
     "@react-navigation/native": "^5.9.4",
     "@react-navigation/stack": "^5.14.4",
