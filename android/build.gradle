@@ -54,7 +54,7 @@ repositories {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${project.ext.kotlinVersion}"
-    implementation "com.kakao.sdk:v2-user:2.5.0"
-    implementation "com.kakao.sdk:v2-talk:2.5.0"
-    implementation "com.kakao.sdk:v2-story:2.5.0"
+    implementation "com.kakao.sdk:v2-user:2.9.0"
+    implementation "com.kakao.sdk:v2-talk:2.9.0"
+    implementation "com.kakao.sdk:v2-story:2.9.0"
 }

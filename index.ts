@@ -5,6 +5,7 @@ const {RNKakaoLogins} = NativeModules;
 export type KakaoOAuthToken = {
   accessToken: string;
   refreshToken: string;
+  idToken: string;
   accessTokenExpiresAt: Date;
   refreshTokenExpiresAt: Date;
   scopes: string[];
