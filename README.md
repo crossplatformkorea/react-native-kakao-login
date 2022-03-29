@@ -29,9 +29,9 @@ React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul
 
 > 라이브러리를 더욱 편리하게 사용하기 위해서 Youtube 영상을 제작했습니다.
 
-* [iOS에서 사용하기 Youtube](https://www.youtube.com/watch?v=uCn1xIijuos&list=PLMu8UG37vF6oJLNhjsjoy_ApcJFZZwJOo)
+- [iOS에서 사용하기 Youtube](https://www.youtube.com/watch?v=uCn1xIijuos&list=PLMu8UG37vF6oJLNhjsjoy_ApcJFZZwJOo)
 
-* [Android에서 사용하기 Youtube](https://www.youtube.com/watch?v=YJaOT3ZVKNg&list=PLMu8UG37vF6oJLNhjsjoy_ApcJFZZwJOo)
+- [Android에서 사용하기 Youtube](https://www.youtube.com/watch?v=YJaOT3ZVKNg&list=PLMu8UG37vF6oJLNhjsjoy_ApcJFZZwJOo)
 
 ## Getting started
 
@@ -48,6 +48,7 @@ React Native 0.60.X이상부터는 `Auto linking`을 지원합니다. 따라서 
 iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install` 명령어로 pod 라이브러리만 추가로 설치해주시면 됩니다.
 
 ## Post Installation
+
 > 설치가 제대로 되지 않는다면 example project의 설정을 참고하세요 👍
 
 #### iOS
@@ -57,6 +58,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 카카오 로그인 > 설정하기](https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite)를 참고해주세요. 해당 가이드를 통해 카카오 개발자 페이지에서 본인의 어플리케이션을 생성해주세요.
 
 3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios-v1) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
+
    ```diff
     <key>CFBundleURLTypes</key>
     <array>
@@ -100,31 +102,25 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
    ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
 
-   * React Native에서는 개발시 `android/app/debug.keystore`의 해시를 추가해주시면 됩니다.
+   - React Native에서는 개발시 `android/app/debug.keystore`의 해시를 추가해주시면 됩니다.
      ```
      keytool -exportcert -alias androiddebugkey -keystore ~./android/app/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
      ```
 
-2. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다.  가끔 `kakao sdk`를 못찾겠다는 오류가 나오면 `build.gradle(Project)` 파일에 다음과 같이 android sdk repository를 추가해주세요.
+2. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다. 가끔 `kakao sdk`를 못찾겠다는 오류가 나오면 `build.gradle(Project)` 파일에 다음과 같이 android sdk repository를 추가해주세요.
+
    ```
    maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
    ```
 
-3. Manifest 파일에서 allowBackup을 `true`로 변경해주세요.
-   ```diff
-   <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kakaologinexample"
-   >
-    <uses-permission android:name="android.permission.INTERNET" />
+3. Redirect URI 설정
 
-    <application
-   +  android:allowBackup="true"
-   ```
+   - 카카오 로그인 기능을 구현하기 위해서는 리다이렉션(Redirection)을 통해 [Request Code](https://developers.kakao.com/docs/latest/ko/kakaologin/android)를 받아야 합니다. 그러기 위해서는 아래 코드를 `AndroidManifest.xml`에 추가해주세요. 그리고 `카카오 네이티브 앱 key를 입력해주세요` 텍스트를 본인의 카카오 네이티브 키로 변경해주시면 됩니다. (Android 12(API 31) 이상을 타깃으로 하는 앱인 경우, `exported` 요소를 반드시 "true"로 선언해야 합니다.)
 
-4. Redirect URI 설정
-   * 카카오 로그인 기능을 구현하기 위해서는 리다이렉션(Redirection)을 통해 [Request Code](https://developers.kakao.com/docs/latest/ko/kakaologin/android)를 받아야 합니다. 그러기 위해서는 아래 코드를 `AndroidManifest.xml`에 추가해주세요. 그리고 `카카오 네이티브 앱 key를 입력해주세요` 텍스트를 본인의 카카오 네이티브 키로 변경해주시면 됩니다. 
      ```xml
-     <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity">
+     <activity
+        android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+        android:exported="true">
        <intent-filter>
            <action android:name="android.intent.action.VIEW" />
            <category android:name="android.intent.category.DEFAULT" />
@@ -137,15 +133,17 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
      </activity>
      ```
 
-5. `app/src/main/res/values/strings.xml` 을 열어 다음을 추가합니다
-    ```diff
-    <resources>
-        <string name="app_name">KakaoLoginExample</string>
-    +   <string name="kakao_app_key">your_app_key</string>
-    </resources>
-    ```
+4. `app/src/main/res/values/strings.xml` 을 열어 다음을 추가합니다
 
-6. kotlin을 프로젝트에서 해석가능하도록 설치해줍니다. `android/build.gradle` 파일에 아래 변경사항을 적용해주세요.
+   ```diff
+   <resources>
+       <string name="app_name">KakaoLoginExample</string>
+   +   <string name="kakao_app_key">your_app_key</string>
+   </resources>
+   ```
+
+5. kotlin을 프로젝트에서 해석가능하도록 설치해줍니다. `android/build.gradle` 파일에 아래 변경사항을 적용해주세요.
+
    ```diff
    buildscript {
      ext {
@@ -168,29 +166,31 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    ...
    ```
 
-7. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
+6. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
 
-8. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
+7. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
 ## Methods
 
-| Func         |                                       Param                                     |     Return      | Description                |
-| :----------- | :-----------------------------------------------------------------------------: | :-------------: | :--------------------------|
-| login      |    | Promise{KakaoOAuthToken} | 로그인 |
-| getProfile |    | Promise{KakaoProfile} | 프로필 불러오기 |
-| logout     |    | Promise{string} | 로그아웃 |
-| unlink     |    | Promise{string} | 연결끊기 |
-| getAccessToken || Promise{KakaoAccessTokenInfo} | 액세스 토큰 조회 |
+| Func                  | Param |            Return             | Description                                                                                                        |
+| :-------------------- | :---: | :---------------------------: | :----------------------------------------------------------------------------------------------------------------- |
+| login                 |       |   Promise{KakaoOAuthToken}    | 로그인 (카카오톡에 접근할 수 없다면 loginWithKakaoAccount 호출)                                                    |
+| loginWithKakaoAccount |       |   Promise{KakaoOAuthToken}    | 카카오계정으로 로그인 (기본 웹 브라우저(CustomTabs)에 있는 카카오계정 cookie 로 사용자를 인증하고 OAuthToken 발급) |
+| getProfile            |       |     Promise{KakaoProfile}     | 프로필 불러오기                                                                                                    |
+| logout                |       |        Promise{string}        | 로그아웃                                                                                                           |
+| unlink                |       |        Promise{string}        | 연결끊기                                                                                                           |
+| getAccessToken        |       | Promise{KakaoAccessTokenInfo} | 액세스 토큰 조회                                                                                                   |
 
 #### 프로필 가져오기 - `getProfile` => `KakaoProfile`
 
-|                         | iOS | Android | type    | Description |
-| ----------------------- | :-: | :-----: | :-----: | :---------: |
-| `accessToken`           |  ✓  |    ✓    | `string`   | 토큰 |
-| `refreshToken?`         |  ✓  |    ✓    | `string`   | 리프레쉬 토큰  |
-| `accessTokenExpiresAt?` |  ✓  |    ✓    | `Date`     | 토큰 만료 시간 |
-| `refreshTokenExpiresAt?`|  ✓  |    ✓    | `Date`     | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
-| `scopes`                |  ✓  |    ✓    | `string[]` | 사용자로 부터 받은 권한 |
+|                          | iOS | Android |    type    |                                         Description                                         |
+| ------------------------ | :-: | :-----: | :--------: | :-----------------------------------------------------------------------------------------: |
+| `accessToken`            |  ✓  |    ✓    |  `string`  |                                            토큰                                             |
+| `refreshToken?`          |  ✓  |    ✓    |  `string`  |                                        리프레쉬 토큰                                        |
+| `idToken?`               |  ✓  |    ✓    |  `string`  |                      OpenID Connect 확장 기능을 통해 발급되는 ID 토큰                       |
+| `accessTokenExpiresAt?`  |  ✓  |    ✓    |   `Date`   |                                       토큰 만료 시간                                        |
+| `refreshTokenExpiresAt?` |  ✓  |    ✓    |   `Date`   | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
+| `scopes`                 |  ✓  |    ✓    | `string[]` |                                   사용자로 부터 받은 권한                                   |
 
 ## Usage
 
@@ -239,8 +239,8 @@ const unlinkKakao = async (): Promise<void> => {
 3. 프로젝트 실행
 
 - `KAKAO_APP_KEY`등 필요한 SDK 연동 설정은 기본으로 되어 있습니다.
-  * 본인 앱의 키로 변경하고 테스트 하셔도 무방합니다. 단 `PR`을 날리실 때는 삭제하고 날려주세요.
+  - 본인 앱의 키로 변경하고 테스트 하셔도 무방합니다. 단 `PR`을 날리실 때는 삭제하고 날려주세요.
 - `yarn start`
 - `yarn ios` or `yarn android`로 앱 실행
-  * `iOS` 앱이 실행되지 않을 때는 `XCode`를 열고 테스트 해주세요. 이는 RN `0.64.0`에서 발생되고 있는 문제입니다.
+  - `iOS` 앱이 실행되지 않을 때는 `XCode`를 열고 테스트 해주세요. 이는 RN `0.64.0`에서 발생되고 있는 문제입니다.
 - ios의 경우 `ios`폴더에서 `pod install`을 먼저 실행해 주세요. 프로젝트 폴더에서 `npx pod-install`로 이용하셔도 무방합니다.
