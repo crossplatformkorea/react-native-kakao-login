@@ -1,5 +1,18 @@
 ## Changelogs
 
+- **[4.0.0]**
+## What's Changed
+* Update README.md by @yechukim in https://github.com/react-native-seoul/react-native-kakao-login/pull/279
+* Bump native Kakao SDK version to v2.9.0 by @YangJonghun in https://github.com/react-native-seoul/react-native-kakao-login/pull/293
+
+**Full Changelog**: https://github.com/react-native-seoul/react-native-kakao-login/compare/3.4.3...4.0.0
+
+## New Contributors
+* @yechukim made their first contribution in https://github.com/react-native-seoul/react-native-kakao-login/pull/279
+* @YangJonghun made their first contribution in https://github.com/react-native-seoul/react-native-kakao-login/pull/293
+
+**Full Changelog**: https://github.com/react-native-seoul/react-native-kakao-login/compare/3.4.3...4.0.0
+
 - **[3.4.3]**
   - ios getProfile의 결과 중 ageRange가 항상 null로 반환됨 해결 (#278)
 
