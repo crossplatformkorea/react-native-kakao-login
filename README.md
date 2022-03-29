@@ -170,6 +170,13 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 7. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
+8. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
+
+   ```
+   -keep class com.kakao.sdk.**.model.* { <fields>; }
+   -keep class * extends com.google.gson.TypeAdapter
+   ```
+
 ## Methods
 
 | Func                  | Param |            Return             | Description                                                                                                        |
