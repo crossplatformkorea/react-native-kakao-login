@@ -3,8 +3,6 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '11.0'
 
-# $KakaoSDKVersion = "2.9.0"
-
 target 'KakaoLoginExample' do
   config = use_native_modules!
 
