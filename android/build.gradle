@@ -6,7 +6,6 @@ buildscript {
   repositories {
     google()
     mavenCentral()
-    jcenter()
 
     maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
   }
@@ -57,7 +56,6 @@ android {
 
 repositories {
   mavenCentral()
-  jcenter()
   google()
 
   maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
