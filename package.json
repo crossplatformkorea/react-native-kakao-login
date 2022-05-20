@@ -33,6 +33,14 @@
     "react": "*",
     "react-native": "*"
   },
+  "sdkVersions": {
+    "ios": {
+      "kakao": "2.9.1"
+    },
+    "android": {
+      "kakao": "2.9.1"
+    }
+  },
   "dependencies": {
     "dooboolab-welcome": "^1.3.2"
   },
