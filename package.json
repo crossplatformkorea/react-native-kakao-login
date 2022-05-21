@@ -1,6 +1,6 @@
 {
   "name": "@react-native-seoul/kakao-login",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "React Native Module for Kakao Login",
   "main": "index.js",
   "types": "index.d.ts",
@@ -37,15 +37,15 @@
     "dooboolab-welcome": "^1.3.2"
   },
   "devDependencies": {
-    "@dooboo/eslint-config": "^1.2.1",
-    "@types/eslint": "^7.29.0",
-    "@types/react": "17.0.35",
-    "@types/react-native": "^0.64.4",
+    "@dooboo/eslint-config": "^1.3.4",
+    "@types/eslint": "^8.4.2",
+    "@types/react": "18.0.9",
+    "@types/react-native": "^0.67.7",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.2.0",
-    "flow-bin": "^0.164.0",
-    "flowgen": "^1.15.0",
-    "prettier": "^2.4.1",
-    "typescript": "^4.4.4"
+    "eslint": "^8.16.0",
+    "flow-bin": "^0.178.1",
+    "flowgen": "^1.19.0",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.4"
   }
 }
