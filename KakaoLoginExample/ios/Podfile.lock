@@ -58,12 +58,12 @@ PODS:
     - FlipperKit/Core
     - FlipperKit/FlipperKitNetworkPlugin
   - glog (0.3.5)
-  - kakao-login (3.4.3):
-    - KakaoSDK (~> 2.9.0)
-    - KakaoSDKAuth (~> 2.9.0)
-    - KakaoSDKCommon (~> 2.9.0)
-    - KakaoSDKTalk (~> 2.9.0)
-    - KakaoSDKUser (~> 2.9.0)
+  - kakao-login (4.0.0):
+    - KakaoSDK (= 2.9.0)
+    - KakaoSDKAuth (= 2.9.0)
+    - KakaoSDKCommon (= 2.9.0)
+    - KakaoSDKTalk (= 2.9.0)
+    - KakaoSDKUser (= 2.9.0)
     - React
   - KakaoSDK (2.9.0):
     - KakaoSDKAuth (= 2.9.0)
@@ -565,7 +565,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: cf9b38bf0b2d048436d9a82ad2abe1404f11e7de
   FBLazyVector: 7b423f9e248eae65987838148c36eec1dbfe0b53
-  FBReactNativeSpec: 05e635f9366205191c9f1e0158c752f30d37ca90
+  FBReactNativeSpec: e87117337f49d2178fe109bb2453cea6bcef55fc
   Flipper: d3da1aa199aad94455ae725e9f3aa43f3ec17021
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: 755929a4f851b2fb2c347d533a23f191b008554c
@@ -574,7 +574,7 @@ SPEC CHECKSUMS:
   Flipper-RSocket: 602921fee03edacf18f5d6f3d3594ba477f456e5
   FlipperKit: 8a20b5c5fcf9436cac58551dc049867247f64b00
   glog: 73c2498ac6884b13ede40eda8228cb1eee9d9d62
-  kakao-login: 099175b2e23620a10bb6375860854034bb92ca44
+  kakao-login: a94950a55bea6a1a182f6207a6e032f3cc5996f3
   KakaoSDK: d5a5a38ebf4da97beeecf100ac3dc9a020e19648
   KakaoSDKAuth: 5d9eec3317320dc60015ba8d597b2ad32fc70b1a
   KakaoSDKCommon: aaed06bb779b92cd6f5c35e94160d4ecfaaac511
@@ -621,4 +621,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: da9820c880bcf2e846a670ea8dc0c73c7822fc97
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

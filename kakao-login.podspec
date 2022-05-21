@@ -3,6 +3,7 @@
 require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
+kakao_sdk_version = "2.9.0"
 
 Pod::Spec.new do |s|
   s.name         = "kakao-login"
@@ -26,10 +27,15 @@ Pod::Spec.new do |s|
 
   s.dependency "React"
 
-  s.dependency 'KakaoSDK', '~> 2.9.0'
-  s.dependency 'KakaoSDKCommon', '~> 2.9.0'
-  s.dependency 'KakaoSDKAuth', '~> 2.9.0'
-  s.dependency 'KakaoSDKUser', '~> 2.9.0'
-  s.dependency 'KakaoSDKTalk', '~> 2.9.0'
+  if defined?($KakaoSDKVersion)
+    Pod::UI.puts "#{s.name}: Using user specified Kakao SDK version '#{$KakaoSDKVersion}'"
+    kakao_sdk_version = $KakaoSDKVersion
+  end
+
+  s.dependency 'KakaoSDK', kakao_sdk_version
+  s.dependency 'KakaoSDKCommon',  kakao_sdk_version
+  s.dependency 'KakaoSDKAuth',  kakao_sdk_version
+  s.dependency 'KakaoSDKUser', kakao_sdk_version
+  s.dependency 'KakaoSDKTalk', kakao_sdk_version
 end
 
