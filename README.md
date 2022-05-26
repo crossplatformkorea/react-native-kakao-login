@@ -96,7 +96,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    # 없는 경우에는 package.json의 sdkVersions.ios.kakao를 따릅니다.
    $KakaoSDKVersion=YOUR_KAKAO_SDK_VERSION 
    ```
-
+   
 #### Android
 
 1. [키 해시 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android-v1#key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
@@ -114,13 +114,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
      keytool -exportcert -alias androiddebugkey -keystore ~./android/app/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
      ```
 
-2. 안드로이드에서는 카카오 SDK가 모듈의 gradle 경로에 잡혀있어서 별도로 sdk를 설치하지 않아도 됩니다. 가끔 `kakao sdk`를 못찾겠다는 오류가 나오면 `build.gradle(Project)` 파일에 다음과 같이 android sdk repository를 추가해주세요.
-
-   ```
-   maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
-   ```
-
-3. Redirect URI 설정
+2. Redirect URI 설정
 
    - 카카오 로그인 기능을 구현하기 위해서는 리다이렉션(Redirection)을 통해 [Request Code](https://developers.kakao.com/docs/latest/ko/kakaologin/android)를 받아야 합니다. 그러기 위해서는 아래 코드를 `AndroidManifest.xml`에 추가해주세요. 그리고 `카카오 네이티브 앱 key를 입력해주세요` 텍스트를 본인의 카카오 네이티브 키로 변경해주시면 됩니다. (Android 12(API 31) 이상을 타깃으로 하는 앱인 경우, `exported` 요소를 반드시 "true"로 선언해야 합니다.)
 
@@ -140,7 +134,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
      </activity>
      ```
 
-4. `app/src/main/res/values/strings.xml` 을 열어 다음을 추가합니다
+3. `app/src/main/res/values/strings.xml` 을 열어 다음을 추가합니다
 
    ```diff
    <resources>
@@ -149,7 +143,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    </resources>
    ```
 
-5. kotlin을 프로젝트에서 해석가능하도록 설치해줍니다. `android/build.gradle` 파일에 아래 변경사항을 적용해주세요.
+4. kotlin을 프로젝트에서 해석가능하도록 설치해줍니다. `android/build.gradle` 파일에 아래 변경사항을 적용해주세요.
 
    ```diff
    buildscript {
@@ -173,16 +167,40 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    ...
    ```
 
-6. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
+5. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
 
-7. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
+6. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
-8. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
+7. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
 
    ```
    -keep class com.kakao.sdk.**.model.* { <fields>; }
    -keep class * extends com.google.gson.TypeAdapter
    ```
+
+8. 여러 라이브러리에서 동일한 버전의 SDK를 써야 하는 경우 프로젝트의 `/android/build.gradle` 파일에, 아래의 형태로 버전을 강제 지정할 수 있습니다.
+```groovy
+    project.ext {
+      set('react-native', [
+        versions: [
+          // Overriding Build/Android SDK Versions
+          android : [
+            minSdk    : 19,
+            targetSdk : 31,
+            compileSdk: 31,
+            buildTools: "30.0.3",
+            kotlin: "1.6.21"
+          ],
+          
+          // Overriding Library SDK Versions
+          kakao: [
+            // Override Kakao SDK Version
+            sdk   : "2.10.0",
+          ],
+        ],
+      ])
+    }
+```
 
 ## Methods
 
