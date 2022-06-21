@@ -96,7 +96,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    # 없는 경우에는 package.json의 sdkVersions.ios.kakao를 따릅니다.
    $KakaoSDKVersion=YOUR_KAKAO_SDK_VERSION 
    ```
-   
+
 #### Android
 
 1. [키 해시 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android-v1#key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
