@@ -184,6 +184,7 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                 map.putString("id", user.id.toString())
                 val kakaoUser = user.kakaoAccount
                 if (kakaoUser != null) {
+                    map.putString("name", kakaoUser.name.toString())
                     map.putString("email", kakaoUser!!.email.toString())
                     map.putString("nickname", kakaoUser.profile?.nickname)
                     map.putString("profileImageUrl", kakaoUser.profile?.profileImageUrl)

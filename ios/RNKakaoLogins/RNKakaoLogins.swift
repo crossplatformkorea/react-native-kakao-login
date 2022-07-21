@@ -167,6 +167,7 @@ class RNKakaoLogins: NSObject {
                 else {
                     resolve([
                         "id": user?.id as Any,
+                        "name": user?.kakaoAccount?.name as Any,
                         "email": user?.kakaoAccount?.email as Any,
                         "nickname": user?.kakaoAccount?.profile?.nickname as Any,
                         "profileImageUrl": user?.kakaoAccount?.profile?.profileImageUrl?.absoluteString as Any,
