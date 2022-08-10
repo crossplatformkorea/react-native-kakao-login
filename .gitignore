@@ -45,10 +45,12 @@ buck-out/
 \.buckd/
 *.keystore
 
-index.js
-index.d.ts
-index.js.flow
+# Built files
+src/**/*.js
+src/**/*.d.ts
+src/**/*.js.flow
 
 # iOS
 ios/Pods
 
+.watchman*

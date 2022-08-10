@@ -1,15 +1,15 @@
 {
   "name": "@react-native-seoul/kakao-login",
-  "version": "4.2.3",
+  "version": "5.0.0",
   "description": "React Native Module for Kakao Login",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && flowgen index.d.ts -o index.js.flow",
+    "build": "tsc && flowgen src/index.d.ts -o src/index.js.flow && flowgen src/index.native.d.ts -o src/index.native.js.flow",
     "flow": "flow",
-    "lint": "eslint -c .eslintrc.js 'index.ts'",
+    "lint": "eslint -c .eslintrc.js 'src'",
     "validate": "npm run lint && npm run test:typescript && npm run test:flow && npm run test"
   },
   "repository": {
@@ -37,12 +37,14 @@
     "dooboolab-welcome": "^1.3.2"
   },
   "devDependencies": {
-    "@dooboo/eslint-config": "^1.3.4",
+    "@dooboo/eslint-config-react-native": "^1.0.0",
     "@types/eslint": "^8.4.2",
     "@types/react": "18.0.9",
     "@types/react-native": "^0.67.7",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.16.0",
+    "eslint": "^8.21.0",
+    "eslint-plugin-jest": "^26.8.2",
     "flow-bin": "^0.178.1",
     "flowgen": "^1.19.0",
     "prettier": "^2.6.2",

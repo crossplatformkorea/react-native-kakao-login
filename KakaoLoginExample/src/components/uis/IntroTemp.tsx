@@ -15,7 +15,6 @@ const ContentWrapper = styled.View`
 const StyledText = styled.Text`
   font-size: 18px;
   line-height: 27px;
-  color: ${({theme}) => theme.text};
 `;
 
 type Props = {
@@ -25,8 +24,10 @@ type Props = {
 function IntroView({result}: Props): React.ReactElement {
   return (
     <ContentWrapper>
+      {/* @ts-ignore */}
       <ScrollView>
         <StyledText>{result}</StyledText>
+        {/* @ts-ignore */}
         <View style={{height: 400}} />
       </ScrollView>
     </ContentWrapper>

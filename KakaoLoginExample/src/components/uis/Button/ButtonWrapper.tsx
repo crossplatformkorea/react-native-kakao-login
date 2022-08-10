@@ -9,7 +9,6 @@ import type {
 
 import {Body3} from '../Typography';
 import type {FC} from 'react';
-import React from 'react';
 import {StyledButton} from '../Styles';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
@@ -47,10 +46,12 @@ const Button: FC<Props> = ({
   text = '',
 }) => {
   return (
+    // @ts-ignore
     <TouchableOpacity
       testID={testID}
       activeOpacity={activeOpacity}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       <StyledButton style={style}>
         {imgLeftSrc ? (
           <StyledImage style={imgLeftStyle} source={imgLeftSrc} />

@@ -7,14 +7,13 @@ import Button from '../uis/Button';
 import React from 'react';
 import {RouteProp} from '@react-navigation/core';
 import styled from 'styled-components/native';
-import {useTheme} from 'dooboo-ui';
 import {withScreen} from '../../utils/wrapper';
 
 const Container = styled.View`
   flex: 1;
   align-self: stretch;
 
-  background-color: ${({theme}) => theme.background};
+  background-color: white;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -26,8 +25,6 @@ interface Props {
 }
 
 function Page(props: Props): React.ReactElement {
-  const {theme} = useTheme();
-
   const {
     route: {
       params: {param},
@@ -42,7 +39,7 @@ function Page(props: Props): React.ReactElement {
         onPress={(): void => navigation.goBack()}
         text={param}
         style={{
-          backgroundColor: theme.text,
+          backgroundColor: 'black',
         }}
       />
     </Container>
