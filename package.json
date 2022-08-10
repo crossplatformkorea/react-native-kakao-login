@@ -2,12 +2,12 @@
   "name": "@react-native-seoul/kakao-login",
   "version": "4.2.3",
   "description": "React Native Module for Kakao Login",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && flowgen index.d.ts -o index.js.flow",
+    "build": "tsc",
     "flow": "flow",
     "lint": "eslint -c .eslintrc.js 'index.ts'",
     "validate": "npm run lint && npm run test:typescript && npm run test:flow && npm run test"

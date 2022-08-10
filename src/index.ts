@@ -103,4 +103,3 @@ export const getProfile = async (
     throw err;
   }
 };
-

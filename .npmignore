@@ -5,4 +5,5 @@ node_modules/
 KakaoLoginExample/
 image/
 
-index.ts
+src/**/*.ts
+!src/**/*.d.ts
