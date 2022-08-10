@@ -8,24 +8,28 @@ export type KakaoOAuthWebToken = {
 };
 
 export type KaKaoLoginWebType = {
-  restApiKeyWeb: string;
-  redirectUrlWeb: string;
-  codeWeb: string;
+  restApiKeyWeb?: string;
+  redirectUrlWeb?: string;
+  codeWeb?: string;
 };
 
 export type KakaoProfileWebType = {
   properties: {
-    ninkname: string;
+    nickname: string;
     profile_image: string;
     thumbnail_image: string;
   };
 };
 
-export const login = async ({
-  restApiKeyWeb,
-  redirectUrlWeb,
-  codeWeb,
-}: KaKaoLoginWebType): Promise<KakaoOAuthWebToken> => {
+export const login = async (
+  props?: KaKaoLoginWebType,
+): Promise<KakaoOAuthWebToken> => {
+  if (!props) {
+    throw new Error('Web parameters are not provided');
+  }
+
+  const {restApiKeyWeb, redirectUrlWeb, codeWeb} = props;
+
   if (!restApiKeyWeb || !redirectUrlWeb || !codeWeb) {
     throw new Error('Web parameters are not provided');
   }
@@ -56,7 +60,7 @@ export const login = async ({
   }
 };
 
-export const logout = async (tokenWeb: string): Promise<string> => {
+export const logout = async (tokenWeb?: string): Promise<string> => {
   try {
     const result = await fetch('https://kapi.kakao.com/v1/user/logout', {
       method: 'post',
@@ -71,7 +75,7 @@ export const logout = async (tokenWeb: string): Promise<string> => {
   }
 };
 
-export const unlink = async (tokenWeb: string): Promise<string> => {
+export const unlink = async (tokenWeb?: string): Promise<string> => {
   try {
     const result = await fetch('https://kapi.kakao.com/v1/user/unlink', {
       method: 'post',
@@ -87,7 +91,7 @@ export const unlink = async (tokenWeb: string): Promise<string> => {
 };
 
 export const getProfile = async (
-  token: string,
+  token?: string,
 ): Promise<KakaoProfileWebType> => {
   try {
     const result = await fetch('https://kapi.kakao.com/v2/user/me', {

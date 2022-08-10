@@ -53,3 +53,4 @@ src/**/*.js.flow
 # iOS
 ios/Pods
 
+.watchman*
