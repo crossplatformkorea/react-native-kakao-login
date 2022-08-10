@@ -5,6 +5,7 @@ import React from 'react';
 export const withScreen = (WrappedComponent: React.ComponentType<any>) => {
   return (props) => {
     return (
+      // @ts-ignore
       <View
         style={
           Platform.OS === 'web'
@@ -19,7 +20,9 @@ export const withScreen = (WrappedComponent: React.ComponentType<any>) => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }
-        }>
+        }
+      >
+        {/* @ts-ignore */}
         <WrappedComponent {...props} />
       </View>
     );
