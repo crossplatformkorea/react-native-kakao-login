@@ -49,6 +49,8 @@ buck-out/
 src/**/*.js
 src/**/*.d.ts
 src/**/*.js.flow
+plugins/**/*.js
+plugins/**/*.d.ts
 
 # iOS
 ios/Pods
