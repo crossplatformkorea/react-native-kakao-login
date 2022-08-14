@@ -1,0 +1,34 @@
+{
+  "name": "kakao-login-expo-example",
+  "version": "1.2.4",
+  "scripts": {
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "build:ios": "eas build --platform ios --profile local",
+    "build:device:ios": "eas build -p ios --profile local:device",
+    "build:android": "eas build --platform android --profile local",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "@expo/config-plugins": "^5.0.0",
+    "@react-native-seoul/kakao-login": "file:..",
+    "expo": "^46.0.0",
+    "expo-dev-client": "~1.1.1",
+    "expo-splash-screen": "~0.16.1",
+    "expo-status-bar": "~1.4.0",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "react-native": "0.69.4",
+    "react-native-web": "~0.18.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.6",
+    "@types/react": "~18.0.0",
+    "@types/react-native": "~0.69.1",
+    "expo-module-scripts": "^2.0.0",
+    "typescript": "^4.6.3"
+  },
+  "private": true
+}
