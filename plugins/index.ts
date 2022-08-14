@@ -1,6 +1,6 @@
 import {withAndroidKakaoLogin} from './android/withAndroidKakaoLogin';
 import {withIosKakaoLogin} from './ios/withIosKakaoLogin';
-import type {ConfigPlugin} from '@expo/config-plugins';
+import {ConfigPlugin, createRunOncePlugin} from '@expo/config-plugins';
 
 export interface KakaoLoginPluginProps {
   kakaoAppKey: string;
@@ -18,4 +18,9 @@ const withExpoConfigPlugins: ConfigPlugin<KakaoLoginPluginProps> = (
   return config;
 };
 
-export default withExpoConfigPlugins;
+const pak = require('@react-native-seoul/kakao-login/package.json');
+export default createRunOncePlugin(
+  withExpoConfigPlugins,
+  pak.name,
+  pak.version,
+);

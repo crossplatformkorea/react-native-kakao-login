@@ -1,18 +1,15 @@
 import {
-  KakaoOAuthToken,
-  KakaoProfile,
   getProfile as getKakaoProfile,
   login,
   logout,
   unlink,
-  KakaoProfileNoneAgreement,
-} from "@react-native-seoul/kakao-login";
-import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+} from '@react-native-seoul/kakao-login';
+import {StatusBar} from 'expo-status-bar';
+import {useEffect, useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-export default function App() {
-  const [result, setResult] = useState<string>("");
+export default function App(): React.ReactElement {
+  const [result, setResult] = useState<string>('');
 
   useEffect(() => {
     console.log(result);
@@ -24,7 +21,7 @@ export default function App() {
 
   const signInWithKakao = async (): Promise<void> => {
     try {
-      const token: KakaoOAuthToken = await login();
+      const token = await login();
 
       setResult(JSON.stringify(token));
     } catch (e) {
@@ -44,8 +41,7 @@ export default function App() {
 
   const getProfile = async (): Promise<void> => {
     try {
-      const profile: KakaoProfile | KakaoProfileNoneAgreement =
-        await getKakaoProfile();
+      const profile = await getKakaoProfile();
 
       setResult(JSON.stringify(profile));
     } catch (e) {
@@ -88,20 +84,20 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   button: {
     height: 30,
     width: 200,
-    backgroundColor: "#FEE500",
+    backgroundColor: '#FEE500',
     borderRadius: 40,
     borderWidth: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginVertical: 10,
   },
   buttonText: {
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });

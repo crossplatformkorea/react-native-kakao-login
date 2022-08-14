@@ -2,6 +2,7 @@
   "name": "kakao-login-expo-example",
   "version": "1.2.4",
   "scripts": {
+    "preinstall": "cd .. && yarn install && yarn build:plugins && yarn build",
     "start": "expo start --dev-client",
     "android": "expo run:android",
     "build:ios": "eas build --platform ios --profile local",
