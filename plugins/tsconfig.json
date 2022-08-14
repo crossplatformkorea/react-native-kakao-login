@@ -1,0 +1,4 @@
+{
+  "include": ["**/*.ts"],
+  "extends": "expo-module-scripts/tsconfig.plugin"
+}
