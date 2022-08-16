@@ -205,25 +205,25 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 #### EXPO (EAS Build only, SDK 41 이상)
 
 1. app.json 파일을 아래와 같이 수정합니다.
-   ```
-   {
-     "expo": {
-       ...
-       "plugins": [
-         ...,
-         [
-           "@react-native-seoul/kakao-login",
-           {
-             "kakaoAppKey": "", // 필수
-             "overrideKakaoSDKVersion": "2.9.0", // Optional, 
-             "kotlinVersion": "1.3.41" // Android Only, Optional,
-           }
-         ]
-       ],
-       ...
-     }
-   } 
-   ```
+```
+{
+  "expo": {
+    ...
+    "plugins": [
+      ...,
+      [
+        "@react-native-seoul/kakao-login",
+        {
+          "kakaoAppKey": "", // 필수
+          "overrideKakaoSDKVersion": "2.9.0", // Optional, 
+          "kotlinVersion": "1.5.10" // Android Only, Optional, Expo 내부 패키지들과의 충돌이 있어 테스트 결과 1.5.10은 문제가 없었습니다. 지정 안하면 1.5.10으로 설정됩니다.
+        }
+      ]
+    ],
+    ...
+  }
+} 
+```
 
 2. EAS Build 이후 `expo start --dev-client`를 이용합니다.
 
