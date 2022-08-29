@@ -28,7 +28,7 @@ export const login = async (
     throw new Error('Web parameters are not provided');
   }
 
-  const { restApiKeyWeb, redirectUrlWeb, codeWeb } = props;
+  const {restApiKeyWeb, redirectUrlWeb, codeWeb} = props;
 
   if (!restApiKeyWeb || !redirectUrlWeb || !codeWeb) {
     throw new Error('Web parameters are not provided');
