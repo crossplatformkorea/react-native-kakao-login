@@ -28,7 +28,7 @@ export const login = async (
     throw new Error('Web parameters are not provided');
   }
 
-  const {restApiKeyWeb, redirectUrlWeb, codeWeb} = props;
+  const { restApiKeyWeb, redirectUrlWeb, codeWeb } = props;
 
   if (!restApiKeyWeb || !redirectUrlWeb || !codeWeb) {
     throw new Error('Web parameters are not provided');
@@ -48,13 +48,14 @@ export const login = async (
   try {
     const result = await fetch('https://kauth.kakao.com/oauth/token', {
       method: 'post',
-      body: JSON.stringify(queryString),
+      body: queryString,
       headers: {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     });
+    const json = await result.json();
 
-    return result.json();
+    return json;
   } catch (err) {
     throw err;
   }
@@ -69,7 +70,9 @@ export const logout = async (tokenWeb?: string): Promise<string> => {
       },
     });
 
-    return result.json();
+    const json = await result.json();
+
+    return json;
   } catch (err) {
     throw err;
   }
@@ -84,7 +87,9 @@ export const unlink = async (tokenWeb?: string): Promise<string> => {
       },
     });
 
-    return result.json();
+    const json = await result.json();
+
+    return json;
   } catch (err) {
     throw err;
   }
@@ -102,7 +107,9 @@ export const getProfile = async (
       },
     });
 
-    return result.json();
+    const json = await result.json();
+
+    return json;
   } catch (err) {
     throw err;
   }
