@@ -53,9 +53,7 @@ export const login = async (
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     });
-    const json = await result.json();
-
-    return json;
+    return result.json();
   } catch (err) {
     throw err;
   }
@@ -69,10 +67,7 @@ export const logout = async (tokenWeb?: string): Promise<string> => {
         Authorization: `Bearer ${tokenWeb}`,
       },
     });
-
-    const json = await result.json();
-
-    return json;
+    return result.json();
   } catch (err) {
     throw err;
   }
@@ -86,10 +81,7 @@ export const unlink = async (tokenWeb?: string): Promise<string> => {
         Authorization: `Bearer ${tokenWeb}`,
       },
     });
-
-    const json = await result.json();
-
-    return json;
+    return result.json();
   } catch (err) {
     throw err;
   }
@@ -106,10 +98,7 @@ export const getProfile = async (
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     });
-
-    const json = await result.json();
-
-    return json;
+    return result.json();
   } catch (err) {
     throw err;
   }
