@@ -48,12 +48,11 @@ export const login = async (
   try {
     const result = await fetch('https://kauth.kakao.com/oauth/token', {
       method: 'post',
-      body: JSON.stringify(queryString),
+      body: queryString,
       headers: {
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     });
-
     return result.json();
   } catch (err) {
     throw err;
@@ -68,7 +67,6 @@ export const logout = async (tokenWeb?: string): Promise<string> => {
         Authorization: `Bearer ${tokenWeb}`,
       },
     });
-
     return result.json();
   } catch (err) {
     throw err;
@@ -83,7 +81,6 @@ export const unlink = async (tokenWeb?: string): Promise<string> => {
         Authorization: `Bearer ${tokenWeb}`,
       },
     });
-
     return result.json();
   } catch (err) {
     throw err;
@@ -101,7 +98,6 @@ export const getProfile = async (
         'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
     });
-
     return result.json();
   } catch (err) {
     throw err;
