@@ -70,29 +70,31 @@ export type KakaoProfileWebType = {
 export const login = async (
   props?: KaKaoLoginWebType,
 ): Promise<KakaoOAuthWebToken | KakaoOAuthToken> => {
-  if (!props) {
-    throw new Error('Web parameters are not provided');
-  }
-
-  const {restApiKeyWeb, redirectUrlWeb, codeWeb} = props;
-
-  if (!restApiKeyWeb || !redirectUrlWeb || !codeWeb) {
-    throw new Error('Web parameters are not provided');
-  }
-
-  const data: any = {
-    grant_type: 'authorization_code',
-    client_id: restApiKeyWeb,
-    redirect_uri: redirectUrlWeb,
-    code: codeWeb,
-  };
-
-  const queryString = Object.keys(data)
-    .map((k: any) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
-    .join('&');
-
   try {
     if (Platform.OS === 'web') {
+      if (!props) {
+        throw new Error('Web parameters are not provided');
+      }
+
+      const {restApiKeyWeb, redirectUrlWeb, codeWeb} = props;
+
+      if (!restApiKeyWeb || !redirectUrlWeb || !codeWeb) {
+        throw new Error('Web parameters are not provided');
+      }
+
+      const data: any = {
+        grant_type: 'authorization_code',
+        client_id: restApiKeyWeb,
+        redirect_uri: redirectUrlWeb,
+        code: codeWeb,
+      };
+
+      const queryString = Object.keys(data)
+        .map(
+          (k: any) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]),
+        )
+        .join('&');
+
       const result = await fetch('https://kauth.kakao.com/oauth/token', {
         method: 'post',
         body: queryString,
