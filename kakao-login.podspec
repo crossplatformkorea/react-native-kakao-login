@@ -3,7 +3,7 @@
 require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
-kakao_sdk_version = "2.9.0"
+kakao_sdk_version = "2.11.1"
 
 Pod::Spec.new do |s|
   s.name         = "kakao-login"
