@@ -32,7 +32,6 @@ Pod::Spec.new do |s|
     kakao_sdk_version = $KakaoSDKVersion
   end
 
-  s.dependency 'KakaoSDK', kakao_sdk_version
   s.dependency 'KakaoSDKCommon',  kakao_sdk_version
   s.dependency 'KakaoSDKAuth',  kakao_sdk_version
   s.dependency 'KakaoSDKUser', kakao_sdk_version
