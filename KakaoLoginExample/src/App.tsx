@@ -1,12 +1,15 @@
 import React from 'react';
-import RootNavigator from './components/navigations/RootStackNavigator';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Login from './pages/IntroWeb';
 
-function App(): React.ReactElement {
-  return <RootNavigator />;
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-function ProviderWrapper(): React.ReactElement {
-  return <App />;
-}
-
-export default ProviderWrapper;
+export default App;
