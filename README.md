@@ -94,7 +94,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
    ```ruby
    # 없는 경우에는 package.json의 sdkVersions.ios.kakao를 따릅니다.
-   $KakaoSDKVersion=YOUR_KAKAO_SDK_VERSION 
+   $KakaoSDKVersion=YOUR_KAKAO_SDK_VERSION
    ```
 
 #### Android

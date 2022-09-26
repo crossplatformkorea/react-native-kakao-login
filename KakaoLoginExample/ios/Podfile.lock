@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.6.1)
+  - Alamofire (5.6.2)
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -76,44 +76,21 @@ PODS:
   - glog (0.3.5)
   - hermes-engine (0.70.1)
   - kakao-login (5.1.1):
-    - KakaoSDK (= 2.9.0)
-    - KakaoSDKAuth (= 2.9.0)
-    - KakaoSDKCommon (= 2.9.0)
-    - KakaoSDKTalk (= 2.9.0)
-    - KakaoSDKUser (= 2.9.0)
+    - KakaoSDKAuth (= 2.11.1)
+    - KakaoSDKCommon (= 2.11.1)
+    - KakaoSDKUser (= 2.11.1)
     - React
-  - KakaoSDK (2.9.0):
-    - KakaoSDKAuth (= 2.9.0)
-    - KakaoSDKCommon (= 2.9.0)
-    - KakaoSDKLink (= 2.9.0)
-    - KakaoSDKNavi (= 2.9.0)
-    - KakaoSDKStory (= 2.9.0)
-    - KakaoSDKTalk (= 2.9.0)
-    - KakaoSDKTemplate (= 2.9.0)
-    - KakaoSDKUser (= 2.9.0)
-  - KakaoSDKAuth (2.9.0):
-    - KakaoSDKCommon (= 2.9.0)
-  - KakaoSDKCommon (2.9.0):
-    - KakaoSDKCommon/Common (= 2.9.0)
-    - KakaoSDKCommon/Network (= 2.9.0)
-  - KakaoSDKCommon/Common (2.9.0)
-  - KakaoSDKCommon/Network (2.9.0):
+  - KakaoSDKAuth (2.11.1):
+    - KakaoSDKCommon (= 2.11.1)
+  - KakaoSDKCommon (2.11.1):
+    - KakaoSDKCommon/Common (= 2.11.1)
+    - KakaoSDKCommon/Network (= 2.11.1)
+  - KakaoSDKCommon/Common (2.11.1)
+  - KakaoSDKCommon/Network (2.11.1):
     - Alamofire (~> 5.1)
-    - KakaoSDKCommon/Common (= 2.9.0)
-  - KakaoSDKLink (2.9.0):
-    - KakaoSDKCommon (= 2.9.0)
-    - KakaoSDKTemplate (= 2.9.0)
-  - KakaoSDKNavi (2.9.0):
-    - KakaoSDKCommon/Common (= 2.9.0)
-  - KakaoSDKStory (2.9.0):
-    - KakaoSDKUser (= 2.9.0)
-  - KakaoSDKTalk (2.9.0):
-    - KakaoSDKTemplate (= 2.9.0)
-    - KakaoSDKUser (= 2.9.0)
-  - KakaoSDKTemplate (2.9.0):
-    - KakaoSDKCommon/Common (= 2.9.0)
-  - KakaoSDKUser (2.9.0):
-    - KakaoSDKAuth (= 2.9.0)
+    - KakaoSDKCommon/Common (= 2.11.1)
+  - KakaoSDKUser (2.11.1):
+    - KakaoSDKAuth (= 2.11.1)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.07.22.00):
@@ -489,14 +466,8 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - fmt
-    - KakaoSDK
     - KakaoSDKAuth
     - KakaoSDKCommon
-    - KakaoSDKLink
-    - KakaoSDKNavi
-    - KakaoSDKStory
-    - KakaoSDKTalk
-    - KakaoSDKTemplate
     - KakaoSDKUser
     - libevent
     - OpenSSL-Universal
@@ -576,7 +547,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -592,18 +563,12 @@ SPEC CHECKSUMS:
   Flipper-RSocket: d9d9ade67cbecf6ac10730304bf5607266dd2541
   FlipperKit: cbdee19bdd4e7f05472a66ce290f1b729ba3cb86
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
-  glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
+  glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 9cd393f741bfa14d1d0cd90cc373e3619c0bc7ea
-  kakao-login: f846c2a8b1fe24cf1a1c4607d147fcbfc6b77f11
-  KakaoSDK: d5a5a38ebf4da97beeecf100ac3dc9a020e19648
-  KakaoSDKAuth: 5d9eec3317320dc60015ba8d597b2ad32fc70b1a
-  KakaoSDKCommon: aaed06bb779b92cd6f5c35e94160d4ecfaaac511
-  KakaoSDKLink: 575d1119427a7b278eb49da656f8d648a0a94411
-  KakaoSDKNavi: 8b767610d59fc044f1f5df3f29c89688a446a1fc
-  KakaoSDKStory: a494a364a3539601289d01aadd117f165f39d7b2
-  KakaoSDKTalk: b0ac197fd7fce4afc9af3f012c1abee7f053c910
-  KakaoSDKTemplate: eaf03ad5e44d374cbfff85588552a5627cd0519c
-  KakaoSDKUser: 37e92bfc1d36b339420952080a8d31c217a38a63
+  kakao-login: 78bf888eaf96deb09d7503b187f9f06bca41f033
+  KakaoSDKAuth: bb2dfa7be30daa8403c9cfc8001aa6fde7a5b779
+  KakaoSDKCommon: 555e1bb46595b842ded01cf7888cc17bbae4e113
+  KakaoSDKUser: 08c0a4f40bebdebdf948a9e3d0e44ed5c2754f99
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: 0080d0a6ebf2577475bda044aa59e2ca1f909cda
@@ -637,6 +602,6 @@ SPEC CHECKSUMS:
   Yoga: 6c8252e38d65aa387daee699eacf027e055e0b31
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 081bdf400cbb4019ad77fd555758aca70f1ab6c8
+PODFILE CHECKSUM: 8bd889b358d838fdffc2f3d65f762fef7b1c31ac
 
 COCOAPODS: 1.11.3
