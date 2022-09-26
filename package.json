@@ -48,6 +48,7 @@
     "flow-bin": "^0.178.1",
     "flowgen": "^1.19.0",
     "prettier": "^2.6.2",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "expo-module-scripts": "^2.0.0"
   }
 }

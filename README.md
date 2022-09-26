@@ -179,51 +179,56 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    ```
 
 8. 여러 라이브러리에서 동일한 버전의 SDK를 써야 하는 경우 프로젝트의 `/android/build.gradle` 파일에, 아래의 형태로 버전을 강제 지정할 수 있습니다.
-```groovy
-    project.ext {
-      set('react-native', [
-        versions: [
-          // Overriding Build/Android SDK Versions
-          android : [
-            minSdk    : 19,
-            targetSdk : 31,
-            compileSdk: 31,
-            buildTools: "30.0.3",
-            kotlin: "1.6.21"
-          ],
-          
-          // Overriding Library SDK Versions
-          kakao: [
-            // Override Kakao SDK Version
-            sdk   : "2.10.0",
-          ],
-        ],
-      ])
-    }
+   ```groovy
+   project.ext {
+     set('react-native', [
+       versions: [
+         // Overriding Build/Android SDK Versions
+         android : [
+           minSdk    : 19,
+           targetSdk : 31,
+           compileSdk: 31,
+           buildTools: "30.0.3",
+           kotlin: "1.6.21"
+         ],
+         
+         // Overriding Library SDK Versions
+         kakao: [
+           // Override Kakao SDK Version
+           sdk   : "2.10.0",
+         ],
+       ],
+     ])
+   }
+   ```
+
+#### EXPO (EAS Build only, SDK 41 이상)
+
+1. app.json 파일을 아래와 같이 수정합니다.
+```
+{
+  "expo": {
+    ...
+    "plugins": [
+      ...,
+      [
+        "@react-native-seoul/kakao-login",
+        {
+          "kakaoAppKey": "", // 필수
+          "overrideKakaoSDKVersion": "2.9.0", // Optional, 
+          "kotlinVersion": "1.5.10" // Android Only, Optional, Expo 내부 패키지들과의 충돌이 있어 테스트 결과 1.5.10은 문제가 없었습니다. 지정 안하면 1.5.10으로 설정됩니다.
+        }
+      ]
+    ],
+    ...
+  }
+} 
 ```
 
-#### React-native-web
+2. EAS Build 이후 `expo start --dev-client`를 이용합니다.
 
-1.RestApiKey랑 redirectUrl을 포함한 아래 링크로 href 링크를 열어서 code를 가져옵니다
-const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
+3. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요
 
-redirectUrl이 http://localhost:3000 일때 아래와같이 redirectUrl에 code파라미터가 붙은 url이 들어와집니다
-
-http://localhost:3000/?code=Ss32OM1_yUybn5dtEQ-XT8EZfV24BKC_GIeIvFPz7_wHorYXtij9JFQcMuGtGdzxQc3Vlwopb1UAAAGCizvuCw
-code= 뒤쪽부분을 split해서 토큰 발급시 필요한 code를 얻을 수 있습니다
-react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 같이 직접 넣어줘야 합니다
-
-
-## Methods (Web)
-
-| Func                  | Param |            Return             | Description                                                                                                        |
-| :-------------------- | :---: | :---------------------------: | :----------------------------------------------------------------------------------------------------------------- |
-| login                 |   restApiKeyWeb, redirectUrlWeb, codeWeb    |   Promise{KakaoOAuthWebToken} | 로그인                                                    |
-| loginWithKakaoAccount |       |      | 웹 지원 x |
-| getProfile            |    tokenWeb   |     Promise{KakaoProfile}     | 프로필 불러오기                                                                                                    |
-| logout                |    tokenWeb   |        Promise{string}        | 로그아웃                                                                                                           |
-| unlink                |   tokenWeb    |        Promise{string}        | 연결끊기                                                                                                           |
-| getAccessToken        |       |  | 웹 지원 x  
 
 ## Methods
 
@@ -246,6 +251,29 @@ react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 �
 | `accessTokenExpiresAt?`  |  ✓  |    ✓    |   `Date`   |                                       토큰 만료 시간                                        |
 | `refreshTokenExpiresAt?` |  ✓  |    ✓    |   `Date`   | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
 | `scopes`                 |  ✓  |    ✓    | `string[]` |                                   사용자로 부터 받은 권한                                   |
+
+#### React-native-web
+
+1.RestApiKey랑 redirectUrl을 포함한 아래 링크로 href 링크를 열어서 code를 가져옵니다
+const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
+
+redirectUrl이 http://localhost:3000 일때 아래와같이 redirectUrl에 code파라미터가 붙은 url이 들어와집니다
+
+http://localhost:3000/?code=Ss32OM1_yUybn5dtEQ-XT8EZfV24BKC_GIeIvFPz7_wHorYXtij9JFQcMuGtGdzxQc3Vlwopb1UAAAGCizvuCw
+code= 뒤쪽부분을 split해서 토큰 발급시 필요한 code를 얻을 수 있습니다
+react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 같이 직접 넣어줘야 합니다
+
+
+## Methods (Web)
+
+| Func                  | Param |            Return             | Description                                                                                                        |
+| :-------------------- | :---: | :---------------------------: | :----------------------------------------------------------------------------------------------------------------- |
+| login                 |   restApiKeyWeb, redirectUrlWeb, codeWeb    |   Promise{KakaoOAuthWebToken} | 로그인                                                    |
+| loginWithKakaoAccount |       |      | 웹 지원 x |
+| getProfile            |    tokenWeb   |     Promise{KakaoProfile}     | 프로필 불러오기                                                                                                    |
+| logout                |    tokenWeb   |        Promise{string}        | 로그아웃                                                                                                           |
+| unlink                |   tokenWeb    |        Promise{string}        | 연결끊기                                                                                                           |
+| getAccessToken        |       |  | 웹 지원 x
 
 ## Usage
 
