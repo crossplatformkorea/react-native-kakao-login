@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>KakaoLoginWeb</string>
+	<string>KakaoLogin</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,27 +20,27 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
-   <key>CFBundleURLTypes</key>
- <array>
- <dict>
-   <key>CFBundleTypeRole</key>
-   <string>Editor</string>
-   <key>CFBundleURLSchemes</key>
-   <array>
-     <string>kakao90d6d77bfd4af85fd83f65b7f617a26e</string>
-   </array>
- </dict>
- </array>
- <key>CFBundleVersion</key>
- <string>1</string>
- <key>KAKAO_APP_KEY</key>
- <string>90d6d77bfd4af85fd83f65b7f617a26e</string>
- <key>LSApplicationQueriesSchemes</key>
- <array>
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>kakao90d6d77bfd4af85fd83f65b7f617a26e</string>
+    </array>
+    </dict>
+  </array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+  <key>KAKAO_APP_KEY</key>
+  <string>90d6d77bfd4af85fd83f65b7f617a26e</string>
+  <key>LSApplicationQueriesSchemes</key>
+  <array>
    <string>kakaokompassauth</string>
    <string>storykompassauth</string>
    <string>kakaolink</string>
- </array>
+  </array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

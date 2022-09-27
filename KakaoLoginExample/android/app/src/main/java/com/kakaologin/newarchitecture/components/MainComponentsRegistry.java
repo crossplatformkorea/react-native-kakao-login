@@ -1,4 +1,4 @@
-package com.kakaologinweb.newarchitecture.components;
+package com.kakaologin.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

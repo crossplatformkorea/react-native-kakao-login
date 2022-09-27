@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "KakaoLoginWeb.app"
-               BlueprintName = "KakaoLoginWeb"
-               ReferencedContainer = "container:KakaoLoginWeb.xcodeproj">
+               BuildableName = "KakaoLogin.app"
+               BlueprintName = "KakaoLogin"
+               ReferencedContainer = "container:KakaoLogin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "KakaoLoginWebTests.xctest"
-               BlueprintName = "KakaoLoginWebTests"
-               ReferencedContainer = "container:KakaoLoginWeb.xcodeproj">
+               BuildableName = "KakaoLoginTests.xctest"
+               BlueprintName = "KakaoLoginTests"
+               ReferencedContainer = "container:KakaoLogin.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "KakaoLoginWeb.app"
-            BlueprintName = "KakaoLoginWeb"
-            ReferencedContainer = "container:KakaoLoginWeb.xcodeproj">
+            BuildableName = "KakaoLogin.app"
+            BlueprintName = "KakaoLogin"
+            ReferencedContainer = "container:KakaoLogin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "KakaoLoginWeb.app"
-            BlueprintName = "KakaoLoginWeb"
-            ReferencedContainer = "container:KakaoLoginWeb.xcodeproj">
+            BuildableName = "KakaoLogin.app"
+            BlueprintName = "KakaoLogin"
+            ReferencedContainer = "container:KakaoLogin.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

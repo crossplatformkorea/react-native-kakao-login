@@ -75,7 +75,7 @@ PODS:
   - fmt (6.2.1)
   - glog (0.3.5)
   - hermes-engine (0.70.1)
-  - kakao-login (5.1.1):
+  - kakao-login (5.2.0):
     - KakaoSDKAuth (= 2.11.1)
     - KakaoSDKCommon (= 2.11.1)
     - KakaoSDKUser (= 2.11.1)
@@ -565,7 +565,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   hermes-engine: 9cd393f741bfa14d1d0cd90cc373e3619c0bc7ea
-  kakao-login: 78bf888eaf96deb09d7503b187f9f06bca41f033
+  kakao-login: 6c0c8d5970998318ebb92c308b767421f3c28563
   KakaoSDKAuth: bb2dfa7be30daa8403c9cfc8001aa6fde7a5b779
   KakaoSDKCommon: 555e1bb46595b842ded01cf7888cc17bbae4e113
   KakaoSDKUser: 08c0a4f40bebdebdf948a9e3d0e44ed5c2754f99
@@ -602,6 +602,6 @@ SPEC CHECKSUMS:
   Yoga: 6c8252e38d65aa387daee699eacf027e055e0b31
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 8bd889b358d838fdffc2f3d65f762fef7b1c31ac
+PODFILE CHECKSUM: d4d3c374c1e71f2ea43652c6437f9d0375bf7fbc
 
 COCOAPODS: 1.11.3
