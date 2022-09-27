@@ -1,7 +1,7 @@
 import App from "./App";
 import { AppRegistry } from "react-native";
 
-const appName = "KakaoLoginWeb";
+const appName = "KakaoLogin";
 
 AppRegistry.registerComponent(appName, () => App);
 AppRegistry.runApplication(appName, {
