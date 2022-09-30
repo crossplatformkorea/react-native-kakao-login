@@ -7,7 +7,7 @@
   "postinstall": "dooboolab-welcome postinstall",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && flowgen src/index.d.ts -o src/index.js.flow",
+    "build": "tsc && tsc -P ./plugins && flowgen src/index.d.ts -o src/index.js.flow",
     "flow": "flow",
     "lint": "eslint -c .eslintrc.js 'src'",
     "validate": "npm run lint && npm run test:typescript && npm run test:flow && npm run test"
