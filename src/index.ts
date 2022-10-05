@@ -19,6 +19,7 @@ export type KakaoAccessTokenInfo = {
 export type KakaoProfile = {
   id: string;
   email: string;
+  name: string;
   nickname: string;
   profileImageUrl: string;
   thumbnailImageUrl: string;
