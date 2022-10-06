@@ -19,6 +19,7 @@ export type KakaoAccessTokenInfo = {
 export type KakaoProfile = {
   id: string;
   email: string;
+  name: string;
   nickname: string;
   profileImageUrl: string;
   thumbnailImageUrl: string;
@@ -166,7 +167,7 @@ export const unlink = async (tokenWeb?: string): Promise<string> => {
 
 export const getProfile = async (
   token?: string,
-): Promise<KakaoProfileWebType> => {
+): Promise<KakaoProfileWebType | KakaoProfile> => {
   try {
     if (Platform.OS === 'web') {
       const result = await fetch('https://kapi.kakao.com/v2/user/me', {
