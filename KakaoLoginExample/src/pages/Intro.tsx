@@ -11,7 +11,6 @@ const Intro = () => {
       const token = await login();
       setResult(JSON.stringify(token));
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('login err', err);
     }
   };
@@ -22,7 +21,6 @@ const Intro = () => {
 
       setResult(message);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('signOut error', err);
     }
   };
@@ -33,7 +31,6 @@ const Intro = () => {
 
       setResult(JSON.stringify(profile));
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('signOut error', err);
     }
   };
@@ -44,7 +41,6 @@ const Intro = () => {
 
       setResult(message);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('signOut error', err);
     }
   };
