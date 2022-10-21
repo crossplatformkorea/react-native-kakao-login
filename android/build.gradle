@@ -1,51 +1,30 @@
-import io.invertase.gradle.common.PackageJson
-
 buildscript {
-  // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['RNKakaoLogins_kotlinVersion']
-  def gradle_version = rootProject.ext.has('gradleVersion') ? rootProject.ext.get('gradleVersion') : project.properties['RNKakaoLogins_gradleVersion']
-
-  repositories {
-    google()
-    mavenCentral()
+  ext.getExtOrDefault = {name ->
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['RNKakaoLogins_' + name]
   }
 
-  dependencies {
-    classpath "com.android.tools.build:gradle:$gradle_version"
-    // noinspection DifferentKotlinGradleVersion
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  if(project == rootProject) {
+    repositories {
+      mavenCentral()
+      google()
+    }
+
+    dependencies {
+      classpath "com.android.tools.build:gradle:${getExtOrDefault('gradleVersion')}"
+      classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
+    }
   }
 }
 
-plugins {
-  id "com.android.library"
-  id "kotlin-android"
-  id "io.invertase.gradle.build" version "1.5"
-}
-
-def getDefaultProperty(name, asInteger) {
-  def value = project.properties["RNKakaoLogins_" + name]
-  return asInteger ? value.toInteger() : value
-}
-
-project.ext {
-  set("react-native", [
-      versions: [
-          android: [
-              minSdk    : getDefaultProperty("minSdkVersion", true),
-              targetSdk : getDefaultProperty("targetSdkVersion", true),
-              compileSdk: getDefaultProperty("compileSdkVersion", true),
-              kotlin: getDefaultProperty("kotlinVersion", false)
-          ],
-          kakao: [
-              sdk: getDefaultProperty("kakaoSdkVersion", false)
-          ],
-      ],
-  ])
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
+  compileSdkVersion getExtOrDefault('compileSdkVersion').toInteger()
+
   defaultConfig {
+    minSdkVersion getExtOrDefault('minSdkVersion').toInteger()
+    targetSdkVersion getExtOrDefault('targetSdkVersion').toInteger()
     versionCode 1
     versionName "1.0"
   }
@@ -61,9 +40,6 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
-  kotlinOptions {
-    jvmTarget = "1.8"
-  }
 }
 
 repositories {
@@ -72,20 +48,17 @@ repositories {
 }
 
 dependencies {
-  // noinspection GradleDynamicVersion
-  api 'com.facebook.react:react-native:+'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:${ReactNative.ext.getVersion("android", "kotlin")}"
+  //noinspection GradleDynamicVersion
+  implementation "com.facebook.react:react-native:+"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:${getExtOrDefault('kotlinVersion')}"
 
   // Kakao
-  implementation "com.kakao.sdk:v2-user:${ReactNative.ext.getVersion("kakao", "sdk")}" // 카카오 로그인
-  implementation "com.kakao.sdk:v2-talk:${ReactNative.ext.getVersion("kakao", "sdk")}" // 친구, 메시지(카카오톡)
-  implementation "com.kakao.sdk:v2-story:${ReactNative.ext.getVersion("kakao", "sdk")}" // 카카오 스토리
+  def kakaoVersion = getExtOrDefault('kakaoSdkVersion')
+  implementation "com.kakao.sdk:v2-user:$kakaoVersion" // 카카오 로그인
+  implementation "com.kakao.sdk:v2-talk:$kakaoVersion" // 친구, 메시지(카카오톡)
+  implementation "com.kakao.sdk:v2-story:$kakaoVersion" // 카카오 스토리
 }
 
-ReactNative.shared.applyPackageVersion()
-ReactNative.shared.applyDefaultExcludes()
-ReactNative.module.applyAndroidVersions()
-ReactNative.module.applyReactNativeDependency("api")
 rootProject.allprojects {
   repositories {
     maven {
