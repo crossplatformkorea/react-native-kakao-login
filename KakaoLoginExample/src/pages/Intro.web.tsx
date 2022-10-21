@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { View } from 'react-native';
 import { login, getProfile as getKakaoProfile, logout, unlink, } from '@react-native-seoul/kakao-login';
 import ResultViewWeb from './ResultViewWeb';
+import {KakaoProfileWebType} from "@react-native-seoul/kakao-login/src";
 
 const RestApiKey = "aa0293e157b3b865a943deade9a3c1a8";
 const redirectUrl = "http://localhost:3000";
@@ -30,6 +31,7 @@ function Login() {
   const signOutWithKakao = async (tokenWeb: string): Promise<void> => {
     if (!tokenWeb) {
       //@ts-ignore
+      // eslint-disable-next-line no-alert
       alert("로그인을 먼저 진행해 주세요");
       return;
     }
@@ -39,7 +41,6 @@ function Login() {
       setState(message);
       setToken("");
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('signOut error', err);
     }
   };
@@ -47,11 +48,12 @@ function Login() {
   const getProfile = async (tokenWeb: string): Promise<void> => {
     if (!tokenWeb) {
       //@ts-ignore
+      // eslint-disable-next-line no-alert
       alert("로그인을 먼저 진행해 주세요");
       return;
     }
     try {
-      const data = await getKakaoProfile(tokenWeb);
+      const data = await getKakaoProfile(tokenWeb) as KakaoProfileWebType;
       setType("profile");
       setState(data.properties);
     }
@@ -63,6 +65,7 @@ function Login() {
   const unlinkKakao = async (tokenWeb: string): Promise<void> => {
     if (!tokenWeb) {
       //@ts-ignore
+      // eslint-disable-next-line no-alert
       alert("로그인을 먼저 진행해 주세요");
       return;
     }
@@ -72,7 +75,6 @@ function Login() {
       setState(message);
       setToken("");
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.error('signOut error', err);
     }
   };
