@@ -143,64 +143,18 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    </resources>
    ```
 
-4. kotlin을 프로젝트에서 해석가능하도록 설치해줍니다. `android/build.gradle` 파일에 아래 변경사항을 적용해주세요.
+4. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
 
-   ```diff
-   buildscript {
-     ext {
-         buildToolsVersion = "29.0.3"
-         minSdkVersion = 21
-         compileSdkVersion = 29
-         targetSdkVersion = 29
-   +     kotlinVersion = '1.3.41'
+5. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
-         ndkVersion = "20.1.5948944"
-     }
-     repositories {
-         google()
-         jcenter()
-     }
-     dependencies {
-         classpath("com.android.tools.build:gradle:4.1.0")
-   +     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-     }
-   ...
-   ```
-
-5. [공식문서-토큰관리](https://developers.kakao.com/docs/latest/ko/kakaologin/android#token-mgmt) 에서 참고할 수 있듯이 Android 카카오 SDK는 액세스 토큰을 자동 갱신해줍니다.
-
-6. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
-
-7. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
+6. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
 
    ```
    -keep class com.kakao.sdk.**.model.* { <fields>; }
    -keep class * extends com.google.gson.TypeAdapter
    ```
 
-8. 여러 라이브러리에서 동일한 버전의 SDK를 써야 하는 경우 프로젝트의 `/android/build.gradle` 파일에, 아래의 형태로 버전을 강제 지정할 수 있습니다.
-   ```groovy
-   project.ext {
-     set('react-native', [
-       versions: [
-         // Overriding Build/Android SDK Versions
-         android : [
-           minSdk    : 19,
-           targetSdk : 31,
-           compileSdk: 31,
-           buildTools: "30.0.3",
-           kotlin: "1.6.21"
-         ],
-         
-         // Overriding Library SDK Versions
-         kakao: [
-           // Override Kakao SDK Version
-           sdk   : "2.10.0",
-         ],
-       ],
-     ])
-   }
-   ```
+7. Gradle 및 카카오 SDK의 버전을 변경해야 하는 경우, [android/gradle.properties](./android/gradle.properties) 에 있는 항목들을 확인하고, Android gradle의 root project의 ext에 `RNKakaoLogins_` 를 제외한 버전을 명시해주세요.
 
 #### EXPO (EAS Build only, SDK 41 이상)
 

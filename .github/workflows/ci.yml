@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  check-lib-project:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,18 @@ jobs:
 
     - name: Build typescript & flow
       run: yarn build
+
+  check-example-project:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install modules
+      run: yarn
+
+    - name: Check linting
+      run: yarn lint
+
+    - name: Check typescript
+      run: yarn tsc
