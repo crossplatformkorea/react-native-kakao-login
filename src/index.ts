@@ -1,9 +1,9 @@
 import {NativeModules} from 'react-native';
-import {RNKakaoLoginModule} from './types';
+import {KakaoLoginModuleInterface} from './types';
 
 const {RNKakaoLogins} = NativeModules;
 
-const NativeKakaoLogins: RNKakaoLoginModule = {
+const NativeKakaoLogins: KakaoLoginModuleInterface = {
   login() {
     return RNKakaoLogins.login();
   },
@@ -30,3 +30,5 @@ export const logout = NativeKakaoLogins.logout;
 export const unlink = NativeKakaoLogins.unlink;
 export const getProfile = NativeKakaoLogins.getProfile;
 export const getAccessToken = NativeKakaoLogins.getAccessToken;
+
+export * from './types';

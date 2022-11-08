@@ -1,4 +1,4 @@
-export interface RNKakaoLoginModule {
+export interface KakaoLoginModuleInterface {
   login(): Promise<KakaoOAuthToken>;
   login(props: KaKaoLoginWebType): Promise<KakaoOAuthWebToken>;
 

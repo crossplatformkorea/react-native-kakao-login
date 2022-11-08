@@ -1,6 +1,6 @@
-import {KaKaoLoginWebType, RNKakaoLoginModule} from './types';
+import {KaKaoLoginWebType, KakaoLoginModuleInterface} from './types';
 
-const WebKakaoLogins: RNKakaoLoginModule = {
+const WebKakaoLogins: KakaoLoginModuleInterface = {
   login(props?: KaKaoLoginWebType) {
     if (!props) {
       throw new Error('Web parameters are not provided');
@@ -68,3 +68,5 @@ export const logout = WebKakaoLogins.logout;
 export const unlink = WebKakaoLogins.unlink;
 export const getProfile = WebKakaoLogins.getProfile;
 export const getAccessToken = WebKakaoLogins.getAccessToken;
+
+export * from './types';
