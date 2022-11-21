@@ -223,6 +223,14 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
     init {
         val kakaoAppKey = reactContext.resources.getString(
                 reactContext.resources.getIdentifier("kakao_app_key", "string", reactContext.packageName))
-        init(reactContext, kakaoAppKey)
+        val kakaoCustomSchemeId = reactContext.resources.getIdentifier(
+            "kakao_custom_scheme", "string", context.packageName
+        )
+        val kakaoCustomScheme = if (kakaoCustomSchemeId == 0) null else context.getString(kakaoCustomSchemeId)
+        init(
+            context = reactContext, 
+            appKey = kakaoAppKey,
+            customScheme = kakaoCustomScheme
+        )
     }
 }
