@@ -57,7 +57,28 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 카카오 로그인 > 설정하기](https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite)를 참고해주세요. 해당 가이드를 통해 카카오 개발자 페이지에서 본인의 어플리케이션을 생성해주세요.
 
-3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios-v1) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
+3. 아래의 `podfile 설정, URL Schemes 설정, 앱 키 등록하기` 등등의 설정을 해주세요. 기타 필요한 셋팅들은 [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios) 을 참고하여 프로젝트에 추가해줍니다.
+
+- **Podfile 설정 후 재빌드** <br/>
+Podfile에 `KakaoSDKCommon, KakaoSDKAuth, KakaoSDKUser` 등등의 모듈만 추가합니다.(5.2.4 기준)
+  ```
+  pod 'KakaoSDKCommon'  # 필수 요소를 담은 공통 모듈
+  pod 'KakaoSDKAuth'  # 사용자 인증
+  pod 'KakaoSDKUser'  # 카카오 로그인, 사용자 관리
+  ```
+  > [#328](https://github.com/react-native-seoul/react-native-kakao-login/pull/328) 부터 KaKaoSDK 전체가 아니라, 필요한 모듈만 설치되게끔 변경되었습니다.
+
+  커멘드창에서 재빌드 해줍니다.
+  ```
+    cd ios && pod install
+  ```
+
+- **URL Schemes 설정** <br>
+[Info] > [URL Types] > [URL Schemes] 항목에 네이티브 앱 키(Native App Key)를 kakao${NATIVE_APP_KEY} 형식으로 등록합니다.
+[공식문서 - URL Schemes 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios#set-up-url-schemes)
+
+- **앱 키 등록하기** <br/>
+  아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
 
    ```diff
     <key>CFBundleURLTypes</key>
