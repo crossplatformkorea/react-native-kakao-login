@@ -105,14 +105,20 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
    ```
 
-   React Native 0.60.x 부터 기본적으로 포함되는 디버깅 키의 해시는 다음과 같고 `../project/android/app`에 디버그용 키스토어가 존재합니다
+   React Native 0.60.x 부터 템플릿에 기본적으로 디버그 키스토어가 포함되어 있습니다. (`project/android/app`에 디버그 키스토어가 존재합니다.)<br/>
+   기본 디버그 키스토어의 key hash 는 `Xo8WBi6jzSxKDVR4drqm84yr9iU=` 를 사용하시면 됩니다.
 
-   ex: `Xo8WBi6jzSxKDVR4drqm84yr9iU=`
-
-   - React Native에서는 개발시 `android/app/debug.keystore`의 해시를 추가해주시면 됩니다.
-     ```
-     keytool -exportcert -alias androiddebugkey -keystore ~./android/app/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
-     ```
+   > 템플릿에서 기본 제공되는것 이외의 키스토어에서 key hash 를 추출하기 위해서는 아래의 명령어를 사용하세요
+   >
+   >**글로벌 debug keystore 에서 key hash 추출**
+   >```
+   >keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+   >```
+   >
+   >**특정 경로의 keystore 에서 key hash 추출**
+   >```
+   >keytool -exportcert -alias {my-app-key-alias} -keystore {your-key-path}/{my-app-key}.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+   >```
 
 2. Redirect URI 설정
 
