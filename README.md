@@ -111,7 +111,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
    - React Native에서는 개발시 `android/app/debug.keystore`의 해시를 추가해주시면 됩니다.
      ```
-     keytool -exportcert -alias androiddebugkey -keystore ~./android/app/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+     keytool -exportcert -alias androiddebugkey -keystore {your-project-root}/android/app/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
      ```
 
 2. Redirect URI 설정
