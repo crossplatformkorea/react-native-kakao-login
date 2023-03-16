@@ -1,11 +1,14 @@
 package com.dooboolab.kakaologins
 
+import android.util.Log
 import com.facebook.react.bridge.*
 import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
 import com.kakao.sdk.auth.TokenManagerProvider
+import com.kakao.sdk.user.model.ServiceTerms
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -141,6 +144,40 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             }
             promise.resolve("Successfully unlinked")
             null
+        }
+    }
+
+    @ReactMethod
+    private fun getServiceTerms(promise: Promise) {
+        // 동의한 약관 확인하기
+        UserApiClient.instance.serviceTerms { userServiceTerms, error ->
+            if (error != null) {
+                promise.reject("RNKakaoLogins", error.message, error)
+                return@serviceTerms
+            }
+            else if (userServiceTerms != null) {
+                val map = Arguments.createMap()
+                val list: List<ServiceTerms>? = userServiceTerms.allowedServiceTerms
+                val jsonObject = JSONObject()
+                val allowedServiceTerms: ArrayList<String> = ArrayList()
+                if (list != null) {
+                    for (item in list!!) {
+                        Log.d("allowedServiceTerms", item.tag);
+                        Log.d("allowedServiceTerms", item.agreedAt.toString());
+                        jsonObject.put("tag", item.tag);
+                        jsonObject.put("agreedAt", item.agreedAt.toString());
+                        allowedServiceTerms.add(jsonObject.toString())
+                    }
+                    Log.d("allowedServiceTerms", allowedServiceTerms.toString());
+                }else {
+                    promise.reject("RNKakaoLogins", "serviceTerms is null")
+                }
+                map.putString("user_id", userServiceTerms.userId.toString());
+                map.putString("allowedServiceTerms", allowedServiceTerms.toString());
+                promise.resolve(map)
+                return@serviceTerms
+            }
+            promise.reject("RNKakaoLogins", "serviceTerms is null")
         }
     }
 
