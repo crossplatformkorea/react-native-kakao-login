@@ -75,6 +75,8 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
     <string>1</string>
    + <key>KAKAO_APP_KEY</key>
    + <string>{카카오 네이티브앱 아이디를 적어주세요}</string>
+   + <key>KAKAO_APP_SCHEME</key> // 선택 사항 멀티 플랫폼 앱 구현 시에만 추가하면 됩니다
+   + <string>{카카오 앱 스킴을 적어주세요}</string> // 선택 사항 
    + <key>LSApplicationQueriesSchemes</key>
    + <array>
    +   <string>kakaokompassauth</string>
