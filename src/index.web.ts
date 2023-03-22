@@ -54,6 +54,15 @@ const WebKakaoLogins: KakaoLoginModuleInterface = {
       },
     }).then((res) => res.json());
   },
+  shippingAddresses(tokenWeb?: string) {
+    return fetch('https://kapi.kakao.com/v2/user/shipping_address', {
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${tokenWeb}`,
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    }).then((res) => res.json());
+  },
   async getAccessToken() {
     throw new Error('Web does not support `getAccessToken`');
   },
@@ -68,5 +77,6 @@ export const logout = WebKakaoLogins.logout;
 export const unlink = WebKakaoLogins.unlink;
 export const getProfile = WebKakaoLogins.getProfile;
 export const getAccessToken = WebKakaoLogins.getAccessToken;
+export const shippingAddresses = WebKakaoLogins.shippingAddresses;
 
 export * from './types';

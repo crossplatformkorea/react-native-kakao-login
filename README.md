@@ -111,11 +111,13 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    > 템플릿에서 기본 제공되는것 이외의 키스토어에서 key hash 를 추출하기 위해서는 아래의 명령어를 사용하세요
    >
    >**글로벌 debug keystore 에서 key hash 추출**
+>
    >```
    >keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
    >```
    >
    >**특정 경로의 keystore 에서 key hash 추출**
+>
    >```
    >keytool -exportcert -alias {my-app-key-alias} -keystore {your-key-path}/{my-app-key}.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
    >```
@@ -165,6 +167,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 #### EXPO (EAS Build only, SDK 41 이상)
 
 1. app.json 파일을 아래와 같이 수정합니다.
+
 ```
 {
   "expo": {
@@ -188,7 +191,6 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 2. EAS Build 이후 `expo start --dev-client`를 이용합니다.
 
 3. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요
-
 
 ## Methods
 
@@ -242,12 +244,11 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 1.RestApiKey랑 redirectUrl을 포함한 아래 링크로 href 링크를 열어서 code를 가져옵니다
 const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
 
-redirectUrl이 http://localhost:3000 일때 아래와같이 redirectUrl에 code파라미터가 붙은 url이 들어와집니다
+redirectUrl이 <http://localhost:3000> 일때 아래와같이 redirectUrl에 code파라미터가 붙은 url이 들어와집니다
 
-http://localhost:3000/?code=Ss32OM1_yUybn5dtEQ-XT8EZfV24BKC_GIeIvFPz7_wHorYXtij9JFQcMuGtGdzxQc3Vlwopb1UAAAGCizvuCw
+<http://localhost:3000/?code=Ss32OM1_yUybn5dtEQ-XT8EZfV24BKC_GIeIvFPz7_wHorYXtij9JFQcMuGtGdzxQc3Vlwopb1UAAAGCizvuCw>
 code= 뒤쪽부분을 split해서 토큰 발급시 필요한 code를 얻을 수 있습니다
 react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 같이 직접 넣어줘야 합니다
-
 
 ## Methods (Web)
 
@@ -256,6 +257,7 @@ react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 �
 | login                 |   restApiKeyWeb, redirectUrlWeb, codeWeb    |   Promise{KakaoOAuthWebToken} | 로그인                                                    |
 | loginWithKakaoAccount |       |      | 웹 지원 x |
 | getProfile            |    tokenWeb   |     Promise{KakaoProfile}     | 프로필 불러오기                                                                                                    |
+| shippingAddress       |    tokenWeb   |     Promise{KakaoShippingAddresses} | 배송지 정보 불러오기                                                                                                    |
 | logout                |    tokenWeb   |        Promise{string}        | 로그아웃                                                                                                           |
 | unlink                |   tokenWeb    |        Promise{string}        | 연결끊기                                                                                                           |
 | getAccessToken        |       |  | 웹 지원 x
