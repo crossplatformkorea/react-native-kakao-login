@@ -194,4 +194,39 @@ class RNKakaoLogins: NSObject {
             }
         }
     }
+
+    @objc(shippingAddresses:rejecter:)
+    func shippingAddresses(_ resolve: @escaping RCTPromiseResolveBlock,
+               rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        DispatchQueue.main.async {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
+
+            UserApi.shared.shippingAddresses() {(shippingAddresses, error) in
+                if let error = error {
+                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                }
+                else {
+                    resolve([
+                        "userId": shippingAddresses?.userId as Any,
+                        "needsAgreement": shippingAddresses?.needsAgreement as Any,
+                        "shippingAddresses": shippingAddresses?.shippingAddresses?.map { shippingAddress in [
+                            "id": shippingAddress.id as Any,
+                            "name": shippingAddress.name as Any,
+                            "isDefault": shippingAddress.isDefault as Any,
+                            "updatedAt": dateFormatter.string(from: shippingAddress.updatedAt!) as Any,
+                            "type": shippingAddress.type?.rawValue as Any,
+                            "baseAddress": shippingAddress.baseAddress as Any,
+                            "detailAddress": shippingAddress.detailAddress as Any,
+                            "receiverName": shippingAddress.receiverName as Any,
+                            "receiverPhoneNumber1": shippingAddress.receiverPhoneNumber1 as Any,
+                            "receiverPhoneNumber2": shippingAddress.receiverPhoneNumber2 as Any,
+                            "zoneNumber": shippingAddress.zoneNumber as Any,
+                            "zipCode": shippingAddress.zipCode as Any,
+                        ]} as Any,
+                    ])
+                }
+            }
+        }
+    }
 }
