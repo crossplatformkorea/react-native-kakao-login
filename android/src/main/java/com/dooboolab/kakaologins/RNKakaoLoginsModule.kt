@@ -5,6 +5,7 @@ import com.kakao.sdk.common.KakaoSdk.init
 import com.kakao.sdk.common.model.AuthError
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.sdk.user.model.User
+import com.kakao.sdk.user.model.UserShippingAddresses
 import com.kakao.sdk.auth.TokenManagerProvider
 import java.text.SimpleDateFormat
 import java.util.*
@@ -148,7 +149,7 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
     private fun getAccessToken(promise: Promise) {
         val accessToken = TokenManagerProvider.instance.manager.getToken()?.accessToken
 
-         UserApiClient.instance.accessTokenInfo { token, error: Throwable? ->
+        UserApiClient.instance.accessTokenInfo { token, error: Throwable? ->
             if (error != null) {
                 promise.reject("RNKakaoLogins", error.message, error)
                 return@accessTokenInfo
@@ -164,7 +165,7 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             }
 
             promise.reject("RNKakaoLogins", "Token is null")
-         }
+        }
     }
 
     private fun convertValue(`val`: Boolean?): Boolean {
@@ -216,19 +217,67 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
         }
     }
 
+    @ReactMethod
+    private fun shippingAddresses(promise: Promise) {
+        UserApiClient.instance.shippingAddresses { shippingAddresses: UserShippingAddresses?, error: Throwable? ->
+            if (error != null) {
+                promise.reject("RNKakaoLogins", error.message, error)
+                return@shippingAddresses
+            }
+
+            if (shippingAddresses != null) {
+                val map = Arguments.createMap()
+                map.putString("userId", shippingAddresses.userId.toString())
+                map.putBoolean("needsAgreement", convertValue(shippingAddresses.needsAgreement))
+
+                val array = Arguments.createArray()
+                shippingAddresses.shippingAddresses
+                    ?.map { shippingAddress ->
+                        Arguments.createMap().apply {
+                            putString("id", shippingAddress.id.toString())
+                            putString("name", shippingAddress.name.toString())
+                            putBoolean("isDefault", convertValue(shippingAddress.isDefault))
+                            putString("updatedAt", dateFormat(shippingAddress.updatedAt))
+                            putString("type", shippingAddress.type.toString())
+                            putString("baseAddress", shippingAddress.baseAddress.toString())
+                            putString("detailAddress", shippingAddress.detailAddress.toString())
+                            putString("receiverName", shippingAddress.receiverName.toString())
+                            putString(
+                                "receiverPhoneNumber1",
+                                shippingAddress.receiverPhoneNumber1.toString()
+                            )
+                            putString(
+                                "receiverPhoneNumber2",
+                                shippingAddress.receiverPhoneNumber2.toString()
+                            )
+                            putString("zoneNumber", shippingAddress.zoneNumber.toString())
+                            putString("zipCode", shippingAddress.zipCode.toString())
+                        }
+                    }
+                    ?.forEach(array::pushMap)
+                map.putArray("shippingAddresses", array)
+
+                promise.resolve(map)
+                return@shippingAddresses
+            }
+
+            promise.reject("RNKakaoLogins", "User is null")
+        }
+    }
+
     companion object {
         private const val TAG = "RNKakaoLoginModule"
     }
 
     init {
         val kakaoAppKey = reactContext.resources.getString(
-                reactContext.resources.getIdentifier("kakao_app_key", "string", reactContext.packageName))
+            reactContext.resources.getIdentifier("kakao_app_key", "string", reactContext.packageName))
         val kakaoCustomSchemeId = reactContext.resources.getIdentifier(
             "kakao_custom_scheme", "string", reactContext.packageName
         )
         val kakaoCustomScheme = if (kakaoCustomSchemeId == 0) null else reactContext.getString(kakaoCustomSchemeId)
         init(
-            context = reactContext, 
+            context = reactContext,
             appKey = kakaoAppKey,
             customScheme = kakaoCustomScheme
         )

@@ -22,6 +22,9 @@ const NativeKakaoLogins: KakaoLoginModuleInterface = {
   getAccessToken() {
     return RNKakaoLogins.getAccessToken();
   },
+  shippingAddresses() {
+    return RNKakaoLogins.shippingAddresses();
+  },
 };
 
 export const login = NativeKakaoLogins.login;
@@ -30,5 +33,6 @@ export const logout = NativeKakaoLogins.logout;
 export const unlink = NativeKakaoLogins.unlink;
 export const getProfile = NativeKakaoLogins.getProfile;
 export const getAccessToken = NativeKakaoLogins.getAccessToken;
+export const shippingAddresses = NativeKakaoLogins.shippingAddresses;
 
 export * from './types';

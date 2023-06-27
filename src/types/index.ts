@@ -14,6 +14,8 @@ export interface KakaoLoginModuleInterface {
   getAccessToken(): Promise<KakaoAccessTokenInfo>;
 
   loginWithKakaoAccount(): Promise<KakaoOAuthToken>;
+
+  shippingAddresses(): Promise<KakaoShippingAddresses>;
 }
 
 export type KakaoOAuthToken = {
@@ -80,4 +82,25 @@ export type KakaoProfileWebType = {
     profile_image: string;
     thumbnail_image: string;
   };
+};
+
+export type KakaoShippingAddresses = {
+  userId: string;
+  needsAgreement: boolean;
+  shippingAddresses: KakaoShippingAddress[];
+};
+
+export type KakaoShippingAddress = {
+  id: string;
+  name: string;
+  isDefault: boolean;
+  updatedAt: string;
+  type: string;
+  baseAddress: string;
+  detailAddress: string;
+  receiverName: string;
+  receiverPhoneNumber1: string;
+  receiverPhoneNumber2: string;
+  zoneNumber: string;
+  zipCode: string;
 };

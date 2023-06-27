@@ -113,11 +113,13 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
    > 템플릿에서 기본 제공되는것 이외의 키스토어에서 key hash 를 추출하기 위해서는 아래의 명령어를 사용하세요
    >
    >**글로벌 debug keystore 에서 key hash 추출**
+>
    >```
    >keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
    >```
    >
    >**특정 경로의 keystore 에서 key hash 추출**
+>
    >```
    >keytool -exportcert -alias {my-app-key-alias} -keystore {your-key-path}/{my-app-key}.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
    >```
@@ -167,6 +169,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 #### EXPO (EAS Build only, SDK 41 이상)
 
 1. app.json 파일을 아래와 같이 수정합니다.
+
 ```
 {
   "expo": {
@@ -191,7 +194,6 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 3. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요
 
-
 ## Methods
 
 | Func                  | Param |            Return             | Description                                                                                                        |
@@ -214,17 +216,41 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 | `refreshTokenExpiresAt?` |  ✓  |    ✓    |   `Date`   | 리프레쉬 토큰 만료 시간, 구버전 SDK로 이미 로그인이 되어있었다면 null이 반환될 수 있습니다. |
 | `scopes`                 |  ✓  |    ✓    | `string[]` |                                   사용자로 부터 받은 권한                                   |
 
+#### 배송지 가져오기 - `shippingAddresses` => `KakaoShippingAddresses`
+
+|                          | iOS | Android |    type    |  Description   |
+| ------------------------ | :-: | :-----: | :--------: | :------------: |
+| `userId`                 |  ✓  |    ✓    |  `string`  | 사용자 Id        |
+| `needsAgreement`         |  ✓  |    ✓    |  `boolean` | 배송지 제공에 대한 사용자의 동의 필요 여부 |
+| `shippingAddresses`      |  ✓  |    ✓    |  `Array`   |  사용자가 소유한 배송지 목록  |
+
+##### 배송지 정보 (KakaoShippingAddress)
+
+|                          | iOS | Android |    type    |  Description   |
+| ------------------------ | :-: | :-----: | :--------: | :------------: |
+| `id`                 |  ✓  |    ✓    |  `string`  | 배송지 아이디        |
+| `name`         |  ✓  |    ✓    |  `string` | 배송지명 |
+| `isDefault`      |  ✓  |    ✓    |  `boolean`   |  기본 배송지 여부  |
+| `updatedAt`         |  ✓  |    ✓    |  `Date` | 마지막 배송지정보 수정시각 |
+| `type`         |  ✓  |    ✓    |  `string` | 배송지 타입(Old, New) |
+| `baseAddress`         |  ✓  |    ✓    |  `string` | 주소 검색을 통해 자동으로 입력되는 기본 주소 |
+| `detailAddress`         |  ✓  |    ✓    |  `string` | 기본 주소에 추가하는 상세 주소 |
+| `receiverName`         |  ✓  |    ✓    |  `string` | 수령인 이름 |
+| `receiverPhoneNumber1`         |  ✓  |    ✓    |  `string` | 수령인 연락처 |
+| `receiverPhoneNumber2`         |  ✓  |    ✓    |  `string` | 수령인 추가 연락처 |
+| `zoneNumber`         |  ✓  |    ✓    |  `string` | 도로명 주소 우편번호. 배송지 타입이 NEW(도로명 주소)인 경우 반드시 존재함 |
+| `zipCode`         |  ✓  |    ✓    |  `string` | 지번 주소 우편번호. 배송지 타입이 OLD(지번 주소)여도 값이 없을 수 있음 |
+
 #### React-native-web
 
 1.RestApiKey랑 redirectUrl을 포함한 아래 링크로 href 링크를 열어서 code를 가져옵니다
 const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
 
-redirectUrl이 http://localhost:3000 일때 아래와같이 redirectUrl에 code파라미터가 붙은 url이 들어와집니다
+redirectUrl이 <http://localhost:3000> 일때 아래와같이 redirectUrl에 code파라미터가 붙은 url이 들어와집니다
 
-http://localhost:3000/?code=Ss32OM1_yUybn5dtEQ-XT8EZfV24BKC_GIeIvFPz7_wHorYXtij9JFQcMuGtGdzxQc3Vlwopb1UAAAGCizvuCw
+<http://localhost:3000/?code=Ss32OM1_yUybn5dtEQ-XT8EZfV24BKC_GIeIvFPz7_wHorYXtij9JFQcMuGtGdzxQc3Vlwopb1UAAAGCizvuCw>
 code= 뒤쪽부분을 split해서 토큰 발급시 필요한 code를 얻을 수 있습니다
 react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 같이 직접 넣어줘야 합니다
-
 
 ## Methods (Web)
 
@@ -233,6 +259,7 @@ react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 �
 | login                 |   restApiKeyWeb, redirectUrlWeb, codeWeb    |   Promise{KakaoOAuthWebToken} | 로그인                                                    |
 | loginWithKakaoAccount |       |      | 웹 지원 x |
 | getProfile            |    tokenWeb   |     Promise{KakaoProfile}     | 프로필 불러오기                                                                                                    |
+| shippingAddresses     |    tokenWeb   |     Promise{KakaoShippingAddresses} | 배송지 정보 불러오기                                                                                                    |
 | logout                |    tokenWeb   |        Promise{string}        | 로그아웃                                                                                                           |
 | unlink                |   tokenWeb    |        Promise{string}        | 연결끊기                                                                                                           |
 | getAccessToken        |       |  | 웹 지원 x
@@ -258,6 +285,12 @@ const getKakaoProfile = async (): Promise<void> => {
   const profile: KakaoProfile = await getProfile();
 
   setResult(JSON.stringify(profile));
+};
+
+const getKakaoShippingAddresses = async (): Promise<void> => {
+  const addresses: KakaoShippingAddresses = await shippingAddresses();
+
+  setResult(JSON.stringify(addresses));
 };
 
 const unlinkKakao = async (): Promise<void> => {
