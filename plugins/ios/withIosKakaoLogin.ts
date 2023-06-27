@@ -94,10 +94,8 @@ const modifyAppDelegate: ConfigPlugin = (config) => {
   const modifyContents = (contents: string): string => {
     if (!contents.includes(KAKAO_HEADER_IMPORT_STRING)) {
       contents = contents.replace(
-        '#if',
-        `
-      ${KAKAO_HEADER_IMPORT_STRING}
-      #if`,
+        '#import <React/RCTLinkingManager.h>',
+        '#import <React/RCTLinkingManager.h>\n' + KAKAO_HEADER_IMPORT_STRING,
       );
     }
 
