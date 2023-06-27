@@ -17,7 +17,12 @@ class RNKakaoLogins: NSObject {
 
     public override init() {
         let appKey: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
-        KakaoSDK.initSDK(appKey: appKey!)
+        let customScheme: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_SCHEME") as? String
+        if (customScheme != nil) {
+            KakaoSDK.initSDK(appKey: appKey!, customScheme: customScheme!)
+        } else {
+            KakaoSDK.initSDK(appKey: appKey!)
+        }
     }
 
     @objc
