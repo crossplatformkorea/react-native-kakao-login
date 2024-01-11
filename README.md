@@ -190,6 +190,8 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 } 
 ```
 
+SDK49 버전은 안드로이드 빌드 문제로 "kotlinVersion"을 `1.9.0`으로 설정해야합니다.
+
 2. EAS Build 이후 `expo start --dev-client`를 이용합니다.
 
 3. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요
