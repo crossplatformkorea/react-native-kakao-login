@@ -53,7 +53,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 #### iOS
 
-1. Pod에서 iOS deployment target이 `11.0` 이상이어야 합니다.
+1. Pod에서 iOS deployment target이 `13.0` 이상이어야 합니다.
 
 2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 카카오 로그인 > 설정하기](https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite)를 참고해주세요. 해당 가이드를 통해 카카오 개발자 페이지에서 본인의 어플리케이션을 생성해주세요.
 
