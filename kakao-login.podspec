@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   # optional - use expanded license entry instead:
   # s.license    = { :type => "MIT", :file => "LICENSE" }
   s.authors      = { "dooboolab" => "support@dooboolab.com" }
-  s.platforms    = { :ios => "11.0" }
+  s.platforms    = { :ios => "13.0" }
   s.framework     = 'UIKit'
   s.source       = { :git => "https://github.com/@react-native-seoul/react-native-kakao-login.git", :tag => "#{s.version}" }
 
