@@ -159,7 +159,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 6. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
 
-[공식 문서]([공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard))
+[공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)
 
 ```
 -keep class com.kakao.sdk.**.model.* { <fields>; }
