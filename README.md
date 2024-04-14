@@ -210,7 +210,7 @@ npx expo install expo-build-properties
 ```
 
 3. (Optional) Android에서 난독화를 사용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 이용해
-Proguard Rule을 [공식 문서]([공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard))와 같이 설정해줍니다.
+Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)와 같이 설정해줍니다.
 
 ## Methods
 
