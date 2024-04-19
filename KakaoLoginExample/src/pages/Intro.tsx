@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import { login, logout, getProfile as getKakaoProfile, shippingAddresses as getKakaoShippingAddresses, unlink } from '@react-native-seoul/kakao-login';
+import { login, logout, getProfile as getKakaoProfile, shippingAddresses as getKakaoShippingAddresses, serviceTerms as getKakaoServiceTerms, unlink } from '@react-native-seoul/kakao-login';
 import ResultView from './IntroView';
 
 const Intro = () => {
@@ -45,6 +45,16 @@ const Intro = () => {
     }
   };
 
+  const getServiceTerms = async (): Promise<void> => {
+    try {
+      const serviceTerms = await getKakaoServiceTerms();
+
+      setResult(JSON.stringify(serviceTerms));
+    } catch (err) {
+      console.error('serviceTerms error', err);
+    }
+  }
+
   const unlinkKakao = async (): Promise<void> => {
     try {
       const message = await unlink();
@@ -82,6 +92,14 @@ const Intro = () => {
       >
         <Text style={styles.text}>
           배송주소록 조회
+        </Text>
+      </Pressable>
+      <Pressable
+        style={styles.button}
+        onPress={() => getKakaoServiceTerms()}
+      >
+        <Text style={styles.text}>
+          서비스 약관 동의 내역 확인
         </Text>
       </Pressable>
       <Pressable

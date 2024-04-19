@@ -234,4 +234,49 @@ class RNKakaoLogins: NSObject {
             }
         }
     }
+
+    @objc(serviceTerms:rejecter:)
+    func serviceTerms(_ resolve: @escaping RCTPromiseResolveBlock,
+                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        DispatchQueue.main.async {
+            UserApi.shared.serviceTerms {(userServiceTerms, error) in
+                if let error = error {
+                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                }
+                else {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+                    var result: [String: Any] = [:]
+
+                    if let userId = userServiceTerms?.userId {
+                        result["userId"] = userId
+                    }
+
+                    if let allowedServiceTerms = userServiceTerms?.allowedServiceTerms {
+                        let formattedAllowedServiceTerms = allowedServiceTerms.map { serviceTerms in
+                            [
+                                "tag": serviceTerms.tag,
+                                "agreedAt": dateFormatter.string(from: serviceTerms.agreedAt)
+                            ]
+                        }
+                        result["allowedServiceTerms"] = formattedAllowedServiceTerms
+                    }
+
+                    if let appServiceTerms = userServiceTerms?.appServiceTerms {
+                        let formattedAppServiceTerms = appServiceTerms.map { appServiceTerms in
+                            [
+                                "tag": appServiceTerms.tag,
+                                "createdAt": dateFormatter.string(from: appServiceTerms.createdAt),
+                                "updatedAt": dateFormatter.string(from: appServiceTerms.updatedAt)
+                            ]
+                        }
+                        result["appServiceTerms"] = formattedAppServiceTerms
+                    }
+
+                    resolve(result)
+                }
+            }
+        }
+    }
 }

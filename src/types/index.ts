@@ -16,6 +16,8 @@ export interface KakaoLoginModuleInterface {
   loginWithKakaoAccount(): Promise<KakaoOAuthToken>;
 
   shippingAddresses(): Promise<KakaoShippingAddresses>;
+
+  serviceTerms(): Promise<KakaoServiceTerms>;
 }
 
 export type KakaoOAuthToken = {
@@ -103,4 +105,21 @@ export type KakaoShippingAddress = {
   receiverPhoneNumber2: string;
   zoneNumber: string;
   zipCode: string;
+};
+
+export declare type KakaoAllowedServiceTerms = {
+  tag: string;
+  agreedAt: string;
+}
+
+export declare type KakaoAppServiceTerms = {
+  tag: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export declare type KakaoServiceTerms = {
+  userId?: number;
+  allowedServiceTerms?: KakaoAllowedServiceTerms[];
+  appServiceTerms?: KakaoAppServiceTerms[];
 };

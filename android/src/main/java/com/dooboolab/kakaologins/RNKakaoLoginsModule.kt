@@ -265,6 +265,52 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
         }
     }
 
+    @ReactMethod
+    private fun serviceTerms(promise: Promise) {
+        UserApiClient.instance.serviceTerms { userServiceTerms, error ->
+            if (error != null) {
+                promise.reject("RNKakaoLogins", error.message, error)
+                return@serviceTerms
+            }
+
+            if (userServiceTerms != null) {
+                val map = Arguments.createMap()
+
+                userServiceTerms.userId?.toDouble()?.let { userId ->
+                    map.putDouble("userId", userId)
+                }
+
+                val allowedServiceTerms = Arguments.createArray()
+                userServiceTerms.allowedServiceTerms?.map {
+                    Arguments.createMap().apply {
+                        putString("tag", it.tag)
+                        putString("agreedAt", dateFormat(it.agreedAt))
+                    }
+                }?.forEach(allowedServiceTerms::pushMap)
+                if (allowedServiceTerms.size() > 0) {
+                  map.putArray("allowedServiceTerms", allowedServiceTerms)
+                }
+
+                val appServiceTerms = Arguments.createArray()
+                userServiceTerms.appServiceTerms?.map {
+                    Arguments.createMap().apply {
+                        putString("tag", it.tag)
+                        putString("createdAt", dateFormat(it.createdAt))
+                        putString("updatedAt", dateFormat(it.updatedAt))
+                    }
+                }?.forEach(appServiceTerms::pushMap)
+                if (appServiceTerms.size() > 0) {
+                  map.putArray("appServiceTerms", appServiceTerms)
+                }
+
+                promise.resolve(map)
+                return@serviceTerms
+            }
+
+            promise.reject("RNKakaoLogins", "serviceTerms is null")
+        }
+    }
+
     companion object {
         private const val TAG = "RNKakaoLoginModule"
     }
