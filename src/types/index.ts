@@ -110,13 +110,13 @@ export type KakaoShippingAddress = {
 export declare type KakaoAllowedServiceTerms = {
   tag: string;
   agreedAt: string;
-}
+};
 
 export declare type KakaoAppServiceTerms = {
   tag: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export declare type KakaoServiceTerms = {
   userId?: number;

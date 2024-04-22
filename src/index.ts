@@ -27,8 +27,7 @@ const NativeKakaoLogins: KakaoLoginModuleInterface = {
   },
   serviceTerms() {
     return RNKakaoLogins.serviceTerms();
-  
-  }
+  },
 };
 
 export const login = NativeKakaoLogins.login;
