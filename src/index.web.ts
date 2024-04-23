@@ -63,6 +63,15 @@ const WebKakaoLogins: KakaoLoginModuleInterface = {
       },
     }).then((res) => res.json());
   },
+  serviceTerms(tokenWeb?: string) {
+    return fetch('https://kapi.kakao.com/v2/user/service_terms', {
+      method: 'get',
+      headers: {
+        Authorization: `Bearer ${tokenWeb}`,
+        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    }).then((res) => res.json());
+  },
   async getAccessToken() {
     throw new Error('Web does not support `getAccessToken`');
   },
