@@ -276,31 +276,22 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             if (userServiceTerms != null) {
                 val map = Arguments.createMap()
 
-                userServiceTerms.userId?.toDouble()?.let { userId ->
-                    map.putDouble("userId", userId)
-                }
+                map.putDouble("userId", userServiceTerms.id.toDouble())
 
-                val allowedServiceTerms = Arguments.createArray()
-                userServiceTerms.allowedServiceTerms?.map {
+                val serviceTerms = Arguments.createArray()
+                userServiceTerms.serviceTerms?.map {
                     Arguments.createMap().apply {
                         putString("tag", it.tag)
-                        putString("agreedAt", dateFormat(it.agreedAt))
+                        putBoolean("agreed", it.agreed)
+                        putBoolean("required", it.required)
+                        putBoolean("revocable", it.revocable)
+                        it.agreedAt?.let { agreedAt ->
+                          putString("agreedAt", dateFormat(agreedAt))
+                        }
                     }
-                }?.forEach(allowedServiceTerms::pushMap)
-                if (allowedServiceTerms.size() > 0) {
-                  map.putArray("allowedServiceTerms", allowedServiceTerms)
-                }
-
-                val appServiceTerms = Arguments.createArray()
-                userServiceTerms.appServiceTerms?.map {
-                    Arguments.createMap().apply {
-                        putString("tag", it.tag)
-                        putString("createdAt", dateFormat(it.createdAt))
-                        putString("updatedAt", dateFormat(it.updatedAt))
-                    }
-                }?.forEach(appServiceTerms::pushMap)
-                if (appServiceTerms.size() > 0) {
-                  map.putArray("appServiceTerms", appServiceTerms)
+                }?.forEach(serviceTerms::pushMap)
+                if (serviceTerms.size() > 0) {
+                  map.putArray("serviceTerms", serviceTerms)
                 }
 
                 promise.resolve(map)

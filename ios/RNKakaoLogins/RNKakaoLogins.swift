@@ -249,29 +249,23 @@ class RNKakaoLogins: NSObject {
 
                     var result: [String: Any] = [:]
 
-                    if let userId = userServiceTerms?.userId {
-                        result["userId"] = userId
-                    }
+                    result["userId"] = userServiceTerms.id
 
-                    if let allowedServiceTerms = userServiceTerms?.allowedServiceTerms {
-                        let formattedAllowedServiceTerms = allowedServiceTerms.map { serviceTerms in
-                            [
-                                "tag": serviceTerms.tag,
-                                "agreedAt": dateFormatter.string(from: serviceTerms.agreedAt)
+                    if let serviceTerms = userServiceTerms?.serviceTerms {
+                        result["serviceTerms"] = serviceTerms.map {
+                            var terms = [
+                                "tag": $0.tag,
+                                "agreed": $0.agreed,
+                                "required": $0.required,
+                                "revocable": $0.revocable
                             ]
-                        }
-                        result["allowedServiceTerms"] = formattedAllowedServiceTerms
-                    }
 
-                    if let appServiceTerms = userServiceTerms?.appServiceTerms {
-                        let formattedAppServiceTerms = appServiceTerms.map { appServiceTerms in
-                            [
-                                "tag": appServiceTerms.tag,
-                                "createdAt": dateFormatter.string(from: appServiceTerms.createdAt),
-                                "updatedAt": dateFormatter.string(from: appServiceTerms.updatedAt)
-                            ]
+                            if let agreedAt = $0.agreedAt {
+                                terms["agreedAt"] = dateFormatter.string(from: agreedAt)
+                            }
+
+                            return terms
                         }
-                        result["appServiceTerms"] = formattedAppServiceTerms
                     }
 
                     resolve(result)

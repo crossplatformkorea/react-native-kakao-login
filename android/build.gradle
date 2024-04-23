@@ -54,7 +54,7 @@ dependencies {
   def kakaoVersion = getExtOrDefault('kakaoSdkVersion')
   implementation "com.kakao.sdk:v2-user:$kakaoVersion" // 카카오 로그인
   implementation "com.kakao.sdk:v2-talk:$kakaoVersion" // 친구, 메시지(카카오톡)
-  implementation "com.kakao.sdk:v2-story:$kakaoVersion" // 카카오 스토리
+  implementation "com.kakao.sdk:v2-story:2.17.0" // 카카오 스토리(지원 중단으로 버전 고정)
 }
 
 rootProject.allprojects {

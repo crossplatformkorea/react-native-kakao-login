@@ -96,7 +96,7 @@ const Intro = () => {
       </Pressable>
       <Pressable
         style={styles.button}
-        onPress={() => getKakaoServiceTerms()}
+        onPress={() => getServiceTerms()}
       >
         <Text style={styles.text}>
           서비스 약관 동의 내역 확인

@@ -87,5 +87,6 @@ export const unlink = WebKakaoLogins.unlink;
 export const getProfile = WebKakaoLogins.getProfile;
 export const getAccessToken = WebKakaoLogins.getAccessToken;
 export const shippingAddresses = WebKakaoLogins.shippingAddresses;
+export const serviceTerms = WebKakaoLogins.serviceTerms;
 
 export * from './types';
