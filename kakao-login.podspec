@@ -3,7 +3,7 @@
 require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
-kakao_sdk_version = "2.11.1"
+kakao_sdk_version = "2.22.0"
 
 Pod::Spec.new do |s|
   s.name         = "kakao-login"
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   # optional - use expanded license entry instead:
   # s.license    = { :type => "MIT", :file => "LICENSE" }
   s.authors      = { "dooboolab" => "support@dooboolab.com" }
-  s.platforms    = { :ios => "11.0" }
+  s.platforms    = { :ios => "13.0" }
   s.framework     = 'UIKit'
   s.source       = { :git => "https://github.com/@react-native-seoul/react-native-kakao-login.git", :tag => "#{s.version}" }
 
