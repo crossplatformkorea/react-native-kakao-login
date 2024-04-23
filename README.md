@@ -21,7 +21,7 @@ React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul
 
 [카카오 로그인 Example Project](https://github.com/react-native-seoul/react-native-kakao-login/tree/main/KakaoLoginExample) 데모 화면
 
-<img src="https://user-images.githubusercontent.com/27461460/111674724-a7989f00-885f-11eb-9e51-d146757ca836.gif" width="200">
+<img alt="example" src="https://user-images.githubusercontent.com/27461460/111674724-a7989f00-885f-11eb-9e51-d146757ca836.gif" width="200">
 
 > 위 프로젝트는 `KakaoLoginExample` 폴더에서 확인 가능합니다.
 
@@ -59,31 +59,31 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
 
-   ```diff
-    <key>CFBundleURLTypes</key>
-    <array>
-   + <dict>
-   +   <key>CFBundleTypeRole</key>
-   +   <string>Editor</string>
-   +   <key>CFBundleURLSchemes</key>
-   +   <array>
-   +     <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
-   +   </array>
-   + </dict>
-    </array>
-    <key>CFBundleVersion</key>
-    <string>1</string>
-   + <key>KAKAO_APP_KEY</key>
-   + <string>{카카오 네이티브앱 아이디를 적어주세요}</string>
-   + <key>KAKAO_APP_SCHEME</key> // 선택 사항 멀티 플랫폼 앱 구현 시에만 추가하면 됩니다
-   + <string>{카카오 앱 스킴을 적어주세요}</string> // 선택 사항 
-   + <key>LSApplicationQueriesSchemes</key>
-   + <array>
-   +   <string>kakaokompassauth</string>
-   +   <string>storykompassauth</string>
-   +   <string>kakaolink</string>
-   + </array>
-   ```
+```diff
+ <key>CFBundleURLTypes</key>
+ <array>
++ <dict>
++   <key>CFBundleTypeRole</key>
++   <string>Editor</string>
++   <key>CFBundleURLSchemes</key>
++   <array>
++     <string>kakao{카카오 네이티브앱 아이디를 적어주세요}</string>
++   </array>
++ </dict>
+ </array>
+ <key>CFBundleVersion</key>
+ <string>1</string>
++ <key>KAKAO_APP_KEY</key>
++ <string>{카카오 네이티브앱 아이디를 적어주세요}</string>
++ <key>KAKAO_APP_SCHEME</key> // 선택 사항 멀티 플랫폼 앱 구현 시에만 추가하면 됩니다
++ <string>{카카오 앱 스킴을 적어주세요}</string> // 선택 사항 
++ <key>LSApplicationQueriesSchemes</key>
++ <array>
++   <string>kakaokompassauth</string>
++   <string>storykompassauth</string>
++   <string>kakaolink</string>
++ </array>
+```
 
 4. `3.0.0` 버전부터는 swift 버전의 kakao sdk를 활용하므로 [Swift Bridging Header](https://stackoverflow.com/questions/31716413/xcode-not-automatically-creating-bridging-header)를 추가해야할 수 있습니다.
    <img width="800" alt="1" src="https://user-images.githubusercontent.com/27461460/111863065-8be6e300-899c-11eb-8ad8-6811e0bd0fbd.png">
@@ -159,16 +159,29 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 6. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
 
-   ```
-   -keep class com.kakao.sdk.**.model.* { <fields>; }
-   -keep class * extends com.google.gson.TypeAdapter
-   ```
+[공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)
+
+```
+-keep class com.kakao.sdk.**.model.* { <fields>; }
+-keep class * extends com.google.gson.TypeAdapter
+
+# https://github.com/square/okhttp/pull/6792
+-dontwarn org.bouncycastle.jsse.**
+-dontwarn org.conscrypt.*
+-dontwarn org.openjsse.**
+```
 
 7. Gradle 및 카카오 SDK의 버전을 변경해야 하는 경우, [android/gradle.properties](./android/gradle.properties) 에 있는 항목들을 확인하고, Android gradle의 root project의 ext에 `RNKakaoLogins_` 를 제외한 버전을 명시해주세요.
 
-#### EXPO (EAS Build only, SDK 41 이상)
+#### EXPO (Expo Go, Snack 사용 불가, Development Build(EAS, local build)만 가능)
 
-1. app.json 파일을 아래와 같이 수정합니다.
+1. Android의 Kakao SDK Maven Repository를 선언하기 위해 필요한 의존성을 추가합니다.
+
+```sh
+npx expo install expo-build-properties
+```
+
+2. app.json 파일을 아래와 같이 수정합니다.
 
 ```
 {
@@ -179,9 +192,17 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
       [
         "@react-native-seoul/kakao-login",
         {
-          "kakaoAppKey": "", // 필수
-          "overrideKakaoSDKVersion": "2.9.0", // Optional, 
-          "kotlinVersion": "1.5.10" // Android Only, Optional, Expo 내부 패키지들과의 충돌이 있어 테스트 결과 1.5.10은 문제가 없었습니다. 지정 안하면 1.5.10으로 설정됩니다.
+          "kakaoAppKey": "{{kakao api key}}",
+          "overrideKakaoSDKVersion": "2.11.2", // Optional, 
+          "kotlinVersion": "1.9.0" // #392
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "extraMavenRepos": ["https://devrepo.kakao.com/nexus/content/groups/public/"]
+          }
         }
       ]
     ],
@@ -190,11 +211,8 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 } 
 ```
 
-SDK49 버전은 안드로이드 빌드 문제로 "kotlinVersion"을 `1.9.0`으로 설정해야합니다.
-
-2. EAS Build 이후 `expo start --dev-client`를 이용합니다.
-
-3. (Optional) Android에서 proguard rules 등을 적용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 참고하세요
+3. (Optional) Android에서 난독화를 사용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 이용해
+Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)와 같이 설정해줍니다.
 
 ## Methods
 
