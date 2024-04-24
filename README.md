@@ -267,7 +267,7 @@ Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/and
 
 |                          | iOS | Android |    type    |  Description   |
 | ------------------------ | :-: | :-----: | :--------: | :------------: |
-| `userId`                 |  ✓  |    ✓    |  `number`  | 회원 번호 |
+| `userId`                 |  ✓  |    ✓    |  `number?`  | 회원 번호 |
 | `serviceTerms`           |  ✓  |    ✓    |  `KakaoServiceTerms[]?`| 조회한 서비스 약관 목록 |
 
 ##### 조회한 서비스 약관 목록 (KakaoServiceTerms)

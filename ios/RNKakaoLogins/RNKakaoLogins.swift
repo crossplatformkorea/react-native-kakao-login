@@ -249,7 +249,9 @@ class RNKakaoLogins: NSObject {
 
                     var result: [String: Any] = [:]
 
-                    result["userId"] = userServiceTerms.id
+                    if let useId = userServiceTerms?.id {
+                        result["userId"] = useId
+                    }
 
                     if let serviceTerms = userServiceTerms?.serviceTerms {
                         result["serviceTerms"] = serviceTerms.map {

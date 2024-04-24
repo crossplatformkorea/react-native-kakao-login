@@ -127,6 +127,6 @@ export declare type KakaoServiceTerms = {
 };
 
 export declare type KakaoUserServiceTerms = {
-  userId: number;
+  userId?: number;
   serviceTerms?: KakaoServiceTerms[];
 };
