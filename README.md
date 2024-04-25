@@ -261,30 +261,24 @@ Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/and
 | `zoneNumber`         |  ✓  |    ✓    |  `string` | 도로명 주소 우편번호. 배송지 타입이 NEW(도로명 주소)인 경우 반드시 존재함 |
 | `zipCode`         |  ✓  |    ✓    |  `string` | 지번 주소 우편번호. 배송지 타입이 OLD(지번 주소)여도 값이 없을 수 있음 |
 
-#### 서비스 약관 동의 내역 확인하기 -> `serviceTerms` => `KakaoServiceTerms`
+#### 서비스 약관 동의 내역 확인하기 -> `serviceTerms` => `KakaoUserServiceTerms`
 
 > [카카오싱크](https://developers.kakao.com/docs/latest/ko/kakaosync/common#intro)를 도입한 서비스만 사용할 수 있는 기능입니다.
 
 |                          | iOS | Android |    type    |  Description   |
 | ------------------------ | :-: | :-----: | :--------: | :------------: |
-| `userId`                 |  ✓  |    ✓    |  `string?`  | 사용자 Id |
-| `allowedServiceTerms`    |  ✓  |    ✓    |  `KakaoAllowedServiceTerms[]?`| 사용자가 동의한 3rd의 약관 목록 |
-| `appServiceTerms`        |  ✓  |    ✓    |  `KakaoAppServiceTerms[]?` |  앱에 사용 설정된 서비스 약관 목록  |
+| `userId`                 |  ✓  |    ✓    |  `number?`  | 회원 번호 |
+| `serviceTerms`           |  ✓  |    ✓    |  `KakaoServiceTerms[]?`| 조회한 서비스 약관 목록 |
 
-##### 사용자가 동의한 서비스 약관 (KakaoAllowedServiceTerms)
-
-|                          | iOS | Android |    type    |  Description   |
-| ------------------------ | :-: | :-----: | :--------: | :------------: |
-| `tag`                    |  ✓  |    ✓    |  `string`  | 3rd에서 동의한 약관의 항목들을 정의한 값 |
-| `agreedAt`               |  ✓  |    ✓    |  `string`  | 동의한 시간. 약관이 여러번 뜨는 구조라면, 마지막으로 동의한 시간 |
-
-##### 앱에 사용 설정된 서비스 약관 (KakaoAppServiceTerms)
+##### 조회한 서비스 약관 목록 (KakaoServiceTerms)
 
 |                          | iOS | Android |    type    |  Description   |
 | ------------------------ | :-: | :-----: | :--------: | :------------: |
 | `tag`                    |  ✓  |    ✓    |  `string`  | 3rd에서 동의한 약관의 항목들을 정의한 값 |
-| `createAt`               |  ✓  |    ✓    |  `string`  | 약관을 생성한 시간 |
-| `updatedAt`              |  ✓  |    ✓    |  `string`  | 약관을 수정한 시간 |
+| `agreed`                 |  ✓  |    ✓    |  `boolean` | 동의 여부 |
+| `agreedAt`               |  ✓  |    ✓    |  `string?` | 최근 동의 시각 |
+| `required`               |  ✓  |    ✓    |  `boolean` | 필수 동의 여부 |
+| `revocable`              |  ✓  |    ✓    |  `boolean` | 철회 가능 여부 |
 
 #### React-native-web
 
@@ -339,7 +333,7 @@ const getKakaoShippingAddresses = async (): Promise<void> => {
 };
 
 const getKakaoServiceTerms = async (): Promise<void> => {
-  const serviceTerms: KakaoServiceTerms = await serviceTerms();
+  const serviceTerms: KakaoUserServiceTerms = await serviceTerms();
 
   setResult(JSON.stringify(serviceTerms))
 }
