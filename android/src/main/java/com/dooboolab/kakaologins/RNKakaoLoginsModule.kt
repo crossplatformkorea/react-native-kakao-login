@@ -89,7 +89,7 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
 
     @ReactMethod
     private fun loginWithKakaoAccount(scopes: Array<String>, promise: Promise) {
-        UserApiClient.instance.loginWithNewScopes(reactContext, scopes) { token, error: Throwable? ->
+        UserApiClient.instance.loginWithNewScopes(reactContext, scopes.toList()) { token, error: Throwable? ->
             if (error != null) {
                 promise.reject("RNKakaoLogins", error.message, error)
                 return@loginWithNewScopes
