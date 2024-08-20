@@ -15,7 +15,7 @@
     "react": "18.1.0",
     "react-native": "0.70.1",
     "@types/styled-components": "^5.1.26",
-    "axios": "^1.6.0",
+    "axios": "^1.7.4",
     "query-string": "^7.1.1",
     "react-dom": "^18.2.0",
     "react-native-web": "^0.18.6",
