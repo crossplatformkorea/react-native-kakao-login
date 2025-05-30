@@ -193,8 +193,7 @@ npx expo install expo-build-properties
         "@react-native-seoul/kakao-login",
         {
           "kakaoAppKey": "{{kakao api key}}",
-          "overrideKakaoSDKVersion": "2.11.2", // Optional, 
-          "kotlinVersion": "1.9.0" // #392
+          "overrideKakaoSDKVersion": "2.11.2", // Optional,
         }
       ],
       [

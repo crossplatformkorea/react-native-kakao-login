@@ -1,11 +1,10 @@
-import {withAndroidKakaoLogin} from './android/withAndroidKakaoLogin';
-import {withIosKakaoLogin} from './ios/withIosKakaoLogin';
-import {ConfigPlugin, createRunOncePlugin} from '@expo/config-plugins';
+import { ConfigPlugin, createRunOncePlugin } from '@expo/config-plugins';
+import { withAndroidKakaoLogin } from './android/withAndroidKakaoLogin';
+import { withIosKakaoLogin } from './ios/withIosKakaoLogin';
 
 export interface KakaoLoginPluginProps {
   kakaoAppKey: string;
   overrideKakaoSDKVersion?: string;
-  kotlinVersion?: string;
 }
 
 const withExpoConfigPlugins: ConfigPlugin<KakaoLoginPluginProps> = (
