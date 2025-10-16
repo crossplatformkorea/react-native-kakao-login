@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import {
-  ConfigPlugin,
-  WarningAggregator,
+  type ConfigPlugin,
   withAppDelegate,
   withInfoPlist,
   withXcodeProject,
 } from '@expo/config-plugins';
-import {KakaoLoginPluginProps} from '..';
+import {insertContentsInsideSwiftFunctionBlock} from '@expo/config-plugins/build/ios/codeMod';
+import type {KakaoLoginPluginProps} from '..';
 import {readFile, writeFile} from 'node:fs';
 
 const KAKAO_SCHEMES = ['kakaokompassauth', 'storykompassauth', 'kakaolink'];
@@ -16,6 +16,11 @@ const KAKAO_HEADER_IMPORT_STRING = '#import <RNKakaoLogins.h>';
 const KAKAO_LINKING_STRING = `if([RNKakaoLogins isKakaoTalkLoginUrl:url]) {
   return [RNKakaoLogins handleOpenUrl: url];
 }`;
+
+const SWIFT_KAKAO_HEADER_IMPORT_STRING = 'import kakao_login';
+
+const SWIFT_KAKAO_LINKING_STRING =
+  'if kakao_login.RNKakaoLogins.isKakaoTalkLoginUrl(url) { return kakao_login.RNKakaoLogins.handleOpen(url) }';
 
 const KAKAO_SDK_VERSION_STRING = '$KakaoSDKVersion';
 
@@ -95,7 +100,7 @@ const modifyAppDelegate: ConfigPlugin = (config) => {
     if (!contents.includes(KAKAO_HEADER_IMPORT_STRING)) {
       contents = contents.replace(
         '#import <React/RCTLinkingManager.h>',
-        '#import <React/RCTLinkingManager.h>\n' + KAKAO_HEADER_IMPORT_STRING,
+        `#import <React/RCTLinkingManager.h>\n${KAKAO_HEADER_IMPORT_STRING}`,
       );
     }
 
@@ -110,13 +115,32 @@ const modifyAppDelegate: ConfigPlugin = (config) => {
     return contents;
   };
 
+  const modifySwiftContents = (contents: string): string => {
+    if (!contents.includes(SWIFT_KAKAO_HEADER_IMPORT_STRING)) {
+      contents = contents.replace(
+        'import Expo',
+        `import Expo\n${SWIFT_KAKAO_HEADER_IMPORT_STRING}`,
+      );
+    }
+
+    if (!contents.includes(SWIFT_KAKAO_LINKING_STRING)) {
+      contents = insertContentsInsideSwiftFunctionBlock(
+        contents,
+        'application(_:open:options:)',
+        SWIFT_KAKAO_LINKING_STRING,
+        {position: 'head'},
+      );
+    }
+
+    return contents;
+  };
+
   return withAppDelegate(config, (props) => {
     if (['objc', 'objcpp'].includes(props.modResults.language)) {
       props.modResults.contents = modifyContents(props.modResults.contents);
     } else {
-      WarningAggregator.addWarningIOS(
-        'withFacebook',
-        'Swift AppDelegate files are not supported yet.',
+      props.modResults.contents = modifySwiftContents(
+        props.modResults.contents,
       );
     }
 
