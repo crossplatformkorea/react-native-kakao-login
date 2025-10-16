@@ -2,12 +2,11 @@ import {
   AndroidConfig,
   ConfigPlugin,
   withAndroidManifest,
-  withStringsXml,
-  withGradleProperties,
   withProjectBuildGradle,
+  withStringsXml
 } from '@expo/config-plugins';
-import {ManifestActivity} from '@expo/config-plugins/build/android/Manifest';
-import {KakaoLoginPluginProps} from '..';
+import { ManifestActivity } from '@expo/config-plugins/build/android/Manifest';
+import { KakaoLoginPluginProps } from '..';
 
 const ACTIVITY_NAME = 'com.kakao.sdk.auth.AuthCodeHandlerActivity';
 
@@ -89,38 +88,6 @@ const modifyProjectBuildGradle: ConfigPlugin<KakaoLoginPluginProps> = (
   config,
   props,
 ) => {
-  config = withGradleProperties(config, (config) => {
-    AndroidConfig.BuildProperties.updateAndroidBuildProperty(
-      config.modResults,
-      'android.kotlinVersion',
-      props.kotlinVersion ?? '1.5.10',
-    );
-
-    return config;
-  });
-
-  config = withProjectBuildGradle(config, (config) => {
-    if (
-      !config.modResults.contents.includes(
-        'org.jetbrains.kotlin:kotlin-gradle-plugin:',
-      )
-    ) {
-      // config.modResults.contents = config.modResults.contents.replace(
-      //   `buildToolsVersion = "29.0.3"`,
-      //   `buildToolsVersion = "30.0.0"`
-      // );
-      config.modResults.contents = config.modResults.contents.replace(
-        /dependencies\s?{/,
-        `dependencies {
-          classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:${
-            props.kotlinVersion ?? '1.5.10'
-          }'`,
-      );
-    }
-
-    return config;
-  });
-
   if (props.overrideKakaoSDKVersion) {
     config = withProjectBuildGradle(config, (config) => {
       const regex = /project.ext {.*\n.*set\('react-native', \[\n.*\]\)\n.*\}/s;
