@@ -46,14 +46,17 @@ class RNKakaoLogins: NSObject {
         return AuthController.handleOpenUrl(url: url)
     }
 
-    @objc(login:rejecter:)
-    func login(_ resolve: @escaping RCTPromiseResolveBlock,
+    @objc(login:resolver:rejecter:)
+    func login(_ nonce: String?,
+                resolver resolve: @escaping RCTPromiseResolveBlock,
                 rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         DispatchQueue.main.async {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
-
-            if (UserApi.isKakaoTalkLoginAvailable()) {
+            
+            // If nonce is provided, use loginWithKakaoAccount (supports OpenID Connect)
+            // Otherwise, try KakaoTalk login first, then fallback to KakaoAccount
+            if (UserApi.isKakaoTalkLoginAvailable() && (nonce == nil || nonce!.isEmpty)) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     if let error = error {
                         reject("RNKakaoLogins", error.localizedDescription, nil)
@@ -70,7 +73,8 @@ class RNKakaoLogins: NSObject {
                     }
                 }
             } else {
-                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                // Use loginWithKakaoAccount for OpenID Connect support (nonce)
+                UserApi.shared.loginWithKakaoAccount(prompts: nil, loginHint: nil, nonce: nonce) {(oauthToken, error) in
                     if let error = error {
                         reject("RNKakaoLogins", error.localizedDescription, nil)
                     }
@@ -89,13 +93,16 @@ class RNKakaoLogins: NSObject {
         }
     }
 
-    @objc(loginWithKakaoAccount:rejecter:)
-    func loginWithKakaoAccount(_ resolve: @escaping RCTPromiseResolveBlock,
-                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+    @objc(loginWithKakaoAccount:resolver:rejecter:)
+    func loginWithKakaoAccount(_ nonce: String?,
+                                resolver resolve: @escaping RCTPromiseResolveBlock,
+                                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
         DispatchQueue.main.async {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
-            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            // Use loginWithKakaoAccount for OpenID Connect support (nonce)
+            UserApi.shared.loginWithKakaoAccount(prompts: nil, loginHint: nil, nonce: nonce) {(oauthToken, error) in
                 if let error = error {
                     reject("RNKakaoLogins", error.localizedDescription, nil)
                 }
