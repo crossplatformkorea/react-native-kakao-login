@@ -22,9 +22,9 @@ export interface KakaoLoginModuleInterface {
   serviceTerms(): Promise<KakaoUserServiceTerms>;
 }
 
-export type KakaoLoginOptions ={
+export type KakaoLoginOptions = {
   nonce?: string;
-}
+};
 
 export type KakaoOAuthToken = {
   accessToken: string;

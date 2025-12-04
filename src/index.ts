@@ -1,5 +1,9 @@
 import {NativeModules} from 'react-native';
-import {KakaoLoginModuleInterface, KakaoLoginOptions, KaKaoLoginWebType} from './types';
+import {
+  KakaoLoginModuleInterface,
+  KakaoLoginOptions,
+  KaKaoLoginWebType,
+} from './types';
 
 const {RNKakaoLogins} = NativeModules;
 
@@ -8,16 +12,16 @@ const NativeKakaoLogins: KakaoLoginModuleInterface = {
     if (!props) {
       return RNKakaoLogins.login(null);
     }
-    
+
     const kakaoLoginOptions = props as KakaoLoginOptions;
-    
+
     return RNKakaoLogins.login(kakaoLoginOptions.nonce || null);
   },
   loginWithKakaoAccount(props?: KakaoLoginOptions) {
     if (!props) {
       return RNKakaoLogins.loginWithKakaoAccount(null);
     }
-    
+
     return RNKakaoLogins.loginWithKakaoAccount(props.nonce || null);
   },
   logout() {
