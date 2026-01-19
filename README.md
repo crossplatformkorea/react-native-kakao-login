@@ -57,7 +57,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 2. ios 카카오 sdk 설치 후의 설정과 관련해서는 [공식문서 - 카카오 로그인 > 설정하기](https://developers.kakao.com/docs/latest/ko/kakaologin/prerequisite)를 참고해주세요. 해당 가이드를 통해 카카오 개발자 페이지에서 본인의 어플리케이션을 생성해주세요.
 
-3. [공식문서 - 개발 프로젝트 설정](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-ios) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
+3. [공식문서 - iOS > 시작하기](https://developers.kakao.com/docs/latest/ko/ios/getting-started#project) 을 참고하여 `info.plist`, `URL Types` 및 커스텀 스킴 추가 등 기타 필요한 세팅들을 프로젝트에 추가해줍니다. 아래`카카오 네이티브앱 아이디를 적어주세요` 문구를 잘 확인하시여 본인의 Kakao App Key로 변경해주세요.
 
 ```diff
  <key>CFBundleURLTypes</key>
@@ -76,7 +76,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 + <key>KAKAO_APP_KEY</key>
 + <string>{카카오 네이티브앱 아이디를 적어주세요}</string>
 + <key>KAKAO_APP_SCHEME</key> // 선택 사항 멀티 플랫폼 앱 구현 시에만 추가하면 됩니다
-+ <string>{카카오 앱 스킴을 적어주세요}</string> // 선택 사항 
++ <string>{카카오 앱 스킴을 적어주세요}</string> // 선택 사항
 + <key>LSApplicationQueriesSchemes</key>
 + <array>
 +   <string>kakaokompassauth</string>
@@ -101,7 +101,7 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 #### Android
 
-1. [키 해시 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android#add-key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
+1. [키 해시 등록](https://developers.kakao.com/docs/latest/ko/android/getting-started#before-you-begin-add-key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
 
    ```
    AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
@@ -112,20 +112,19 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
    > 템플릿에서 기본 제공되는것 이외의 키스토어에서 key hash 를 추출하기 위해서는 아래의 명령어를 사용하세요
    >
-   >**글로벌 debug keystore 에서 key hash 추출**
->
-   >```
-   >keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
-   >```
+   > **글로벌 debug keystore 에서 key hash 추출**
    >
-   >**특정 경로의 keystore 에서 key hash 추출**
->
-   >```
-   >keytool -exportcert -alias {my-app-key-alias} -keystore {your-key-path}/{my-app-key}.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
-   >```
+   > ```
+   > keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+   > ```
+   >
+   > **특정 경로의 keystore 에서 key hash 추출**
+   >
+   > ```
+   > keytool -exportcert -alias {my-app-key-alias} -keystore {your-key-path}/{my-app-key}.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+   > ```
 
 2. Redirect URI 설정
-
    - 카카오 로그인 기능을 구현하기 위해서는 리다이렉션(Redirection)을 통해 [Request Code](https://developers.kakao.com/docs/latest/ko/kakaologin/android)를 받아야 합니다. 그러기 위해서는 아래 코드를 `AndroidManifest.xml`에 추가해주세요. 그리고 `카카오 네이티브 앱 key를 입력해주세요` 텍스트를 본인의 카카오 네이티브 키로 변경해주시면 됩니다. (Android 12(API 31) 이상을 타깃으로 하는 앱인 경우, `exported` 요소를 반드시 "true"로 선언해야 합니다.)
 
      ```xml
@@ -193,7 +192,7 @@ npx expo install expo-build-properties
         "@react-native-seoul/kakao-login",
         {
           "kakaoAppKey": "{{kakao api key}}",
-          "overrideKakaoSDKVersion": "2.11.2", // Optional, 
+          "overrideKakaoSDKVersion": "2.11.2", // Optional,
           "kotlinVersion": "1.9.0" // #392
         }
       ],
@@ -208,11 +207,11 @@ npx expo install expo-build-properties
     ],
     ...
   }
-} 
+}
 ```
 
 3. (Optional) Android에서 난독화를 사용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 이용해
-Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)와 같이 설정해줍니다.
+   Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)와 같이 설정해줍니다.
 
 ## Methods
 
@@ -238,47 +237,47 @@ Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/and
 
 #### 배송지 가져오기 - `shippingAddresses` => `KakaoShippingAddresses`
 
-|                          | iOS | Android |    type    |  Description   |
-| ------------------------ | :-: | :-----: | :--------: | :------------: |
-| `userId`                 |  ✓  |    ✓    |  `string`  | 사용자 Id        |
-| `needsAgreement`         |  ✓  |    ✓    |  `boolean` | 배송지 제공에 대한 사용자의 동의 필요 여부 |
-| `shippingAddresses`      |  ✓  |    ✓    |  `Array`   |  사용자가 소유한 배송지 목록  |
+|                     | iOS | Android |   type    |                Description                 |
+| ------------------- | :-: | :-----: | :-------: | :----------------------------------------: |
+| `userId`            |  ✓  |    ✓    | `string`  |                 사용자 Id                  |
+| `needsAgreement`    |  ✓  |    ✓    | `boolean` | 배송지 제공에 대한 사용자의 동의 필요 여부 |
+| `shippingAddresses` |  ✓  |    ✓    |  `Array`  |        사용자가 소유한 배송지 목록         |
 
 ##### 배송지 정보 (KakaoShippingAddress)
 
-|                          | iOS | Android |    type    |  Description   |
-| ------------------------ | :-: | :-----: | :--------: | :------------: |
-| `id`                 |  ✓  |    ✓    |  `string`  | 배송지 아이디        |
-| `name`         |  ✓  |    ✓    |  `string` | 배송지명 |
-| `isDefault`      |  ✓  |    ✓    |  `boolean`   |  기본 배송지 여부  |
-| `updatedAt`         |  ✓  |    ✓    |  `Date` | 마지막 배송지정보 수정시각 |
-| `type`         |  ✓  |    ✓    |  `string` | 배송지 타입(Old, New) |
-| `baseAddress`         |  ✓  |    ✓    |  `string` | 주소 검색을 통해 자동으로 입력되는 기본 주소 |
-| `detailAddress`         |  ✓  |    ✓    |  `string` | 기본 주소에 추가하는 상세 주소 |
-| `receiverName`         |  ✓  |    ✓    |  `string` | 수령인 이름 |
-| `receiverPhoneNumber1`         |  ✓  |    ✓    |  `string` | 수령인 연락처 |
-| `receiverPhoneNumber2`         |  ✓  |    ✓    |  `string` | 수령인 추가 연락처 |
-| `zoneNumber`         |  ✓  |    ✓    |  `string` | 도로명 주소 우편번호. 배송지 타입이 NEW(도로명 주소)인 경우 반드시 존재함 |
-| `zipCode`         |  ✓  |    ✓    |  `string` | 지번 주소 우편번호. 배송지 타입이 OLD(지번 주소)여도 값이 없을 수 있음 |
+|                        | iOS | Android |   type    |                                Description                                |
+| ---------------------- | :-: | :-----: | :-------: | :-----------------------------------------------------------------------: |
+| `id`                   |  ✓  |    ✓    | `string`  |                               배송지 아이디                               |
+| `name`                 |  ✓  |    ✓    | `string`  |                                 배송지명                                  |
+| `isDefault`            |  ✓  |    ✓    | `boolean` |                             기본 배송지 여부                              |
+| `updatedAt`            |  ✓  |    ✓    |  `Date`   |                        마지막 배송지정보 수정시각                         |
+| `type`                 |  ✓  |    ✓    | `string`  |                           배송지 타입(Old, New)                           |
+| `baseAddress`          |  ✓  |    ✓    | `string`  |               주소 검색을 통해 자동으로 입력되는 기본 주소                |
+| `detailAddress`        |  ✓  |    ✓    | `string`  |                      기본 주소에 추가하는 상세 주소                       |
+| `receiverName`         |  ✓  |    ✓    | `string`  |                                수령인 이름                                |
+| `receiverPhoneNumber1` |  ✓  |    ✓    | `string`  |                               수령인 연락처                               |
+| `receiverPhoneNumber2` |  ✓  |    ✓    | `string`  |                            수령인 추가 연락처                             |
+| `zoneNumber`           |  ✓  |    ✓    | `string`  | 도로명 주소 우편번호. 배송지 타입이 NEW(도로명 주소)인 경우 반드시 존재함 |
+| `zipCode`              |  ✓  |    ✓    | `string`  |  지번 주소 우편번호. 배송지 타입이 OLD(지번 주소)여도 값이 없을 수 있음   |
 
 #### 서비스 약관 동의 내역 확인하기 -> `serviceTerms` => `KakaoUserServiceTerms`
 
 > [카카오싱크](https://developers.kakao.com/docs/latest/ko/kakaosync/common#intro)를 도입한 서비스만 사용할 수 있는 기능입니다.
 
-|                          | iOS | Android |    type    |  Description   |
-| ------------------------ | :-: | :-----: | :--------: | :------------: |
-| `userId`                 |  ✓  |    ✓    |  `number?`  | 회원 번호 |
-| `serviceTerms`           |  ✓  |    ✓    |  `KakaoServiceTerms[]?`| 조회한 서비스 약관 목록 |
+|                | iOS | Android |          type          |       Description       |
+| -------------- | :-: | :-----: | :--------------------: | :---------------------: |
+| `userId`       |  ✓  |    ✓    |       `number?`        |        회원 번호        |
+| `serviceTerms` |  ✓  |    ✓    | `KakaoServiceTerms[]?` | 조회한 서비스 약관 목록 |
 
 ##### 조회한 서비스 약관 목록 (KakaoServiceTerms)
 
-|                          | iOS | Android |    type    |  Description   |
-| ------------------------ | :-: | :-----: | :--------: | :------------: |
-| `tag`                    |  ✓  |    ✓    |  `string`  | 3rd에서 동의한 약관의 항목들을 정의한 값 |
-| `agreed`                 |  ✓  |    ✓    |  `boolean` | 동의 여부 |
-| `agreedAt`               |  ✓  |    ✓    |  `string?` | 최근 동의 시각 |
-| `required`               |  ✓  |    ✓    |  `boolean` | 필수 동의 여부 |
-| `revocable`              |  ✓  |    ✓    |  `boolean` | 철회 가능 여부 |
+|             | iOS | Android |   type    |               Description                |
+| ----------- | :-: | :-----: | :-------: | :--------------------------------------: |
+| `tag`       |  ✓  |    ✓    | `string`  | 3rd에서 동의한 약관의 항목들을 정의한 값 |
+| `agreed`    |  ✓  |    ✓    | `boolean` |                동의 여부                 |
+| `agreedAt`  |  ✓  |    ✓    | `string?` |              최근 동의 시각              |
+| `required`  |  ✓  |    ✓    | `boolean` |              필수 동의 여부              |
+| `revocable` |  ✓  |    ✓    | `boolean` |              철회 가능 여부              |
 
 #### React-native-web
 
@@ -293,15 +292,15 @@ react-native-web에서는 app과 다르게 restApikey, redirecturl을 code와 �
 
 ## Methods (Web)
 
-| Func                  | Param |            Return             | Description                                                                                                        |
-| :-------------------- | :---: | :---------------------------: | :----------------------------------------------------------------------------------------------------------------- |
-| login                 |   restApiKeyWeb, redirectUrlWeb, codeWeb    |   Promise{KakaoOAuthWebToken} | 로그인                                                    |
-| loginWithKakaoAccount |       |      | 웹 지원 x |
-| getProfile            |    tokenWeb   |     Promise{KakaoProfile}     | 프로필 불러오기                                                                                                    |
-| shippingAddresses     |    tokenWeb   |     Promise{KakaoShippingAddresses} | 배송지 정보 불러오기                                                                                                    |
-| logout                |    tokenWeb   |        Promise{string}        | 로그아웃                                                                                                           |
-| unlink                |   tokenWeb    |        Promise{string}        | 연결끊기                                                                                                           |
-| getAccessToken        |       |  | 웹 지원 x
+| Func                  |                 Param                  |             Return              | Description          |
+| :-------------------- | :------------------------------------: | :-----------------------------: | :------------------- |
+| login                 | restApiKeyWeb, redirectUrlWeb, codeWeb |   Promise{KakaoOAuthWebToken}   | 로그인               |
+| loginWithKakaoAccount |                                        |                                 | 웹 지원 x            |
+| getProfile            |                tokenWeb                |      Promise{KakaoProfile}      | 프로필 불러오기      |
+| shippingAddresses     |                tokenWeb                | Promise{KakaoShippingAddresses} | 배송지 정보 불러오기 |
+| logout                |                tokenWeb                |         Promise{string}         | 로그아웃             |
+| unlink                |                tokenWeb                |         Promise{string}         | 연결끊기             |
+| getAccessToken        |                                        |                                 | 웹 지원 x            |
 
 ## Usage
 
