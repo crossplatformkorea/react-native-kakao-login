@@ -39,7 +39,7 @@ React Native 카카오 로그인 라이브러리 입니다. `@react-native-seoul
 
 ## Installation
 
-```
+```bash
 yarn add @react-native-seoul/kakao-login
 ```
 
