@@ -217,8 +217,10 @@ npx expo install expo-build-properties
 #### React Native For Web
 
 1. `restApiKey`와 `redirectUrl`을 사용하여 인증 URL을 생성하고 `code`를 발급받습니다.
-   ```javascript
+
+```javascript
    const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${restApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
+```
 
 ## Methods
 
