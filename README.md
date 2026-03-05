@@ -94,35 +94,35 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 7. 여러 라이브러리에서 동일한 버전의 SDK를 써야 하는 경우 `Podfile`에 아래와 같이 추가하여 SDK 버전을 강제로 지정할 수 있습니다.
 
-   ```ruby
-   # 없는 경우에는 package.json의 sdkVersions.ios.kakao를 따릅니다.
-   $KakaoSDKVersion=YOUR_KAKAO_SDK_VERSION
-   ```
+```ruby
+ # 없는 경우에는 package.json의 sdkVersions.ios.kakao를 따릅니다.
+ $KakaoSDKVersion=YOUR_KAKAO_SDK_VERSION
+```
 
 #### Android
 
 1. [키 해시 등록](https://developers.kakao.com/docs/latest/ko/getting-started/sdk-android#add-key-hash)을 진행해주세요. 자바 코드로 구하는 방법이 제일 확실합니다.
 
-   ```
-   AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
-   ```
+```
+ AUTHORIZATION_FAILED: invalid android_key_hash or ios_bundle_id or web_site_url
+```
 
-   React Native 0.60.x 부터 템플릿에 기본적으로 디버그 키스토어가 포함되어 있습니다. (`project/android/app`에 디버그 키스토어가 존재합니다.)<br/>
-   기본 디버그 키스토어의 key hash 는 `Xo8WBi6jzSxKDVR4drqm84yr9iU=` 를 사용하시면 됩니다.
+React Native 0.60.x 부터 템플릿에 기본적으로 디버그 키스토어가 포함되어 있습니다. (`project/android/app`에 디버그 키스토어가 존재합니다.)<br/>
+기본 디버그 키스토어의 key hash 는 `Xo8WBi6jzSxKDVR4drqm84yr9iU=` 를 사용하시면 됩니다.
 
-   > 템플릿에서 기본 제공되는것 이외의 키스토어에서 key hash 를 추출하기 위해서는 아래의 명령어를 사용하세요
-   >
-   > **글로벌 debug keystore 에서 key hash 추출**
-   >
-   > ```
-   > keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
-   > ```
-   >
-   > **특정 경로의 keystore 에서 key hash 추출**
-   >
-   > ```
-   > keytool -exportcert -alias {my-app-key-alias} -keystore {your-key-path}/{my-app-key}.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
-   > ```
+> 템플릿에서 기본 제공되는것 이외의 키스토어에서 key hash 를 추출하기 위해서는 아래의 명령어를 사용하세요
+>
+> **글로벌 debug keystore 에서 key hash 추출**
+>
+> ```
+> keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+> ```
+>
+> **특정 경로의 keystore 에서 key hash 추출**
+>
+> ```
+> keytool -exportcert -alias {my-app-key-alias} -keystore {your-key-path}/{my-app-key}.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+> ```
 
 2. Redirect URI 설정
 
@@ -193,7 +193,7 @@ npx expo install expo-build-properties
         "@react-native-seoul/kakao-login",
         {
           "kakaoAppKey": "{{kakao api key}}",
-          "overrideKakaoSDKVersion": "2.11.2", // Optional,
+          "overrideKakaoSDKVersion": "2.11.2", // Optional
           "kotlinVersion": "1.9.0" // #392
         }
       ],
