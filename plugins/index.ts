@@ -5,7 +5,6 @@ import {ConfigPlugin, createRunOncePlugin} from '@expo/config-plugins';
 export interface KakaoLoginPluginProps {
   kakaoAppKey: string;
   overrideKakaoSDKVersion?: string;
-  kotlinVersion?: string;
 }
 
 const withExpoConfigPlugins: ConfigPlugin<KakaoLoginPluginProps> = (
