@@ -99,6 +99,24 @@ class RNKakaoLogins: NSObject {
         }
     }
 
+    /// Whether a failed KakaoTalk hand-off should be retried on the web.
+    ///
+    /// Everything except an outright cancel is worth retrying: KakaoTalk being
+    /// installed says nothing about whether an account is signed in there, and
+    /// the web flow can still complete the login. A cancel is the user's answer,
+    /// so re-opening a login screen would ignore them.
+    private static func shouldFallBackToAccountLogin(_ error: Error) -> Bool {
+        guard let sdkError = error as? SdkError, sdkError.isClientFailed else {
+            return true
+        }
+
+        if case .Cancelled = sdkError.getClientError().reason {
+            return false
+        }
+
+        return true
+    }
+
     @objc(isKakaoTalkLoginUrl:)
     public static func isKakaoTalkLoginUrl(url:URL) -> Bool {
 
@@ -125,11 +143,23 @@ class RNKakaoLogins: NSObject {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
             
-            // If nonce is provided, use loginWithKakaoAccount (supports OpenID Connect)
-            // Otherwise, try KakaoTalk login first, then fallback to KakaoAccount
-            if (UserApi.isKakaoTalkLoginAvailable() && (nonce == nil || nonce!.isEmpty)) {
-                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+            // Prefer the KakaoTalk hand-off whenever the app is installed. This
+            // used to be skipped entirely once a `nonce` was passed, on the
+            // assumption that only the web flow could carry one — but
+            // `loginWithKakaoTalk` takes a `nonce` too, so asking for OpenID
+            // Connect silently cost every iOS user the app hand-off.
+            if (UserApi.isKakaoTalkLoginAvailable()) {
+                UserApi.shared.loginWithKakaoTalk(nonce: nonce) {(oauthToken, error) in
                     if let error = error {
+                        // KakaoTalk is installed but cannot finish the login —
+                        // most often because no account is signed in there. The
+                        // SDK's own guidance is to retry on the web, except when
+                        // the user backed out, which must stay a rejection.
+                        if RNKakaoLogins.shouldFallBackToAccountLogin(error) {
+                            self.loginWithKakaoAccount(nonce, resolver: resolve, rejecter: reject)
+                            return
+                        }
+
                         reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                     }
                     else {

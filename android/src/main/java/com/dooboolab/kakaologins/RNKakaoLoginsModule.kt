@@ -46,7 +46,11 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                 UserApiClient.instance.loginWithKakaoTalk(it, nonce = nonce) { token, error: Throwable? ->
                     if (error != null) {
                         if (error is AuthError && error.statusCode == 302) {
-                            this.loginWithKakaoAccount(null, promise)
+                            // Same reason as above: this fallback used to pass
+                            // `null`, so a caller that asked for a nonce got a
+                            // token without one whenever KakaoTalk bounced the
+                            // login back — the one case the caller cannot see.
+                            this.loginWithKakaoAccount(nonce, promise)
                             return@loginWithKakaoTalk
                         }
                         promise.reject("RNKakaoLogins", error.message, error)
