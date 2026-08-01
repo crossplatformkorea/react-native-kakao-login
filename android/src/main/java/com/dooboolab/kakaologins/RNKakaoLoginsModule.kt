@@ -38,7 +38,12 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
             }
 
             activity.let {
-                UserApiClient.instance.loginWithKakaoTalk(it) { token, error: Throwable? ->
+                // `nonce` has to be forwarded here. Dropping it produced an
+                // idToken with no `nonce` claim whenever KakaoTalk was installed,
+                // so server-side OIDC verification failed on exactly the devices
+                // where it normally succeeds — while iOS, which routes a
+                // nonce-bearing login to the Kakao Account flow, kept working.
+                UserApiClient.instance.loginWithKakaoTalk(it, nonce = nonce) { token, error: Throwable? ->
                     if (error != null) {
                         if (error is AuthError && error.statusCode == 302) {
                             this.loginWithKakaoAccount(null, promise)
