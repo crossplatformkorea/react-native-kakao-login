@@ -21,13 +21,13 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
     }
 
     @ReactMethod
-    private fun login(promise: Promise) {
+    private fun login(nonce: String?, promise: Promise) {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(reactContext)) {
             reactContext.currentActivity?.let {
                 UserApiClient.instance.loginWithKakaoTalk(it) { token, error: Throwable? ->
                     if (error != null) {
                         if (error is AuthError && error.statusCode == 302) {
-                            this.loginWithKakaoAccount(promise)
+                            this.loginWithKakaoAccount(null, promise)
                             return@loginWithKakaoTalk
                         }
                         promise.reject("RNKakaoLogins", error.message, error)
@@ -57,38 +57,83 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
                 }
             }
         } else {
-            UserApiClient.instance.loginWithKakaoAccount(reactContext) { token, error: Throwable? ->
-                if (error != null) {
-                    promise.reject("RNKakaoLogins", error.message, error)
-                    return@loginWithKakaoAccount
-                }
-
-                if (token != null) {
-                    val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, idToken, scopes) = token
-                    val map = Arguments.createMap()
-                    map.putString("accessToken", accessToken)
-                    map.putString("refreshToken", refreshToken)
-                    map.putString("idToken", idToken)
-                    map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
-                    map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
-                    val scopeArray = Arguments.createArray()
-                    if (scopes != null) {
-                        for (scope in scopes) {
-                            scopeArray.pushString(scope)
-                        }
+            // If nonce is provided, use loginWithKakaoAccount (supports OpenID Connect)
+            if (!nonce.isNullOrEmpty()) {
+                this.loginWithKakaoAccount(nonce, promise)
+            } else {
+                UserApiClient.instance.loginWithKakaoAccount(reactContext) { token, error: Throwable? ->
+                    if (error != null) {
+                        promise.reject("RNKakaoLogins", error.message, error)
+                        return@loginWithKakaoAccount
                     }
-                    map.putArray("scopes", scopeArray)
-                    promise.resolve(map)
-                    return@loginWithKakaoAccount
-                }
 
-                promise.reject("RNKakaoLogins", "Token is null")
+                    if (token != null) {
+                        val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, idToken, scopes) = token
+                        val map = Arguments.createMap()
+                        map.putString("accessToken", accessToken)
+                        map.putString("refreshToken", refreshToken)
+                        map.putString("idToken", idToken)
+                        map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
+                        map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
+                        val scopeArray = Arguments.createArray()
+                        if (scopes != null) {
+                            for (scope in scopes) {
+                                scopeArray.pushString(scope)
+                            }
+                        }
+                        map.putArray("scopes", scopeArray)
+                        promise.resolve(map)
+                        return@loginWithKakaoAccount
+                    }
+
+                    promise.reject("RNKakaoLogins", "Token is null")
+                }
             }
         }
     }
 
     @ReactMethod
-    private fun loginWithKakaoAccount(promise: Promise) {
+    private fun loginWithKakaoAccount(nonce: String?, promise: Promise) {
+        // Use loginWithKakaoAccount for OpenID Connect support (nonce)
+        if (!nonce.isNullOrEmpty()) {
+            UserApiClient.instance.loginWithKakaoAccount(
+                reactContext,
+                null, // prompts: List<Prompt>?
+                null, // loginHint: String?
+                nonce, // nonce: String?
+                null, // channelPublicIds: List<String>?
+                null  // serviceTerms: List<String>?
+            ) { token, error: Throwable? ->
+                if (error != null) {
+                    promise.reject("RNKakaoLogins", error.message, error)
+                    return@loginWithKakaoAccount
+                }
+
+                if (token == null) {
+                    promise.reject("RNKakaoLogins", "Token is null")
+                    return@loginWithKakaoAccount
+                }
+
+                val (accessToken, accessTokenExpiresAt, refreshToken, refreshTokenExpiresAt, idToken, tokenScopes) = token
+                val map = Arguments.createMap()
+                map.putString("accessToken", accessToken)
+                map.putString("refreshToken", refreshToken)
+                map.putString("idToken", idToken)
+                map.putString("accessTokenExpiresAt", dateFormat(accessTokenExpiresAt))
+                map.putString("refreshTokenExpiresAt", dateFormat(refreshTokenExpiresAt))
+                val scopeArray = Arguments.createArray()
+                if (tokenScopes != null) {
+                    for (scope in tokenScopes) {
+                        scopeArray.pushString(scope)
+                    }
+                }
+                map.putArray("scopes", scopeArray)
+                promise.resolve(map)
+                return@loginWithKakaoAccount
+            }
+            return
+        }
+        
         UserApiClient.instance.loginWithKakaoAccount(reactContext) { token, error: Throwable? ->
             if (error != null) {
                 promise.reject("RNKakaoLogins", error.message, error)

@@ -1,12 +1,16 @@
-import {KaKaoLoginWebType, KakaoLoginModuleInterface} from './types';
+import {
+  KaKaoLoginWebType,
+  KakaoLoginModuleInterface,
+  KakaoLoginOptions,
+} from './types';
 
 const WebKakaoLogins: KakaoLoginModuleInterface = {
-  login(props?: KaKaoLoginWebType) {
+  login(props?: KaKaoLoginWebType | KakaoLoginOptions) {
     if (!props) {
       throw new Error('Web parameters are not provided');
     }
 
-    const {restApiKeyWeb, redirectUrlWeb, codeWeb} = props;
+    const {restApiKeyWeb, redirectUrlWeb, codeWeb} = props as KaKaoLoginWebType;
 
     if (!restApiKeyWeb || !redirectUrlWeb || !codeWeb) {
       throw new Error('Web parameters are not provided');
