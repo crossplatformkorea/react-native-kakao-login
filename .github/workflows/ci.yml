@@ -11,28 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+        cache: 'yarn'
 
     - name: Install modules
-      run: yarn
+      run: yarn install --frozen-lockfile
 
-    - name: Check linting
-      run: yarn lint
+    - name: Lint & typecheck
+      run: yarn validate
 
     - name: Build typescript & flow
       run: yarn build
-
-  check-example-project:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Install modules
-      run: yarn
-
-    - name: Check linting
-      run: yarn lint
-
-    - name: Check typescript
-      run: yarn tsc
