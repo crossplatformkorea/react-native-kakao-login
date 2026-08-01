@@ -23,7 +23,21 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
     @ReactMethod
     private fun login(nonce: String?, promise: Promise) {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(reactContext)) {
-            reactContext.currentActivity?.let {
+            val activity = reactContext.currentActivity
+
+            if (activity == null) {
+                // The KakaoTalk login intent needs an Activity to launch from.
+                // Bailing out silently here used to leave the JS promise pending
+                // forever, which surfaces as "login() never resolves and never
+                // throws". Reject instead so the caller can react.
+                promise.reject(
+                    "RNKakaoLogins",
+                    "Current activity is null. Call login() while the app is in the foreground."
+                )
+                return
+            }
+
+            activity.let {
                 UserApiClient.instance.loginWithKakaoTalk(it) { token, error: Throwable? ->
                     if (error != null) {
                         if (error is AuthError && error.statusCode == 302) {
@@ -349,8 +363,20 @@ class RNKakaoLoginsModule(private val reactContext: ReactApplicationContext) : R
     }
 
     init {
-        val kakaoAppKey = reactContext.resources.getString(
-            reactContext.resources.getIdentifier("kakao_app_key", "string", reactContext.packageName))
+        val kakaoAppKeyId = reactContext.resources.getIdentifier(
+            "kakao_app_key", "string", reactContext.packageName
+        )
+        // getIdentifier() returns 0 when the resource is missing, and
+        // getString(0) then throws a bare Resources$NotFoundException that says
+        // nothing about Kakao. Fail with an actionable message instead.
+        check(kakaoAppKeyId != 0) {
+            "RNKakaoLogins: string resource `kakao_app_key` not found. " +
+                "Add <string name=\"kakao_app_key\">{NATIVE_APP_KEY}</string> to " +
+                "android/app/src/main/res/values/strings.xml, or pass `kakaoAppKey` " +
+                "to the Expo config plugin. " +
+                "https://github.com/crossplatformkorea/react-native-kakao-login#android"
+        }
+        val kakaoAppKey = reactContext.resources.getString(kakaoAppKeyId)
         val kakaoCustomSchemeId = reactContext.resources.getIdentifier(
             "kakao_custom_scheme", "string", reactContext.packageName
         )
