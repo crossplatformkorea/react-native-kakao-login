@@ -9,7 +9,18 @@ buildscript {
   }
 
   dependencies {
-    classpath "com.android.tools.build:gradle:${getExtOrDefault('gradleVersion')}"
+    // Only pull in the Android Gradle Plugin when this library is built on its
+    // own. Every consuming app necessarily supplies AGP from its own root
+    // build.gradle, so declaring a second version here can only cause conflicts.
+    if (project == rootProject) {
+      classpath "com.android.tools.build:gradle:${getExtOrDefault('gradleVersion')}"
+    }
+
+    // The Kotlin plugin stays unconditional. Older consumer projects do not
+    // always declare it at the root, and this classpath entry has been supplying
+    // it for them. When the root does declare it, the root class loader wins and
+    // the version below is ignored, which is why the previous 1.7.10 pin never
+    // held consumers back.
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion')}"
   }
 }
@@ -18,7 +29,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-  compileSdkVersion getExtOrDefault('compileSdkVersion').toInteger()
+  namespace 'com.dooboolab.kakaologins'
+  compileSdk getExtOrDefault('compileSdkVersion').toInteger()
 
   defaultConfig {
     minSdkVersion getExtOrDefault('minSdkVersion').toInteger()
@@ -31,12 +43,15 @@ android {
       minifyEnabled false
     }
   }
-  lintOptions {
+  lint {
     disable 'GradleCompatible'
   }
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_17
+    targetCompatibility JavaVersion.VERSION_17
+  }
+  kotlinOptions {
+    jvmTarget = '17'
   }
 }
 
@@ -50,17 +65,22 @@ dependencies {
   implementation "com.facebook.react:react-native:+"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:${getExtOrDefault('kotlinVersion')}"
 
-  // Kakao
+  // Kakao. Only the modules this library actually imports are declared:
+  // `com.kakao.sdk.{common,auth,user}`. v2-talk / v2-story were dropped — no
+  // source references them, and v2-story was pinned to 2.17.0 (discontinued),
+  // which clashes with the 2.24.x line. Mirrors the iOS podspec, which depends
+  // on KakaoSDKCommon / KakaoSDKAuth / KakaoSDKUser only.
   def kakaoVersion = getExtOrDefault('kakaoSdkVersion')
-  implementation "com.kakao.sdk:v2-user:$kakaoVersion" // 카카오 로그인
-  implementation "com.kakao.sdk:v2-auth:$kakaoVersion" // 카카오 인증 (OAuthTokenRequest 포함)
-  implementation "com.kakao.sdk:v2-talk:$kakaoVersion" // 친구, 메시지(카카오톡)
-  implementation "com.kakao.sdk:v2-story:2.17.0" // 카카오 스토리(지원 중단으로 버전 고정)
+  implementation "com.kakao.sdk:v2-common:$kakaoVersion"
+  implementation "com.kakao.sdk:v2-auth:$kakaoVersion"   // OAuthTokenRequest (OIDC nonce)
+  implementation "com.kakao.sdk:v2-user:$kakaoVersion"   // 카카오 로그인
 }
 
 rootProject.allprojects {
   repositories {
     maven {
+      // The Kakao SDK is not published to Maven Central, so consuming apps need
+      // this repository to resolve com.kakao.sdk artifacts.
       url 'https://devrepo.kakao.com/nexus/content/groups/public/'
     }
   }

@@ -3,7 +3,10 @@
 require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
-kakao_sdk_version = "2.22.0"
+# Newest version Kakao publishes to the CocoaPods trunk. Their iOS releases past
+# 2.22.7 (2.23.x, 2.24.x) ship as Swift Package Manager tags only and have no
+# podspec, so this cannot be raised to match the Android SDK version.
+kakao_sdk_version = "2.22.7"
 
 Pod::Spec.new do |s|
   s.name         = "kakao-login"
