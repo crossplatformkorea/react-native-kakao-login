@@ -21,8 +21,8 @@ class RNKakaoLogins: NSObject {
         // `appKey!` used to force-unwrap here, so an app that installed the pod
         // without adding `KAKAO_APP_KEY` to Info.plist crashed the moment React
         // Native instantiated this module — at launch, with no usable message.
-        // Log and skip initialization instead; the Kakao SDK then reports
-        // `SdkError.ClientFailed(.MustInitAppKey)` from the first API call.
+        // Log and skip initialization instead; `ensureInitialized` below then
+        // turns the first API call into a rejection the caller can catch.
         guard let appKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String,
               !appKey.isEmpty else {
             NSLog("""
@@ -44,6 +44,33 @@ class RNKakaoLogins: NSObject {
     @objc
     static func requiresMainQueueSetup() -> Bool {
       return true
+    }
+
+    /// Rejects and returns `true` when the Kakao SDK has no app key yet.
+    ///
+    /// The SDK force-unwraps its own app key deep inside the login paths —
+    /// `AuthController.makeParametersForTalk` does `try! KakaoSDK.shared.appKey()`,
+    /// `_authorizeWithAuthenticationSession` does `try! KakaoSDK.shared.scheme()`,
+    /// and `UserApi+Internal` does both. So an app that never initialized the SDK
+    /// does not get an error back from `login()`, it traps. Check up front and
+    /// reject with the reason instead.
+    ///
+    /// This asks the SDK itself rather than tracking what `init()` above did, so
+    /// apps that call `KakaoSDK.initSDK` from their own `AppDelegate` — and
+    /// therefore have no `KAKAO_APP_KEY` in Info.plist — still pass.
+    private static func ensureInitialized(_ reject: RCTPromiseRejectBlock) -> Bool {
+        if (try? KakaoSDK.shared.appKey()) != nil {
+            return true
+        }
+
+        reject(
+            "RNKakaoLogins",
+            "ClientFailed(MustInitAppKey): the Kakao SDK was never initialized. "
+                + "Add `KAKAO_APP_KEY` (your native app key) to Info.plist, or call "
+                + "`KakaoSDK.initSDK(appKey:)` yourself before using this module.",
+            SdkError(reason: .MustInitAppKey)
+        )
+        return false
     }
 
     /// Turns a Kakao SDK error into a message that says what actually happened.
@@ -92,6 +119,8 @@ class RNKakaoLogins: NSObject {
     func login(_ nonce: String?,
                 resolver resolve: @escaping RCTPromiseResolveBlock,
                 rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
@@ -139,6 +168,8 @@ class RNKakaoLogins: NSObject {
     func loginWithKakaoAccount(_ nonce: String?,
                                 resolver resolve: @escaping RCTPromiseResolveBlock,
                                 rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -165,6 +196,8 @@ class RNKakaoLogins: NSObject {
     @objc(logout:rejecter:)
     func logout(_ resolve: @escaping RCTPromiseResolveBlock,
                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             UserApi.shared.logout {(error) in
                 if let error = error {
@@ -180,6 +213,8 @@ class RNKakaoLogins: NSObject {
     @objc(unlink:rejecter:)
     func unlink(_ resolve: @escaping RCTPromiseResolveBlock,
                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             UserApi.shared.unlink {(error) in
                 if let error = error {
@@ -195,6 +230,8 @@ class RNKakaoLogins: NSObject {
     @objc(getAccessToken:rejecter:)
     func getAccessToken(_ resolve: @escaping RCTPromiseResolveBlock,
                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             UserApi.shared.accessTokenInfo {(accessTokenInfo, error) in
                 if let error = error {
@@ -213,6 +250,8 @@ class RNKakaoLogins: NSObject {
     @objc(getProfile:rejecter:)
     func getProfile(_ resolve: @escaping RCTPromiseResolveBlock,
                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             UserApi.shared.me() {(user, error) in
                 if let error = error {
@@ -252,6 +291,8 @@ class RNKakaoLogins: NSObject {
     @objc(shippingAddresses:rejecter:)
     func shippingAddresses(_ resolve: @escaping RCTPromiseResolveBlock,
                rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
@@ -287,6 +328,8 @@ class RNKakaoLogins: NSObject {
     @objc(serviceTerms:rejecter:)
     func serviceTerms(_ resolve: @escaping RCTPromiseResolveBlock,
                 rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+        guard RNKakaoLogins.ensureInitialized(reject) else { return }
+
         DispatchQueue.main.async {
             UserApi.shared.serviceTerms {(userServiceTerms, error) in
                 if let error = error {
