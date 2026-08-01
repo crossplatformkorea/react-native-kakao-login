@@ -16,18 +16,60 @@ import KakaoSDKUser
 class RNKakaoLogins: NSObject {
 
     public override init() {
-        let appKey: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String
-        let customScheme: String? = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_SCHEME") as? String
-        if (customScheme != nil) {
-            KakaoSDK.initSDK(appKey: appKey!, customScheme: customScheme!)
+        super.init()
+
+        // `appKey!` used to force-unwrap here, so an app that installed the pod
+        // without adding `KAKAO_APP_KEY` to Info.plist crashed the moment React
+        // Native instantiated this module — at launch, with no usable message.
+        // Log and skip initialization instead; the Kakao SDK then reports
+        // `SdkError.ClientFailed(.MustInitAppKey)` from the first API call.
+        guard let appKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String,
+              !appKey.isEmpty else {
+            NSLog("""
+            [RNKakaoLogins] `KAKAO_APP_KEY` is missing from Info.plist, so the Kakao SDK was not \
+            initialized. Add `KAKAO_APP_KEY` (your native app key) to Info.plist. \
+            https://github.com/crossplatformkorea/react-native-kakao-login#ios
+            """)
+            return
+        }
+
+        if let customScheme = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_SCHEME") as? String,
+           !customScheme.isEmpty {
+            KakaoSDK.initSDK(appKey: appKey, customScheme: customScheme)
         } else {
-            KakaoSDK.initSDK(appKey: appKey!)
+            KakaoSDK.initSDK(appKey: appKey)
         }
     }
 
     @objc
     static func requiresMainQueueSetup() -> Bool {
       return true
+    }
+
+    /// Turns a Kakao SDK error into a message that says what actually happened.
+    ///
+    /// `SdkError` is a plain Swift enum and does not adopt `LocalizedError`, so
+    /// `localizedDescription` degrades to Foundation's generic
+    /// "The operation couldn't be completed. (KakaoSDKCommon.SdkError error 2.)"
+    /// — where the trailing number is only the enum case index (0 ClientFailed,
+    /// 1 ApiFailed, 2 AuthFailed, 3 AppsFailed) and the reason is lost. Unwrap
+    /// the associated values instead so callers see e.g.
+    /// "AuthFailed(AccessDenied): ...".
+    private static func describe(_ error: Error) -> String {
+        guard let sdkError = error as? SdkError else {
+            return error.localizedDescription
+        }
+
+        switch sdkError {
+        case .ClientFailed(let reason, let errorMessage):
+            return "ClientFailed(\(reason)): \(errorMessage ?? "no message")"
+        case .ApiFailed(let reason, let errorInfo):
+            return "ApiFailed(\(reason)): \(errorInfo?.msg ?? "no message")"
+        case .AuthFailed(let reason, let errorInfo):
+            return "AuthFailed(\(reason)): \(errorInfo?.errorDescription ?? "no message")"
+        case .AppsFailed(let reason, let errorInfo):
+            return "AppsFailed(\(reason)): \(errorInfo?.errorMsg ?? "no message")"
+        }
     }
 
     @objc(isKakaoTalkLoginUrl:)
@@ -59,7 +101,7 @@ class RNKakaoLogins: NSObject {
             if (UserApi.isKakaoTalkLoginAvailable() && (nonce == nil || nonce!.isEmpty)) {
                 UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
                     if let error = error {
-                        reject("RNKakaoLogins", error.localizedDescription, nil)
+                        reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                     }
                     else {
                         resolve([
@@ -76,7 +118,7 @@ class RNKakaoLogins: NSObject {
                 // Use loginWithKakaoAccount for OpenID Connect support (nonce)
                 UserApi.shared.loginWithKakaoAccount(prompts: nil, loginHint: nil, nonce: nonce) {(oauthToken, error) in
                     if let error = error {
-                        reject("RNKakaoLogins", error.localizedDescription, nil)
+                        reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                     }
                     else {
                         resolve([
@@ -104,7 +146,7 @@ class RNKakaoLogins: NSObject {
             // Use loginWithKakaoAccount for OpenID Connect support (nonce)
             UserApi.shared.loginWithKakaoAccount(prompts: nil, loginHint: nil, nonce: nonce) {(oauthToken, error) in
                 if let error = error {
-                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                    reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                 }
                 else {
                     resolve([
@@ -126,7 +168,7 @@ class RNKakaoLogins: NSObject {
         DispatchQueue.main.async {
             UserApi.shared.logout {(error) in
                 if let error = error {
-                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                    reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                 }
                 else {
                     resolve("Successfully logged out")
@@ -141,7 +183,7 @@ class RNKakaoLogins: NSObject {
         DispatchQueue.main.async {
             UserApi.shared.unlink {(error) in
                 if let error = error {
-                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                    reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                 }
                 else {
                     resolve("Successfully unlinked")
@@ -156,7 +198,7 @@ class RNKakaoLogins: NSObject {
         DispatchQueue.main.async {
             UserApi.shared.accessTokenInfo {(accessTokenInfo, error) in
                 if let error = error {
-                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                    reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                 }
                 else {
                     resolve([
@@ -174,7 +216,7 @@ class RNKakaoLogins: NSObject {
         DispatchQueue.main.async {
             UserApi.shared.me() {(user, error) in
                 if let error = error {
-                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                    reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                 }
                 else {
                     resolve([
@@ -216,7 +258,7 @@ class RNKakaoLogins: NSObject {
 
             UserApi.shared.shippingAddresses() {(shippingAddresses, error) in
                 if let error = error {
-                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                    reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                 }
                 else {
                     resolve([
@@ -248,7 +290,7 @@ class RNKakaoLogins: NSObject {
         DispatchQueue.main.async {
             UserApi.shared.serviceTerms {(userServiceTerms, error) in
                 if let error = error {
-                    reject("RNKakaoLogins", error.localizedDescription, nil)
+                    reject("RNKakaoLogins", RNKakaoLogins.describe(error), error)
                 }
                 else {
                     let dateFormatter = DateFormatter()
