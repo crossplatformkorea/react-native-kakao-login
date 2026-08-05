@@ -4,6 +4,12 @@ gen/
 node_modules/
 KakaoLoginExample/
 image/
+android/.gradle/
+android/build/
 
+# Ship the generated declarations, not the TypeScript sources.
+# The negation must NOT start with `**/` — npm-packlist stops honouring every
+# preceding directory rule once it sees one, which is how KakaoLoginExample/
+# and image/ ended up inside the published 6.0.3 tarball.
 **/*.ts
-!**/*.d.ts
+!*.d.ts
