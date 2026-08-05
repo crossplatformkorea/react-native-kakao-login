@@ -173,19 +173,16 @@ iOS의 경우 `yarn add @react-native-seoul/kakao-login` 이후 `npx pod-install
 
 5. 컴파일 에러가 나면 `build.gradle`에서 android sdk compile version 등 빌드 sdk 버전을 맞춰주세요.
 
-6. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화를 하는 경우, 카카오 SDK를 제외해야 하기 때문에 **ProGuard 규칙 파일**에 다음 코드를 추가해주세요.
+6. (Optional) 앱 배포 시, 코드 축소, 난독화, 최적화(`minifyEnabled true`)를 하는 경우 참고해주세요.
 
-[공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)
+   **별도 설정이 필요하지 않습니다.** 이 라이브러리는 [android/consumer-rules.pro](./android/consumer-rules.pro)를 통해 카카오 SDK와 SDK가 내부적으로 사용하는 Retrofit / OkHttp 의 ProGuard 규칙을 자동으로 포함하며, AGP가 이를 앱 빌드에 자동으로 병합합니다. R8 full mode(AGP 8 부터 기본값)에서도 그대로 동작합니다.
 
-```
--keep class com.kakao.sdk.**.model.* { <fields>; }
--keep class * extends com.google.gson.TypeAdapter
+   > 반대로 [공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)의 규칙만 직접 추가한 경우에는 release 빌드가 실패하거나 로그인 시 크래시가 발생할 수 있습니다 ([#438](https://github.com/crossplatformkorea/react-native-kakao-login/issues/438)).
+   >
+   > - 카카오 SDK가 사용하는 Retrofit 2.9.0 은 자체 ProGuard 규칙을 배포하지만, Retrofit 2.10/2.11 에서 추가된 R8 full mode 대응 규칙(서비스 인터페이스의 제네릭 반환 타입 보존 등)이 빠져 있습니다.
+   > - 카카오 SDK가 사용하는 OkHttp 4.9.3 에는 bouncycastle / conscrypt / openjsse `-dontwarn` 규칙이 없어, 이 규칙이 없으면 R8 이 `Missing classes` 오류로 빌드 자체를 실패시킵니다.
 
-# https://github.com/square/okhttp/pull/6792
--dontwarn org.bouncycastle.jsse.**
--dontwarn org.conscrypt.*
--dontwarn org.openjsse.**
-```
+   규칙을 직접 관리해야 하는 경우(autolinking 미사용 등)에는 [android/consumer-rules.pro](./android/consumer-rules.pro) 의 내용을 그대로 `proguard-rules.pro` 에 복사해주세요. 각 규칙이 필요한 이유는 해당 파일에 주석으로 정리되어 있습니다.
 
 7. Gradle 및 카카오 SDK의 버전을 변경해야 하는 경우, [android/gradle.properties](./android/gradle.properties) 에 있는 항목들을 확인하고, Android gradle의 root project의 ext에 `RNKakaoLogins_` 를 제외한 버전을 명시해주세요.
 
@@ -226,8 +223,7 @@ npx expo install expo-build-properties
 }
 ```
 
-3. (Optional) Android에서 난독화를 사용하실 경우, [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 이용해
-   Proguard Rule을 [공식 문서](https://developers.kakao.com/docs/latest/ko/android/getting-started#project-pro-guard)와 같이 설정해줍니다.
+3. (Optional) Android에서 난독화(`minifyEnabled: true`)를 사용하실 경우에도 **별도 설정이 필요하지 않습니다.** autolinking 으로 연결된 이 라이브러리의 [consumer-rules.pro](./android/consumer-rules.pro) 가 카카오 SDK / Retrofit / OkHttp 관련 ProGuard 규칙을 자동으로 포함하므로, `prebuild` 이후 생성되는 `android/app/proguard-rules.pro` 에 별도로 규칙을 주입할 필요가 없습니다. 그 밖의 커스터마이징이 필요한 경우에만 [Expo BuildProperties](https://docs.expo.dev/versions/latest/sdk/build-properties/) 를 사용해주세요.
 
 ## Methods
 
